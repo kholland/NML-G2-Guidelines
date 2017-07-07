@@ -518,7 +518,7 @@ table.CodeRay td.code>pre{padding:0}
 .CodeRay .head .head{color:#f4f}
 </style>
 </head>
-<body class="book">
+<body class="book toc2 toc-left">
 <div id="header">
 <h1><span class="image"><img src="./images/iptc_sv_gradient_70x70.jpg" alt="IPTC logo"></span> IPTC NewsML-G2 Guidelines 2017</h1>
 <div class="details">
@@ -527,14 +527,1111 @@ table.CodeRay td.code>pre{padding:0}
 <span id="revnumber">version 2016.0.2,</span>
 <span id="revdate">2017-02-21</span>
 </div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#quick-start-pictures-and-graphics">Quick Start: Pictures and Graphics</a>
+<ul class="sectlevel2">
+<li><a href="#introduction-4">Introduction</a></li>
+<li><a href="#about-the-example">About the example</a></li>
+<li><a href="#document-structure-1">Document structure</a>
+<ul class="sectlevel3">
+<li><a href="#source">Source</a></li>
+</ul>
+</li>
+<li><a href="#item-metadata-itemmeta-2">Item Metadata &lt;itemMeta&gt;</a></li>
+<li><a href="#embedded-metadata">Embedded metadata</a></li>
+<li><a href="#content-metadata-contentmeta-2">Content Metadata &lt;contentMeta&gt;</a>
+<ul class="sectlevel3">
+<li><a href="#administrative-metadata-2">Administrative metadata</a></li>
+<li><a href="#descriptive-metadata-2">Descriptive metadata</a></li>
+<li><a href="#completed-contentmeta">Completed &lt;contentMeta&gt;</a></li>
+</ul>
+</li>
+<li><a href="#picture-data">Picture data</a>
+<ul class="sectlevel3">
+<li><a href="#remote-content">Remote Content</a></li>
+<li><a href="#target-resource-attributes"> Target Resource Attributes</a></li>
+<li><a href="#news-content-attributes">News Content Attributes</a></li>
+<li><a href="#news-content-characteristics">News Content Characteristics</a></li>
+<li><a href="#completed-remotecontent-wrapper">Completed &lt;remoteContent&gt; wrapper</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 <div id="content">
-<div id="preamble">
+<div class="sect1">
+<h2 id="quick-start-pictures-and-graphics">Quick Start: Pictures and Graphics</h2>
 <div class="sectionbody">
-<div id="quick-start-newsml-g2-basics" class="paragraph">
-<p>Unresolved directive in IPTC-G2-Implementation_Guide_10.0.5.adoc - include::./_includes/GuidelinesChapters_2017/9_QS_Pictures.adoc[]</p>
+<div class="sect2">
+<h3 id="introduction-4">Introduction</h3>
+<div class="paragraph">
+<p>Image content, including pictures and graphics, can be conveyed in a
+standard NewsML-G2 document. Picture providers and consumers need a rich
+vocabulary for descriptive and technical metadata, and for
+administrative metadata such as rights and usage terms. There is also a
+long-established use of embedded metadata, such as the IPTC/IIM Fields
+in JPEG and TIFF files. This Quick Start guide addresses some aspects of
+embedded metadata, but for a full description of the mapping embedded
+metadata and IIM fields to NewsML-G2, this is described in detail in
+Mapping Embedded Photo Metadata to NewsML-G2.</p>
+</div>
+<div class="paragraph">
+<p>The example in this Quick Start guide is a simple but complete document
+that shows how to implement in NewsML-G2 the frequently-used needs of a
+professional picture workflow:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Right and usage instructions</p>
+</li>
+<li>
+<p>Descriptive and administrative properties such as Location and
+Categorisation</p>
+</li>
+<li>
+<p>Separate technical renditions of a picture</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>We recommend reading the Quick Start Guide to NewsML-G2 Basics<br>
+before this Quick Start Guide.</p>
+</div>
+<div class="paragraph">
+<p>The picture and the metadata used in the example are courtesy of Getty
+Images. <em>Note that the sample code is NOT intended to be a guide to
+receiving NewsML-G2 from Getty Images.</em></p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="about-the-example">About the example</h3>
+<div class="paragraph">
+<p><span class="image"><img src="./images/media/image5.jpeg" alt="image" width="100" height="66"></span>
+A library picture is provided to customers in three sizes: a large image intended for high
+resolution and/or large size display, a medium-sized image intended for
+web use, and a small image for use as a thumbnail or icon. These are
+three <em>alternative</em> renditions of the same picture and can be contained
+in a single NewsML-G2 document.</p>
+</div>
+<div class="paragraph">
+<p>1.
+<a id="_Ref468979262"></a><a id="_Toc403108001"></a>Code Listing: Photo in NewsML-G2</p>
+</div>
+<div class="paragraph">
+<p>(All Scheme Aliases used in the listing below indicate IPTC NewsCodes
+vocabularies, except for the following alias values: <em>crol, crel, gyibt,
+ctrol, gyimeid, gycon, gyiid</em>)</p>
+</div>
+<div class="paragraph">
+<p>Each wrapper element is highlighted using a different background colour
+to aid identification. A logical diagram of this structure is shown in
+the Quick Start Guide to NewsML-G2 Basics.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="preprocessor">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;</span>
+<span class="tag">&lt;newsItem</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://iptc.org/std/nar/2006-10-01/</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">guid</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">tag:gettyimages.com,2010:GYI0062134533</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">version</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">9</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">standard</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">NewsML-G2</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">standardversion</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">2.23</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">conformance</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">power</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">xml:lang</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">en-US</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+        <span class="tag">&lt;catalogRef</span>
+                        <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_29.xml</span><span class="delimiter">&quot;</span></span>
+                <span class="tag">/&gt;</span>
+        <span class="tag">&lt;catalogRef</span>
+                <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://cv.gettyimages.com/nml2catalog4customers-1.xml</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+        <span class="tag">&lt;rightsInfo&gt;</span>
+                <span class="tag">&lt;copyrightHolder</span> <span class="attribute-name">uri</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.gettyimages.com</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                        <span class="tag">&lt;name&gt;</span>Getty Images North America<span class="tag">&lt;/name&gt;</span>
+                <span class="tag">&lt;/copyrightHolder&gt;</span>
+                <span class="tag">&lt;copyrightNotice</span>
+                        <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.gettyimages.com/Corporate/LicenseInfo.aspx</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                        Copyright 2010 Getty Images. -- http://www.gettyimages.com/Corporate/LicenseInfo.aspx
+                <span class="tag">&lt;/copyrightNotice&gt;</span>
+                <span class="tag">&lt;usageTerms&gt;</span>Contact your local office for all commercial or promotional uses. Full editorial rights UK, US, Ireland, Canada (not Quebec). Restricted editorial rights for daily newspapers elsewhere, please call.<span class="tag">&lt;/usageTerms&gt;</span>
+        <span class="tag">&lt;/rightsInfo&gt;</span>
+        <span class="tag">&lt;itemMeta&gt;</span>
+                <span class="tag">&lt;itemClass</span> <span class="attribute-name">qcode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ninat:picture</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+                <span class="tag">&lt;provider</span> <span class="attribute-name">qcode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">nprov:GYI</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                        <span class="tag">&lt;name&gt;</span>Getty Images Inc.<span class="tag">&lt;/name&gt;</span>
+                <span class="tag">&lt;/provider&gt;</span>
+                <span class="tag">&lt;versionCreated&gt;</span>2016-11-12T06:42:04Z<span class="tag">&lt;/versionCreated&gt;</span>
+                <span class="tag">&lt;firstCreated&gt;</span>2010-10-20T20:58:00Z<span class="tag">&lt;/firstCreated&gt;</span>
+        <span class="tag">&lt;/itemMeta&gt;</span>
+        <span class="tag">&lt;contentMeta&gt;</span>
+                <span class="tag">&lt;contentCreated&gt;</span>2010-10-20T19:45:58-04:00<span class="tag">&lt;/contentCreated&gt;</span>
+                <span class="tag">&lt;creator</span> <span class="attribute-name">role</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">crol:photographer</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                        <span class="tag">&lt;name&gt;</span>Spencer Platt<span class="tag">&lt;/name&gt;</span>
+                        <span class="tag">&lt;related</span> <span class="attribute-name">rel</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">crel:isA</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">qcode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">gyibt:staff</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+                <span class="tag">&lt;/creator&gt;</span>
+                <span class="tag">&lt;contributor</span> <span class="attribute-name">role</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ctrol:descrWriter</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                        <span class="tag">&lt;name&gt;</span>sp/lrc<span class="tag">&lt;/name&gt;</span>
+                <span class="tag">&lt;/contributor&gt;</span>
+                <span class="tag">&lt;creditline&gt;</span>Getty Images<span class="tag">&lt;/creditline&gt;</span>
+                <span class="tag">&lt;subject</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">cpnat:event</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">qcode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">gyimeid:104530187</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+                <span class="tag">&lt;subject</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">cpnat:abstract</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">qcode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">medtop:20000523</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                        <span class="tag">&lt;name</span> <span class="attribute-name">xml:lang</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">en-GB</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>labour market<span class="tag">&lt;/name&gt;</span>
+                        <span class="tag">&lt;name</span> <span class="attribute-name">xml:lang</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">de</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Arbeitsmarkt<span class="tag">&lt;/name&gt;</span>
+                <span class="tag">&lt;/subject&gt;</span>
+                <span class="tag">&lt;subject</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">cpnat:abstract</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">qcode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">medtop:20000533</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                        <span class="tag">&lt;name</span> <span class="attribute-name">xml:lang</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">en-GB</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>unemployment<span class="tag">&lt;/name&gt;</span>
+                        <span class="tag">&lt;name</span> <span class="attribute-name">xml:lang</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">de</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Arbeitslosigkeit<span class="tag">&lt;/name&gt;</span>
+                <span class="tag">&lt;/subject&gt;</span>
+                <span class="tag">&lt;subject</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">cpnat:geoArea</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                        <span class="tag">&lt;name&gt;</span>Las Vegas Boulevard<span class="tag">&lt;/name&gt;</span>
+                <span class="tag">&lt;/subject&gt;</span>
+                <span class="tag">&lt;subject</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">cpnat:geoArea</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">qcode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">gycon:89109</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                        <span class="tag">&lt;name&gt;</span>Las Vegas<span class="tag">&lt;/name&gt;</span>
+                        <span class="tag">&lt;broader</span> <span class="attribute-name">qcode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">iso3166-1a2:US-NV</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                                <span class="tag">&lt;name&gt;</span>Nevada<span class="tag">&lt;/name&gt;</span>
+                        <span class="tag">&lt;/broader&gt;</span>
+                        <span class="tag">&lt;broader</span> <span class="attribute-name">qcode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">iso3166-1a3:USA</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                                <span class="tag">&lt;name&gt;</span>United States<span class="tag">&lt;/name&gt;</span>
+                        <span class="tag">&lt;/broader&gt;</span>
+                <span class="tag">&lt;/subject&gt;</span>
+                <span class="tag">&lt;keyword&gt;</span>business<span class="tag">&lt;/keyword&gt;</span>
+                <span class="tag">&lt;keyword&gt;</span>economic<span class="tag">&lt;/keyword&gt;</span>
+                <span class="tag">&lt;keyword&gt;</span>economy<span class="tag">&lt;/keyword&gt;</span>
+                <span class="tag">&lt;keyword&gt;</span>finance<span class="tag">&lt;/keyword&gt;</span>
+                <span class="tag">&lt;keyword&gt;</span>poor<span class="tag">&lt;/keyword&gt;</span>
+                <span class="tag">&lt;keyword&gt;</span>poverty<span class="tag">&lt;/keyword&gt;</span>
+                <span class="tag">&lt;keyword&gt;</span>gamble<span class="tag">&lt;/keyword&gt;</span>
+                <span class="tag">&lt;headline&gt;</span>Variety Of Recessionary Forces Leave Las Vegas Economy Scarred<span class="tag">&lt;/headline&gt;</span>
+                <span class="tag">&lt;description</span> <span class="attribute-name">role</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">drol:caption</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>A general view of part of downtown, including Las Vegas Boulevard, on October 20, 2010 in Las Vegas, Nevada. Nevada once had among the lowest unemployment rates in the United States at 3.8 percent but has since fallen on difficult times. Las Vegas, has been especially hard hit with unemployment currently at 14.7 percent. Among the sparkling hotels and casinos downtown are dozens of dormant construction projects and hotels offering rock bottom rates. As the rest of the country slowly begins to see some economic progress, Las Vegas is still in the midst of the economic downturn. (Photo by Spencer Platt/Getty Images)<span class="tag">&lt;/description&gt;</span>
+        <span class="tag">&lt;/contentMeta&gt;</span>
+        <span class="tag">&lt;contentSet&gt;</span>
+                <span class="tag">&lt;remoteContent</span> <span class="attribute-name">rendition</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">rnd:highRes</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">__</span>
+                        <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">./GYI0062134533.jpg</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">version</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">1</span><span class="delimiter">&quot;</span></span>
+                        <span class="attribute-name">size</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">346071</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">contenttype</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">image/jpeg</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">width</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">1500</span><span class="delimiter">&quot;</span></span>
+                        <span class="attribute-name">height</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">1001</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">colourspace</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">colsp:AdobeRGB</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">orientation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">1</span><span class="delimiter">&quot;</span></span>
+                        <span class="attribute-name">layoutorientation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">loutorient:horizontal</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                        <span class="tag">&lt;altId</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">gyiid:masterID</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>105864332<span class="tag">&lt;/altId&gt;</span>
+                <span class="tag">&lt;/remoteContent&gt;</span>
+                <span class="tag">&lt;remoteContent</span> <span class="attribute-name">rendition</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">rnd:web</span><span class="delimiter">&quot;</span></span>
+                        <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">file:///./__ _GYI0062134533-web.jpg</span><span class="delimiter">&quot;</span></span><span class="attribute-name">_</span> <span class="attribute-name">version</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">1</span><span class="delimiter">&quot;</span></span>
+                        <span class="attribute-name">size</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">28972</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">contenttype</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">image/jpeg</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">width</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">480</span><span class="delimiter">&quot;</span></span>
+                        <span class="attribute-name">height</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">320</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">colourspace</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">colsp:AdobeRGB</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">orientation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">1</span><span class="delimiter">&quot;</span></span>
+                        <span class="attribute-name">layoutorientation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">loutorient:horizontal</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                <span class="tag">&lt;/remoteContent&gt;</span>
+                <span class="tag">&lt;remoteContent</span> <span class="attribute-name">rendition</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">rnd:thumb</span><span class="delimiter">&quot;</span></span>
+                        <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">file:///./GYI0062134533-thumb.gif</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">version</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">1</span><span class="delimiter">&quot;</span></span>
+                        <span class="attribute-name">size</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">6381</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">contenttype</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">image/gif</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">width</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">80</span><span class="delimiter">&quot;</span></span>
+                        <span class="attribute-name">height</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">53</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">colourspace</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">colsp:AdobeRGB</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">orientation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">1</span><span class="delimiter">&quot;</span></span>
+                        <span class="attribute-name">layoutorientation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">loutorient:horizontal</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                <span class="tag">&lt;/remoteContent&gt;</span>
+        <span class="tag">&lt;/contentSet&gt;</span>
+<span class="tag">&lt;/newsItem&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="document-structure-1">Document structure</h3>
+<div class="paragraph">
+<p>The building blocks of the NewsML-G2 document are the &lt;newsItem&gt; root
+element, with additional wrapping elements for metadata about the News
+Item (itemMeta), metadata about the content (contentMeta) and the
+content itself (contentSet).</p>
+</div>
+<div class="paragraph">
+<p>The root &lt;newsItem&gt; attributes are:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;newsItem</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://iptc.org/std/nar/2006-10-01/__</span>
+        <span class="content">guid=</span><span class="delimiter">&quot;</span></span><span class="attribute-name">tag:gettyimages.com.2010:GYI0062134533</span><span class="error">&quot;</span>
+        <span class="attribute-name">version</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">8</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">standard</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">NewsML-G2</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">standardversion</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">2.23</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">conformance</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">power</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">xml:lang</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">en-US</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that this example uses a Tag URI (see <a href="http://taguri.org/">TAG URI
+home page</a> for details)</p>
+</div>
+<div class="paragraph">
+<p>This is followed by references to the Catalogs used to resolve QCodes in
+the Item, and Rights information:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;catalogRef</span>
+        <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_29.xml</span><span class="delimiter">&quot;</span></span>
+<span class="tag">/&gt;</span>
+<span class="tag">&lt;catalogRef</span>
+        <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://cv.gettyimages.com/nml2catalog4customers-1.xml</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+<span class="tag">&lt;rightsInfo&gt;</span>
+        <span class="tag">&lt;copyrightHolder</span> <span class="attribute-name">uri</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.gettyimages.com</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                <span class="tag">&lt;name&gt;</span>Getty Images North America<span class="tag">&lt;/name&gt;</span>
+        <span class="tag">&lt;/copyrightHolder&gt;</span>
+        <span class="tag">&lt;copyrightNotice</span>
+                <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.gettyimages.com/Corporate/LicenseInfo.aspx</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                Copyright 2010 Getty Images. -- http://www.gettyimages.com/Corporate/LicenseInfo.aspx
+        <span class="tag">&lt;/copyrightNotice&gt;</span>
+        <span class="tag">&lt;usageTerms&gt;</span>Contact your local office for all commercial or promotional uses. Full editorial rights UK, US, Ireland, Canada (not Quebec). Restricted editorial rights for daily newspapers elsewhere, please call.<span class="tag">&lt;/usageTerms&gt;</span>
+<span class="tag">&lt;/rightsInfo&gt;</span></code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="source">Source</h4>
+<div class="paragraph">
+<p>Note that the IIM "Source" field maps to the NewsML-G2 &lt;copyrightHolder&gt;
+element of the &lt;rightsInfo&gt; block.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="item-metadata-itemmeta-2">Item Metadata &lt;itemMeta&gt;</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;itemMeta&gt;</span>
+        <span class="tag">&lt;itemClass</span> <span class="attribute-name">qcode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ninat:picture</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+        <span class="tag">&lt;provider</span> <span class="attribute-name">qcode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">nprov:GYI</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                <span class="tag">&lt;name&gt;</span>Getty Images Inc.<span class="tag">&lt;/name&gt;</span>
+        <span class="tag">&lt;/provider&gt;</span>
+        <span class="tag">&lt;versionCreated&gt;</span>2016-11-12T06:42:04Z<span class="tag">&lt;/versionCreated&gt;</span>
+        <span class="tag">&lt;firstCreated&gt;</span>2010-10-20T20:58:00Z<span class="tag">&lt;/firstCreated&gt;</span>
+<span class="tag">&lt;/itemMeta&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The &lt;itemClass&gt; property uses a QCode from the IPTC News Item Nature
+NewsCodes to denote that the Item conveys a picture.</p>
+</div>
+<div class="paragraph">
+<p>The Z suffix denotes UTC. Note the &lt;firstCreated&gt; property refers to the
+creation of the Item, NOT the content.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="embedded-metadata">Embedded metadata</h3>
+<div class="paragraph">
+<p>For many years IPTC metadata fields have been embedded in JPEG or TIFF
+images files. From 1995 on the IPTC Information Interchange Model (IIM)
+defined the semantics of the fields and the technical format for saving
+them in image files. In 2003 Adobe introduced a new format for saving
+metadata, namely XMP (Extended Metadata Platform), and many IPTC IIM
+fields were specified as the "IPTC Core" metadata schema. This defined
+identical semantics but opened the formats for saving to IIM and XMP in
+parallel. Later the "IPTC Extension" metadata schema was added; the
+defined fields are stored by XMP only. Thus, many people work with IPTC
+photo metadata, regardless how they are saved in the files; this is
+handled by the software they use.</p>
+</div>
+<div class="paragraph">
+<p>The transfer of IPTC Photo Metadata fields to NewsML-G2 properties has a
+focus on the equivalence of the semantics of fields. The retrieval of
+the embedded values from the files is a secondary issue and documents
+like the Guidelines for Handling Image Metadata, produced by the
+Metadata Working Group (<a href="http://www.metadataworkinggroup.org/specs/" class="bare">http://www.metadataworkinggroup.org/specs/</a>) help
+in this area.</p>
+</div>
+<div class="paragraph">
+<p>This Quick Start guide will provide the basics of this mapping, for more
+details see Mapping Embedded Photo Metadata to NewsML-G2. You can also
+learn more from the IPTC web by visiting <a href="https://www.iptc.org/standards/" class="bare">https://www.iptc.org/standards/</a>
+and following the link to Photo Metadata.</p>
+</div>
+<div class="paragraph">
+<p>The screen shot on the following page shows the panel for the IPTC Core
+fields as displayed by Adobe’s Photoshop CS File Info screen; note the
+IPTC Extension tab that displays the additional IPTC Extension metadata.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./images/media/image6.png" alt="Getty-fileinfo copy.png" width="318" height="289"></span></p>
+</div>
+<div class="paragraph">
+<p><a id="_Toc403107363"></a><a id="_Toc470002523"></a>Figure 4: IPTC Core Metadata fields in
+the File Info panel of Adobe Photoshop</p>
+</div>
+<div class="paragraph">
+<p>There are advantages, in a professional workflow, to carrying metadata
+independently of the binary asset:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>There is no need to retrieve and open the file to read essential
+information about the picture</p>
+</li>
+<li>
+<p>An editor may not have access to the original picture to modify its
+metadata</p>
+</li>
+<li>
+<p>A library picture used to illustrate a news event may have
+inappropriate embedded metadata.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A situation may arise where the metadata expressed in the NewsML-G2 Item
+and the embedded metadata in the photo are different. Some providers
+choose to strip all embedded metadata from objects, to avoid potential
+confusion. If not, a provider should specify any processing rules in its
+terms of use.</p>
+</div>
+<div class="paragraph">
+<p>The IPTC recommends that <em>descriptive</em> metadata properties that exist in
+the NewsML-G2 Item (in Content Metadata) ALWAYS take precedence over the
+equivalent embedded metadata (if it exists). These properties include
+genre, subject, headline, description and creditline.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="content-metadata-contentmeta-2">Content Metadata &lt;contentMeta&gt;</h3>
+<div class="paragraph">
+<p>This example shows how embedded metadata from the example picture are
+translated into NewsML-G2, and includes the equivalent IPTC Core
+metadata schema property highlighted thus:</p>
+</div>
+<div class="paragraph">
+<p>IPTC Core Schema equivalent:</p>
+</div>
+<div class="sect3">
+<h4 id="administrative-metadata-2">Administrative metadata</h4>
+<div class="sect4">
+<h5 id="timestamp">Timestamp</h5>
+<div class="paragraph">
+<p>The &lt;contentCreated&gt; element is used to give the creation date of the
+picture:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;contentCreated&gt;</span>2010-10-20T19:45:58-04:00<span class="tag">&lt;/contentCreated&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that this value refers to the creation of the original content; for
+a scanned picture this is always the date (and optionally the time) of
+the original photograph. The property type is Truncated Date Time, so
+that when the precise date-time is unknown, for example for an historic
+photograph, the value can be truncated (from the right) to a simple date
+or just a year.</p>
+</div>
+<div class="paragraph">
+<p>IPTC Core Schema equivalent: Date Created</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="creator-1">Creator</h5>
+<div class="paragraph">
+<p>The example uses a &lt;creator&gt; element without an identifier, but includes
+an optional @role that contains a QCode qualifying the creator as a
+photographer:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;creator</span> <span class="attribute-name">role</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">crol:photographer</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+        <span class="tag">&lt;name&gt;</span>Spencer Platt<span class="tag">&lt;/name&gt;</span>
+        <span class="tag">&lt;related</span> <span class="attribute-name">rel</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">crel:isA</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">qcode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">gyibt:staff</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+<span class="tag">&lt;/creator&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The &lt;related&gt; child element of &lt;creator&gt; further qualifies the
+photographer as a member of staff (as distinct from, say, a freelance
+photographer)</p>
+</div>
+<div class="paragraph">
+<p>IPTC Core Schema equivalent: Creator</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="contributor">Contributor</h5>
+<div class="paragraph">
+<p>A &lt;contributor&gt; identifies people or organisations who did not originate
+the content, but have added value to it. In this case, the @role value
+is a hint that the contributor added descriptive metadata:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;contributor</span> <span class="attribute-name">role</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ctrol:descrWriter</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+        <span class="tag">&lt;name&gt;</span>sp/lrc<span class="tag">&lt;/name&gt;</span>
+<span class="tag">&lt;/contributor&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>IPTC Core Schema equivalent: Description Writer</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="creditline">Creditline</h5>
+<div class="paragraph">
+<p>The &lt;creditline&gt; is a natural-language string that must be used by the
+receiver to indicate the credit(s) for the content, as directed in the
+business terms agreed with the provider or copyright holder:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;creditline&gt;</span>Getty Images<span class="tag">&lt;/creditline&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>IPTC Core Schema equivalent: Credit Line</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="descriptive-metadata-2">Descriptive metadata</h4>
+<div class="sect4">
+<h5 id="subject-1">Subject</h5>
+<div class="paragraph">
+<p>As described in the Quick Start Guide to NewsML-G2 Basics, the subject
+matter of content is expressed using the &lt;subject&gt; element. The optional
+@type uses the IPTC Concept Nature NewsCodes (recommended scheme alias
+"cpnat") to indicate the type of concept being expressed. The following
+example uses a value of "cpnat:event" to indicate that the concept is an
+Event, and the QCode identifies the Event in the scheme with an alias
+"gyimeid":</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;subject</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">cpnat:event</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">qcode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">gyimeid:104530187</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The provider can use this Event ID to "tag" each of the pictures that
+relate to this topic, enabling receivers to group them via the Event ID.</p>
+</div>
+<div class="paragraph">
+<p>The picture of Las Vegas Boulevard illustrates a story about
+unemployment. This example uses codes and associated &lt;name&gt; child
+elements from the IPTC Media Topic NewsCodes:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;subject</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">cpnat:abstract</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">qcode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">medtop:20000523</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+        <span class="tag">&lt;name</span> <span class="attribute-name">xml:lang</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">en-GB</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>labour market<span class="tag">&lt;/name&gt;</span>
+        <span class="tag">&lt;name</span> <span class="attribute-name">xml:lang</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">de</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Arbeitsmarkt<span class="tag">&lt;/name&gt;</span>
+<span class="tag">&lt;/subject&gt;</span>
+<span class="tag">&lt;subject</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">cpnat:abstract</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">qcode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">medtop:20000533</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+        <span class="tag">&lt;name</span> <span class="attribute-name">xml:lang</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">en-GB</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>unemployment<span class="tag">&lt;/name&gt;</span>
+        <span class="tag">&lt;name</span> <span class="attribute-name">xml:lang</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">de</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Arbeitslosigkeit<span class="tag">&lt;/name&gt;</span>
+<span class="tag">&lt;/subject&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="city-stateprovince-country">City, State/Province, Country</h5>
+<div class="paragraph">
+<p>The &lt;located&gt; element in the &lt;contentMeta&gt; block describes the place
+where the picture was created. This may be the same location as the
+event portrayed in the picture, but this cannot be assumed. The location
+of the event is logically part of the subject matter – the City,
+State/Province, Country fields in the IPTC Photo Metadata are defined as
+"the location shown" – so should use the &lt;subject&gt; element. To
+summarise:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Use &lt;located&gt; to describe where the camera was located when taking the
+picture.</p>
+</li>
+<li>
+<p>Use &lt;subject&gt; to describe the location shown in the picture. It is
+recommended that @type is used to indicate the property identifies a
+geographical area.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The location shown in the example picture is Las Vegas Boulevard. Child
+elements of &lt;subject&gt; may be used to add further details, including:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>&lt;name&gt; gives the place name in plain text, and</p>
+</li>
+<li>
+<p>&lt;broader&gt;<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup>
+expresses the concept of Las Vegas Boulevard as part of the broader
+entity of Las Vegas which in turn is part of broader entities of Nevada
+state and of the United States.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>It is recommended that the nature of the concept is indicated by @type
+using a value from the IPTC Concept Nature NewsCodes, in this case that
+the concept identifies a geographical area:</p>
+</div>
+<div class="paragraph">
+<p>The completed &lt;subject&gt; structure for the geographical information is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;subject</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">cpnat:geoArea</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+        <span class="tag">&lt;name&gt;</span>Las Vegas Boulevard<span class="tag">&lt;/name&gt;</span>
+<span class="tag">&lt;/subject&gt;</span>
+<span class="tag">&lt;subject</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">cpnat:geoArea</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">qcode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">gycon:89109</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+        <span class="tag">&lt;name&gt;</span>Las Vegas<span class="tag">&lt;/name&gt;</span>
+        <span class="tag">&lt;broader</span> <span class="attribute-name">qcode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">iso3166-1a2:US-NV</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+        <span class="tag">&lt;name&gt;</span>Nevada<span class="tag">&lt;/name&gt;</span>
+        <span class="tag">&lt;/broader&gt;</span>
+        <span class="tag">&lt;broader</span> <span class="attribute-name">qcode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">iso3166-1a3:USA</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+        <span class="tag">&lt;name&gt;</span>United States<span class="tag">&lt;/name&gt;</span>
+        <span class="tag">&lt;/broader&gt;</span>
+<span class="tag">&lt;/subject&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="keywords">Keywords</h5>
+<div class="paragraph">
+<p>QCodes and relationship properties are powerful tools, but keywords are
+still widely used by picture archives. The NewsML-G2 &lt;keyword&gt; property
+is mapped from the "Keywords" field in XMP. The semantics of "keyword"
+can vary from provider to provider, but should not present problems in
+the news industry, which is familiar enough with their use:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;keyword&gt;</span>business<span class="tag">&lt;/keyword&gt;</span>
+<span class="tag">&lt;keyword&gt;</span>economic<span class="tag">&lt;/keyword&gt;</span>
+<span class="tag">&lt;keyword&gt;</span>economy<span class="tag">&lt;/keyword&gt;</span>
+<span class="tag">&lt;keyword&gt;</span>finance<span class="tag">&lt;/keyword&gt;</span>
+<span class="tag">&lt;keyword&gt;</span>poor<span class="tag">&lt;/keyword&gt;</span>
+<span class="tag">&lt;keyword&gt;</span>poverty<span class="tag">&lt;/keyword&gt;</span>
+<span class="tag">&lt;keyword&gt;</span>gamble<span class="tag">&lt;/keyword&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>IPTC Core Schema equivalent: Keywords</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="headline-description">Headline, Description</h5>
+<div class="paragraph">
+<p>These two IPTC/IIM fields map directly to elements of the same name in
+NewsML-G2. Both &lt;headline&gt; and &lt;description&gt; also have an optional
+@role. The IPTC maintains a set of NewsCodes for Description Role
+(recommended scheme alias "drol"). In this case, as the description is
+of a photograph, the role will be "caption". Description is a <em>Block</em>
+type element, meaning it may contain line breaks.</p>
+</div>
+<div class="paragraph">
+<p>Both elements have optional attributes which may be used to support
+international use: @xml:lang, @dir (text direction):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;headline&gt;</span>Variety Of Recessionary Forces Leave Las Vegas
+Economy Scarred<span class="tag">&lt;/headline&gt;</span>
+<span class="tag">&lt;description</span> <span class="attribute-name">role</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">drol:caption</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>A general view of part of downtown,
+including Las Vegas Boulevard, on October 20, 2010 in Las Vegas,
+Nevada. Nevada once had among the lowest unemployment rates in the
+United States at 3.8 percent but has since fallen on difficult times.
+Las Vegas, the gaming capital of America, has been especially hard
+hit with unemployment currently at 14.7 percent and the highest
+foreclosure rate in the nation. Among the sparkling hotels and
+casinos downtown are dozens of dormant construction projects and
+hotels offering rock bottom rates. As the rest of the country slowly
+begins to see some economic progress, Las Vegas is still in the midst
+of the economic downturn. (Photo by Spencer Platt/Getty Images)
+<span class="tag">&lt;/description&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>IPTC Core Schema equivalent: Headline</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="completed-contentmeta">Completed &lt;contentMeta&gt;</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;contentMeta&gt;</span>
+        <span class="tag">&lt;contentCreated&gt;</span>2010-10-20T19:45:58-04:00<span class="tag">&lt;/contentCreated&gt;</span>
+        <span class="tag">&lt;creator</span> <span class="attribute-name">role</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">crol:photographer</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                <span class="tag">&lt;name&gt;</span>Spencer Platt<span class="tag">&lt;/name&gt;</span>
+                <span class="tag">&lt;related</span> <span class="attribute-name">rel</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">crel:isA</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">qcode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">gyibt:staff</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+        <span class="tag">&lt;/creator&gt;</span>
+        <span class="tag">&lt;contributor</span> <span class="attribute-name">role</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ctrol:descrWriter</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                <span class="tag">&lt;name&gt;</span>sp/lrc<span class="tag">&lt;/name&gt;</span>
+        <span class="tag">&lt;/contributor&gt;</span>
+        <span class="tag">&lt;creditline&gt;</span>Getty Images<span class="tag">&lt;/creditline&gt;</span>
+        <span class="tag">&lt;subject</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">cpnat:event</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">qcode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">gyimeid:104530187</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+        <span class="tag">&lt;subject</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">cpnat:abstract</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">qcode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">medtop:20000523</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                <span class="tag">&lt;name</span> <span class="attribute-name">xml:lang</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">en-GB</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>labour market<span class="tag">&lt;/name&gt;</span>
+                <span class="tag">&lt;name</span> <span class="attribute-name">xml:lang</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">de</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Arbeitsmarkt<span class="tag">&lt;/name&gt;</span>
+        <span class="tag">&lt;/subject&gt;</span>
+        <span class="tag">&lt;subject</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">cpnat:abstract</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">qcode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">medtop:20000533</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                <span class="tag">&lt;name</span> <span class="attribute-name">xml:lang</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">en-GB</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>unemployment<span class="tag">&lt;/name&gt;</span>
+                <span class="tag">&lt;name</span> <span class="attribute-name">xml:lang</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">de</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Arbeitslosigkeit<span class="tag">&lt;/name&gt;</span>
+        <span class="tag">&lt;/subject&gt;</span>
+        <span class="tag">&lt;subject</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">cpnat:geoArea</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                <span class="tag">&lt;name&gt;</span>Las Vegas Boulevard<span class="tag">&lt;/name&gt;</span>
+        <span class="tag">&lt;/subject&gt;</span>
+        <span class="tag">&lt;subject</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">cpnat:geoArea</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">qcode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">gycon:89109</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                <span class="tag">&lt;name&gt;</span>Las Vegas<span class="tag">&lt;/name&gt;</span>
+                <span class="tag">&lt;broader</span> <span class="attribute-name">qcode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">iso3166-1a2:US-NV</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                        <span class="tag">&lt;name&gt;</span>Nevada<span class="tag">&lt;/name&gt;</span>
+                <span class="tag">&lt;/broader&gt;</span>
+                <span class="tag">&lt;broader</span> <span class="attribute-name">qcode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">iso3166-1a3:USA</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                        <span class="tag">&lt;name&gt;</span>United States<span class="tag">&lt;/name&gt;</span>
+                <span class="tag">&lt;/broader&gt;</span>
+        <span class="tag">&lt;/subject&gt;</span>
+        <span class="tag">&lt;keyword&gt;</span>business<span class="tag">&lt;/keyword&gt;</span>
+        <span class="tag">&lt;keyword&gt;</span>economic<span class="tag">&lt;/keyword&gt;</span>
+        <span class="tag">&lt;keyword&gt;</span>economy<span class="tag">&lt;/keyword&gt;</span>
+        <span class="tag">&lt;keyword&gt;</span>finance<span class="tag">&lt;/keyword&gt;</span>
+        <span class="tag">&lt;keyword&gt;</span>poor<span class="tag">&lt;/keyword&gt;</span>
+        <span class="tag">&lt;keyword&gt;</span>poverty<span class="tag">&lt;/keyword&gt;</span>
+        <span class="tag">&lt;keyword&gt;</span>gamble<span class="tag">&lt;/keyword&gt;</span>
+        <span class="tag">&lt;headline&gt;</span>Variety Of Recessionary Forces Leave Las Vegas Economy Scarred<span class="tag">&lt;/headline&gt;</span>
+        <span class="tag">&lt;description</span> <span class="attribute-name">role</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">drol:caption</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>A general view of part of downtown,
+                including Las Vegas Boulevard, on October 20, 2010 in Las Vegas,
+                Nevada. Nevada once had among the lowest unemployment rates in the
+                United States at 3.8 percent but has since fallen on difficult times.
+                Las Vegas, the gaming capital of America, has been especially hard
+                hit with unemployment currently at 14.7 percent and the highest
+                foreclosure rate in the nation. Among the sparkling hotels and
+                casinos downtown are dozens of dormant construction projects and
+                hotels offering rock bottom rates. As the rest of the country slowly
+                begins to see some economic progress, Las Vegas is still in the midst
+                of the economic downturn. (Photo by Spencer Platt/Getty Images)
+        <span class="tag">&lt;/description&gt;</span>
+<span class="tag">&lt;/contentMeta&gt;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="picture-data">Picture data</h3>
+<div class="paragraph">
+<p>Binary content is conveyed within the NewsML-G2 &lt;contentSet&gt; wrapper by
+one or more &lt;remoteContent&gt; elements, enabling multiple alternate
+renditions of a picture within the same Item.</p>
+</div>
+<div class="sect3">
+<h4 id="remote-content">Remote Content</h4>
+<div class="paragraph">
+<p>The &lt;remoteContent&gt; element references objects that exist independently
+of the current NewsML-G2 Item. In the example there is an instance of
+&lt;remote Content&gt; for each of the three separate binary renditions of the
+picture.</p>
+</div>
+<div class="paragraph">
+<p><a id="_Toc403107364"></a><a id="_Toc470002524"></a>Figure 5: Each &lt;remoteContent&gt; wrapper
+references a separate rendition of the binary resource</p>
+</div>
+<div class="paragraph">
+<p>Each remote content instance contains attributes that conceptually can
+be split into three groups:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Target resource attributes</strong> enable the receiver to accurately
+identify the remote resource, it’s content type and size;</p>
+</li>
+<li>
+<p><strong>Content attributes</strong> enable the processor to distinguish the different
+business purposes of the content using @rendition;</p>
+</li>
+<li>
+<p><strong>Content Characteristics</strong> contain technical metadata such as
+dimensions, colour values and resolution.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Frequently used attributes from these groups are described below, but
+note that the NewsML-G2 XML structure that delimits the groups may not
+be visible in all XML editors. For details of these attribute groups,
+see the NewsML-G2 Specification, which can be downloaded from
+<a href="http://www.newsml-g2.org/spec">www.newsml-g2.org/spec</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="target-resource-attributes"> Target Resource Attributes</h4>
+<div class="paragraph">
+<p>This group of attributes express administrative metadata, such as
+identification and versioning, for the referenced content, which could
+be a file on a mounted file system, a Web resource, or an object within
+a CMS. NewsML-G2 flexibly supports alternative methods of identifying
+and locating the externally-stored content. For this example, the
+picture renditions are located in the same folder as the NewsML-G2
+document.</p>
+</div>
+<div class="paragraph">
+<p>The two attributes of &lt;remoteContent&gt; available to identify and locate
+the content are Hyperlink (@href) and Resource Identifier Reference
+(@residref). Either one MUST be used to identify and locate the target
+resource. They MAY optionally be used together, Their intended use is:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>@href <em>locates</em> any resource, using an IRI.</p>
+</li>
+<li>
+<p>@residref <em>identifies</em> a <em>managed</em> resource, using an identifier that
+may be globally unique.</p>
+</li>
+</ul>
+</div>
+<div class="sect4">
+<h5 id="hyperlink-href">Hyperlink (@href)</h5>
+<div class="paragraph">
+<p>An IRI, for example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;remoteContent</span> <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span>
+<span class="content">http://example.com/2008-12-20/pictures/foo.jpg</span><span class="delimiter">&quot;</span></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or (amongst other possibilities):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;remoteContent</span> <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">file:///./GYI0062134533-web.jpg</span><span class="delimiter">&quot;</span></span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="resource-identifier-reference-residref">Resource Identifier Reference (@residref)</h5>
+<div class="paragraph">
+<p>An XML Schema string, such as:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;remoteContent</span> <span class="attribute-name">residref</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">tag:example.com,2008:PIX:FOO20081220098658</span><span class="delimiter">&quot;</span></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It is up to the provider to specify how @residref may be resolved to
+retrieve the actual content.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="version-1">Version</h5>
+<div class="paragraph">
+<p>An XML Schema positive integer denoting the version of the target
+resource. In the absence of this attribute, recipients should assume
+that the target is the latest available version:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;remoteContent</span> <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">file:///./__ _GYI0062134533-web.jpg</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">version</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">1</span><span class="delimiter">&quot;</span></span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="content-type">Content Type</h5>
+<div class="paragraph">
+<p>The Media Type of the target resource:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml">contenttype=&quot;image/jpeg&quot;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="size">Size</h5>
+<div class="paragraph">
+<p>Indicates the size of the target resource in bytes.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml">size=&quot;346071&quot;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="news-content-attributes">News Content Attributes</h4>
+<div class="paragraph">
+<p>This group of attributes of &lt;remoteContent&gt; enables a processor or
+human-reader to distinguish between different components; in this case
+the alternative resolutions of the picture. The principal attribute of
+this group is @rendition, described below.</p>
+</div>
+<div class="sect4">
+<h5 id="rendition">Rendition</h5>
+<div class="paragraph">
+<p>The rendition attribute MUST use a QCode, either proprietary or using
+the IPTC NewsCodes for rendition, which has a Scheme URI of
+<a href="http://cv.iptc.org/newscodes/rendition/" class="bare">http://cv.iptc.org/newscodes/rendition/</a> and recommended Scheme Alias of
+"rnd" and contains (amongst others) the values that we need: highRes,
+web, thumbnail. Thus using the appropriate NewsCode, the high resolution
+rendition of the picture may be identified as:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;remoteContent</span> <span class="attribute-name">rendition</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">rnd:highRes</span><span class="delimiter">&quot;</span></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To avoid processing ambiguity, each specific rendition value should be
+used only once per News Item, except when the same rendition is
+available from multiple remote locations. In this case, the same value
+of rendition may be given to several Remote Content elements.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="news-content-characteristics">News Content Characteristics</h4>
+<div class="paragraph">
+<p>This group of attributes describes the physical properties of the
+referenced object specific its media type. Text, for example, may use
+@wordcount). Audio and video are provided with attributes appropriate to
+streamed media, such as @audiobitrate, @videoframerate. The appropriate
+attributes for pictures are described below.</p>
+</div>
+<div class="sect4">
+<h5 id="picture-width-and-picture-height">Picture Width and Picture Height</h5>
+<div class="paragraph">
+<p>The dimension attributes @width and @height are optionally qualified by
+@dimensionunit, which specifies the units being used. This is a @qcode
+value and it is recommended that the value is taken from the IPTC
+Dimension Unit NewsCodes, whose URI is
+<a href="http://cv.iptc.org/newscodes/dimensionunit/" class="bare">http://cv.iptc.org/newscodes/dimensionunit/</a> (recommended Scheme Alias is
+"dimensionunit")</p>
+</div>
+<div class="paragraph">
+<p>If @dimensionunit is absent, the default units for each content type
+are:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Content Type</th>
+<th class="tableblock halign-left valign-top">Height Unit
+
+(default)</th>
+<th class="tableblock halign-left valign-top">Width Unit
+
+(default)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Picture</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pixels</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pixels</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Graphic: Still / Animated</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">points</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">points</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Video (Analog)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">lines</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pixels</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Video (Digital)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pixels</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pixels</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>As the dimensions of the example picture are expressed in pixels,
+@dimensionunit is not needed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml">width=&quot;480&quot;
+height=&quot;2075&quot;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="picture-orientation">Picture Orientation</h5>
+<div class="paragraph">
+<p>This indicates that the image requires an orientation change before it
+can be properly viewed, using values of 1 to 8 (inclusive), where 1 (the
+default) is "upright": that is the visual top of the picture is at the
+top, and the visual left side of the picture in on the left.</p>
+</div>
+<div class="paragraph">
+<p>The application of these orientation values is described in detail in
+the <em>News Content Characteristics</em> section of the NewsML-G2
+Specification. (This can be downloaded by visiting
+<a href="https://iptc.org/standards/" class="bare">https://iptc.org/standards/</a> and following the link to NewsML-G2.)</p>
+</div>
+<div class="paragraph">
+<p>The example picture above has an orientation value of 1:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml">width=&quot;1500&quot; __
+height=&quot;1001&quot;
+orientation=&quot;1&quot;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="layout-orientation">Layout Orientation</h5>
+<div class="paragraph">
+<p>It is possible to calculate the best way to use a picture in a page
+layout using the combined technical characteristics of Height, Width and
+Orientation, but many implementers are reluctant to rely on technical
+characteristics to make editorial judgements (determining whether a
+video is SD or HD is another example). The @layoutorientation is a way
+to express editorial advice on the best way to use a picture in a
+layout. The value for the example picture is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml">layoutorientation=&quot;loutorient:horizontal&quot;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Values in the Layout Orientation Scheme are:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">horizontal</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The human interpretation of the top of the image is aligned
+to the long side.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">vertical</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The human interpretation of the top of the image is aligned
+to the short side.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Square</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Both sides of the image are about identical, there is no short
+and long side.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unaligned</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">There is no human interpretation of the top of the image.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="picture-colour-space">Picture Colour Space</h5>
+<div class="paragraph">
+<p>The colour space of the target resource, and MUST use a QCode. The
+recommended scheme is the IPTC Colour Space NewsCodes (recommended
+scheme alias "colsp") Note the UK English spelling of colour.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml">colourspace=&quot;colsp:AdobeRGB&quot;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="colour-depth">Colour Depth</h5>
+<div class="paragraph">
+<p>The optional @colourdepth indicates using a non-negative integer the
+number of bits used to define the colour of each pixel in a still image,
+graphic or video.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml">colourdepth=&quot;24&quot;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="content-hints">Content Hints</h5>
+<div class="paragraph">
+<p>At the Power conformance level, the provider is able to express metadata
+from the target resource as an aid to processing.<sup class="footnote" id="_footnote_altid">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</sup>
+In this case, the provider has added an &lt;altId&gt; – an alternative
+identifier – for the resource.</p>
+</div>
+<div class="paragraph">
+<p>Alternative identifiers may be needed by customer systems. The &lt;altId&gt;
+element may optionally be refined using a QCode to describe the context
+– in this case a "master ID" that is proprietary to the provider. This
+makes clear the purpose of the alternative identifier. Also note that
+Alternative Identifiers are useful only to another application; and not
+intended to be used by THIS NewsML-G2 processor. The provider MUST tell
+receivers how to interpret alternative identifiers, otherwise they are
+meaningless.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;altId</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">gyiid:masterID</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>105864332<span class="tag">&lt;/altId&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that in this example only the high resolution rendition has an
+&lt;altId&gt;.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="signal-1">Signal</h5>
+<div class="paragraph">
+<p>The signal property instructs the NewsML-G2 processor to process an Item
+or its content in a specific way. As a child element of itemMeta, the
+scope of &lt;signal&gt; is the whole of the document and/or its contents. If
+alternative renditions of content have specific processing needs, use
+&lt;signal&gt; as a child element of &lt;remoteContent&gt; to specify the processing
+instructions.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="completed-remotecontent-wrapper">Completed &lt;remoteContent&gt; wrapper</h4>
+<div class="paragraph">
+<p>The &lt;remoteContent&gt; wrapping element in full for the "High Res" picture
+in the example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;remoteContent</span> <span class="attribute-name">rendition</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">rnd:highRes</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">__</span>
+        <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">./GYI0062134533.jpg</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">version</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">1</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">size</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">346071</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">contenttype</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">image/jpeg</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">width</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">1500</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">height</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">1001</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">colourspace</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">colsp:AdobeRGB</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">orientation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">1</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">layoutorientation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">loutorient:horizontal</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+        <span class="tag">&lt;altId</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">gyiid:masterID</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>105864332<span class="tag">&lt;/altId&gt;</span>
+<span class="tag">&lt;/remoteContent&gt;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnote_1">
+<a href="#_footnoteref_1">1</a>. &lt;broader&gt; is only available at Power Conformance Level, which is why we set @conformance to "power" in &lt;newsItem&gt;
+</div>
+<div class="footnote" id="_footnote_2">
+<a href="#_footnoteref_2">2</a>. It is not mandatory for the metadata to be extracted from the target resource, but it MUST agree with any existing metadata within the target resource.
 </div>
 </div>
 </body>
