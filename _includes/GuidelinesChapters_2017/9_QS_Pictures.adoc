@@ -36,7 +36,7 @@ receiving NewsML-G2 from Getty Images._
 About the example
 ~~~~~~~~~~~~~~~~~
 
-image:GYI0062134533.jpeg[image,width=100,height=66]
+image:GYI0062134533.jpg[image,width=100,height=66]
 
 A library picture is provided to customers in three sizes: a large image intended for high
 resolution and/or large size display, a medium-sized image intended for
