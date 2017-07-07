@@ -25,7 +25,7 @@ professional picture workflow:
 Categorisation
 * Separate technical renditions of a picture
 
-We recommend reading the Quick Start Guide to NewsML-G2 Basics +
+TIP: We recommend reading the Quick Start Guide to NewsML-G2 Basics +
 before this Quick Start Guide.
 
 The picture and the metadata used in the example are courtesy of Getty
@@ -36,7 +36,7 @@ receiving NewsML-G2 from Getty Images._
 About the example
 ~~~~~~~~~~~~~~~~~
 
-image:GYI0062134533.jpg[image,width=100,height=66]
+image:GYI0062134533.jpg[image,width=200,height=132]
 
 A library picture is provided to customers in three sizes: a large image intended for high
 resolution and/or large size display, a medium-sized image intended for
@@ -254,7 +254,7 @@ The screen shot on the following page shows the panel for the IPTC Core
 fields as displayed by Adobe’s Photoshop CS File Info screen; note the
 IPTC Extension tab that displays the additional IPTC Extension metadata.
 
-image:media/image6.png[Getty-fileinfo copy.png,width=318,height=289]
+image:file-info-css.png[Getty-fileinfo copy.png,width=318,height=289]
 
 [[_Toc403107363]][[_Toc470002523]]Figure 4: IPTC Core Metadata fields in
 the File Info panel of Adobe Photoshop
