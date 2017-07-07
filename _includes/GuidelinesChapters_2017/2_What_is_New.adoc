@@ -1,0 +1,65 @@
+[[whats-new-in-newsml-g2-2.23-including-version-2.22]]
+What’s New in NewsML-G2 2.23 (including version 2.22)
+-----------------------------------------------------
+
+This chapter summarises the changes to NewsML-G2 since version 2.21, which was covered in the previous revision of this Guidelines document. A full change history of NewsML-G2 up to and including version 2.1 is documented in 28 Changes to NewsML-G2 and related Standards.
+
+[[add-related-element-to-the-item-class-property]]
+Add “related” element to the Item Class property
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This enables facets of an Item Class to be expressed using the <related> child element.
+
+[[add-worldregion-to-address-types]]
+Add “worldRegion” to Address Types
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ability to express a World Region as part of an address is common to IPTC Standards, therefore the element <worldRegion> is added to Address Type elements so that the World Region may be added to the <POIDetails> and <contactInfo> wrapping elements. See Contact Info <contactInfo>.
+
+[[add-rights-expression-properties-to-the-rights-info-wrapper]]
+Add Rights Expression properties to the Rights Info wrapper
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Up to and including NewsML-G2 2.22, only XML-encoded rights expressions could be added to <rightsInfo> via the property’s Extension Point. The alternative was to add a reference using <link>. This change in version 2.23 enables XML and non-XML encoded rights expression to be added to <rightsInfo>, and the language of encoding to be specified.
+
+Two new elements are added:
+
+* <rightsExpressionXML> indicates a rights expression as defined by a rights expression language and serialised using XML encoding. The mandatory @langid expresses an identifier for the rights expression language using a URI.
+* <rightsExpressionData> indicates a rights expression encoded using any non-XML serialisation and qualified by two mandatory attributes: @langid uses a URI to identify the rights expression language, and @enctype identifies the type of encoding (for example JSON). The IPTC recommends that this is expressed using an IANA Media Type.
+
+See Rights Metadata.
+
+[[add-concepttype-attribute-to-the-scheme-metadata-property]]
+Add concepttype attribute to the Scheme Metadata property
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+By adding @concepttype to <schemeMeta> (which expresses metadata about a scheme conveyed in a Knowledge Item), the concept types that are used within the Knowledge Item may be listed. Please note that the IPTC recommends that ALL concept types conveyed are added. See Scheme Metadata
+
+[[modify-ratings-attributes]]
+Modify ratings attributes
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The definition of the attributes of <rating> - @scalemin and @scalemax – were changed to make it clear that @scalemin is the value of the lowest, or worst, rating; @scalemax is highest, or best, rating. See Working with Social Media
+
+[[add-time-frame-attributes-to-aspects-of-news-coverage]]
+Add time-frame attributes to aspects of News Coverage
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Long-running events may need planning for their News Coverage split into chunks, for example as the coverage of separate days of a multi-day event is assigned to different persons. Therefore the optional attributes @coversfrom and @coversto are added to the <planning> and <assignedTo> elements of the <newsCoverage> wrapper to express the date (and optionally the time) of the start and end of coverage.
+
+Accompanying this change, the cardinality of <planning> is extended from (1) to (1..∞)
+
+See Editorial Planning – the Planning Item.
+
+[[globalising-hint-elements]]
+Globalising Hint Elements
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To fix potential validation issues when adding metadata or processing Hints, a few elements that were locally-defined in the NewsML-G2 XML schema have been globalised. See Adding Hints from the NAR namespace.
+
+[[sportml-g2-updated-to-v3.0]]
+SportML-G2 updated to v3.0
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+SportsML 3.0, an open and highly flexible standard for the interchange of sports data, was released in July 2016. It is a comprehensive update to SportsML 2.2. The link:#Sports[SportML-G2 Chapter] has been updated to the latest standard +
+

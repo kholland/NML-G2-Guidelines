@@ -1,0 +1,15 @@
+[[unification-of-newsml-g2-and-eventsml-g2]]
+Unification of NewsML-G2 and EventsML-G2
+----------------------------------------
+
+Originally, NewsML-G2 conveyed content, while its sibling EventsML-G2 was a separate Standard for News Events, although both are children of the NAR model. With the introduction of the Planning Item with its News Coverage payload in NewsML-G2 v2.7 and EventsML-G2 v1.6, it became difficult to make a distinction between the two as separate Standards.
+
+The IPTC members therefore decided to unify the Standards. From a non-technical “brand” standpoint, NewsML-G2 is now the “senior” umbrella Standard for all Items, whether they convey News or Events. SportsML-G2 continues to be a completely separate Standard, although it is always conveyed by NewsML-G2. From v2.9, all EventsML-G2 structures were merged in NewsML-G2.
+
+From a technical implementation perspective, there is a simplification of XML Schemas into just two: an “All-Core” Schema for Core Conformance, and an “All-Power” Schema for the Power Conformance Level. These cover all Item types in both News and Events.
+
+Throughout this document, the term “NewsML-G2” is used, unless referring to a specific feature of an earlier version of EventsML-G2. The term “G2” on its own refers to the G2 Family of Standards.
+
+The term “Item” with capitalised “I” is used to indicate a NewsML-G2 Item (News Item, Planning Item, Package Item etc.).
+
+[[_Ref211689140]][[_Ref223437347]]

@@ -1,0 +1,110 @@
+[[how-to-index]]
+How-To Index
+------------
+
+The Implementation Guide is written using worked examples and use cases in order to give implementers an insight into the practical application of NewsML-G2 features. It may be helpful to have the NewsML-G2 Specification at hand; this will contain further detailed information about features discussed. This document can be downloaded by visiting http://www.newsml-g2.org/spec[www.newsml-g2.org/spec].
+
+Implementers picking up these full Guidelines after reading the separately available “Quick Start” guides may wish to go straight to the How To topics for answers to specific questions.
+
+[[general-design]]
+General design
+~~~~~~~~~~~~~~~
+
+link:#Basics[Learn the *shared basics* of all types of a NewsML-G2 Item]
+
+link:#Scratch[Get advice on designing a *NewsML-G2 feed from scratch*]
+
+link:#Property[View f**requently used** NewsML-G2 properties]
+
+link:#Hidden[Reveal *hidden values* of NewsML-G2 properties]
+
+link:#Generic[Add *proprietary properties* to NewsML-G2]
+
+[[implement-semantic-technology-concepts]]
+Implement semantic technology concepts
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+link:#Concepts[Express *structured metadata* about people, organisations, places and objects]
+
+link:#CV[Create and manage *Controlled Vocabularies*]
+
+link:#QCodes[Processing *QCodes*]
+
+[[manage-all-kinds-of-content]]
+Manage all kinds of content
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+link:#Text[Manage *text content* of a News Item]
+
+link:#Picture[Manage *picture content* of a News Item]
+
+link:#Video[Manage *video content* of a News Item]
+
+link:#Package[Manage content of a *Package Item*]
+
+link:#Message[*Exchange news* using News Messages]
+
+link:#Events[Create, send and update information about *news events*]
+
+link:#Planning[Share *news planning and fulfilment* information with partners and customers]
+
+link:#Sports[Convey *sports* information]
+
+[[in-more-detail]]
+In more detail
+~~~~~~~~~~~~~~~
+
+link:#Timestamps[Learn about *timestamps* of a NewsML-G2 item]
+
+link:#Publish[Apply the *Publishing Status* of a NewsML-G2 Item]
+
+link:#Embargo[Apply *embargo* to news]
+
+link:#Update[Process *updates*]
+
+link:#Update[Process *corrections*]
+
+link:#Warning[Express *warnings* about content]
+
+link:#Ednote[Apply *Editorial Notes* to a NewsML-G2 Item]
+
+link:#Rights[Express *rights metadata*, from simple to fine-grained]
+
+link:#Subject[*Categorize content* of a News Item]
+
+link:#Financial[Express *financial market information* about companies]
+
+link:#Quant[Convey *quantitative data*, such as currency amounts]
+
+link:#Hashtag[Assign *social media tags* to news]
+
+link:#Ratings[Add *social media ratings* to content]
+
+link:#Workflow[Identify *sources and workflow actors*]
+
+link:#Inline[Create links from content to *inline metadata*]
+
+link:#Custom[Add *user-customized metadata* to a NewsML-G2 ltem]
+
+[[migrate-to-newsml-g2-from-legacy-formats]]
+Migrate to NewsML-G2 from legacy formats
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+link:#IPTC7901[Migrate a news feed from *IPTC7901* to NewsML-G2]
+
+link:#Embed[Migrate *embedded photo metadata* to NewsML-G2]
+
+link:#NITF[Migrate *NITF management metadata* to NewsML-G2]
+
+[[history-of-changes]]
+History of changes
+~~~~~~~~~~~~~~~~~~
+
+link:#Changes[View *changes to NewsML-G2* Standards from previous versions]
+
+[[receiver-view]]
+Receiver view
+~~~~~~~~~~~~~
+
+This edition of the Guidelines contains a new Quick Start guide to Receiving NewsML-G2. The content is not included in the full Guidelines document, but as a separate document in Microsoft Word format. It is intended that this standalone document can be used by NewsML-G2 Providers as a template to create customer guides to their own implementations of NewsML-G2.
+

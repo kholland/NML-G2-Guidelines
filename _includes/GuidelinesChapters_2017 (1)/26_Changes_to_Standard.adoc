@@ -1,0 +1,1086 @@
+[[changes-to-newsml-g2-and-related-standards]]
+Changes to NewsML-G2 and related Standards
+------------------------------------------
+
+[[introduction-20]]
+Introduction
+~~~~~~~~~~~~
+
+The following is a summary of changes to the NewsML-G2 Specification
+since Revision 1 of the Guidelines. Please check the Specification
+documents available by visiting
+http://www.newsml-g2.org/spec[www.newsml-g2.org/spec]. The latest
+changes are in the topmost section, followed by earlier changes in
+descending order. Details of the changes list below may also be found at
+http://dev.iptc.org/G2-Approved-Changes
+
+[[guidelines-release-9-covers-newsml-g2-2.22----newsml-g2-2.23]]
+Guidelines release 9 – covers NewsML-G2 2.22 --> NewsML-G2 2.23
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Please see What’s New in NewsML-G2 2.23 (including version 2.22)
+
+[[guidelines-release-8-covers-newsml-g2-2.19----newsml-g2-2.21]]
+Guidelines release 8 – covers NewsML-G2 2.19 --> NewsML-G2 2.21
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[[denote-the-preferred-symbol-ticker-for-a-financial-instrument]]
+Denote the preferred symbol (ticker) for a financial instrument
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+By adding @rank to the <hasInstrument> property, a provider can indicate
+which market symbol, or ticker, for a financial instrument is preferred
+where there is a group of symbols to choose from. See Expressing company
+financial information.
+
+[[original-representation-of-an-item-origrep-1]]
+Original Representation of an Item <origRep>
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The <origRep> property adds the ability for a provider to specify a
+globally unique (and persistent) URL for retrieving a NewsML-G2 Item by
+interactive means, enabling providers to create a retrieval model for
+distributing NewsML-G2 Items, as an alternative to the widely used data
+feed method. Optionally, providers may also specify the technical means
+of retrieval. See Original Representation of an Item <origRep> for
+details.
+
+[[incoming-feed-identifier-incomingfeedid-1]]
+Incoming Feed Identifier <incomingFeedId>
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Some news providers, notably content aggregators, may need to identify
+the incoming news feed that is the source for a NewsML-G2 Item. The
+<incomingFeedId>, a child property of <itemMeta> enables an aggregator
+to apply the provider’s feed identifier to the inbound content as it
+processed, and also to apply its own feed identifier for the content.
+See Incoming Feed Identifier <incomingFeedId> for details.
+
+[[change-to-cardinality-of-qcode-type-attributes-1]]
+Change to cardinality of QCode Type attributes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+After the introduction of @uri and later the "URI Sibling" attributes, a
+QCode remained mandatory for some properties. From v2.20 this constraint
+is lifted and the cardinality of the QCode attribute in these properties
+is changed from (1) to (0..1). See Change to cardinality of QCode Type
+attributes for a full list of the properties and attributes affected by
+this change.
+
+[[link-and-ednote-added-to-partmeta]]
+<link> and <edNote> added to <partMeta>
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The partMeta element already supports contentMeta elements and the
+itemMeta <signal> element. In order to extend the capabilities of
+partMeta, the itemMeta elements <link> and <edNote> have also been added
+to <partMeta> in NewsML-G2 v2.21. See Special processing instructions
+for metadata about a part of the content for guidelines on processing
+metadata about parts of the content.
+
+[[guidelines-release-7-covers-newsml-g2-2.16----newsml-g2-2.18]]
+Guidelines release 7 – covers NewsML-G2 2.16 --> NewsML-G2 2.18
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[[extending-newsml-g2]]
+Extending NewsML-G2
+^^^^^^^^^^^^^^^^^^^
+
+A new way to extend NewsML-G2 was added, using a set of generic
+properties created for this purpose, one for each NewsML-G2 "wrapper"
+element (for example the generic extension element for <itemMeta> is
+<itemMetaExtProperty>). The semantics of a generic property are defined
+by the concept referenced by the property’s @rel attribute. See Hints
+and Extension Points in NewsML-G2
+
+When a Knowledge Item is used to deliver the complete set of concepts in
+a scheme, metadata for the scheme may be expressed using <schemeMeta>,
+rather than relying on the use of <scheme> in a Catalog.. See Scheme
+Metadata.
+
+[[time-precision-improvement-for-video]]
+Time precision improvement for video
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Alternative renditions of a video may use different frame rates, and in
+these circumstances a single value denoting the time delimiter for the
+different shots of a multipart video will not be frame-accurate. This
+was corrected by the addition of @renditionref to the <timeDelim>
+element of part metadata. See Timing metadata.
+
+[[enhancements-to-news-coverage]]
+Enhancements to news coverage
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The <newsCoverage> element had Extension Points added and the
+<newsContentCharacteristics> element allows the expression of physical
+properties of the planned news coverage (for example the height and
+width of an image) for video and still images. See <planning> at Power
+Conformance Level.
+
+[[special-processing-can-be-signalled-for-part-of-content]]
+Special processing can be signalled for part of content
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Specific processing instructions can be applied to different parts of an
+Item's content. See Special processing instructions
+
+[[extending-the-use-of-full-uris-as-concept-identifiers]]
+Extending the use of full URIs as concept identifiers
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ability to express a property value as a full URI using @uri as an
+alternative to @qcode was extended by introducing a corresponding full
+URI type alternative for the existing QCodeType and QCodeListType
+attributes, for example @role gets a @roleuri sibling. See A generic way
+to express concept identifiers as URIs.
+
+[[guidelines-release-6-covers-newsml-g2-2.13----newsml-g2-2.15]]
+Guidelines release 6 – covers NewsML-G2 2.13 --> NewsML-G2 2.15
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[[add-layoutorientation-to-contentcharacteristics]]
+Add layoutorientation to contentCharacteristics
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Expresses editorial advice about the use of a picture in a page layout
+
+[[add-signal-to-remotecontent]]
+Add signal to remoteContent
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Enables specific processing instructions for separate renditions of
+remote content
+
+[[add-pubconstraint-attribute]]
+Add pubconstraint attribute
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Applies a constraint to the publication of the value of a metadata
+property or content reference
+
+[[add-contenttypevariant-attribute]]
+Add contenttypevariant attribute
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Refines the @contenttype (Media Type) of the referenced resource
+
+[[change-data-type-of-duration]]
+Change data type of duration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+By changing the data type from integer to string, enables the expression
+of values such as SMPTE time codes
+
+[[add-a-colourdepth-attribute-to-news-content-characteristics]]
+Add a colourdepth attribute to News Content Characteristics
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Expresses the colour depth in bits.
+
+[[add-a-value-format-attribute-to-altid]]
+Add a value format attribute to altId
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Enables a provider to specify the format of an altId that may be
+understood outside this NewsML-G2 instance.
+
+[[guidelines-release-5-covered-newsml-g2-2.10----newsml-g2-2.12]]
+Guidelines release 5 – covered NewsML-G2 2.10 --> NewsML-G2 2.12
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[[add-a-link-property-to-rightsinfo]]
+Add a link property to rightsInfo
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The link may be used by the receiver to access another rights expression
+resource
+
+[[refine-addresstype]]
+Refine AddressType
+^^^^^^^^^^^^^^^^^^
+
+Opening the cardinality of <area> and <locality> child elements to be
+unbounded, and add a @role to <line>, <area> and <locality>
+
+[[expand-geoareadetails]]
+Expand geoAreaDetails
+^^^^^^^^^^^^^^^^^^^^^
+
+Adding three new child elements that express different geometries for
+defining a Geographical area:
+
+<line>, <circle>, <polygon>, each with one or more <position> child
+elements.
+
+[[expressing-ticker-symbols]]
+Expressing Ticker Symbols
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Adds the ability to express stock prices in a structure; see Expressing
+company financial information
+
+[[add-sameas-to-relationship-group-of-properties]]
+Add sameAs to Relationship Group of properties
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+By adding a repeatable child element <sameAs> to the properties
+<broader>, <narrower> and <related>, a list of concept URIs can be
+provided in addition to the one expressed in the @qcode/@uri of these
+elements.
+
+Example use: if using <broader> concept to express the country "parent"
+of a geographic region, a provider can use <sameAs> to express both
+two-letter and three-letter country codes in the same wrapper.
+
+[[extension-of-infosource]]
+Extension of <infoSource>
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+See Identifying Sources and Workflow Actors
+
+[[adding-descriptive-properties-to-a-package-group]]
+Adding descriptive properties to a package group
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+By adding <title>, <signal> and <edNote> as child elements of
+<groupRef>, descriptive metadata and special processing instructions may
+be provided with the Group References of Package Items. See
+http://dev.iptc.org/G2-CR00142-Adding-descriptive-properties-to-a-package-group
+for more details.
+
+[[add-hascontent-attribute]]
+Add hascontent attribute
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+See Indicating that a News Item has specific content
+
+[[new-attributes-for-keyword-subject]]
+New attributes for keyword, subject
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+See Aligning <subject> and <keyword> properties
+
+[[new-derivedfrom-element]]
+New <derivedFrom> element
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+See The derivation of metadata: the <derivedFrom> element
+
+[[extend-the-attributes-of-an-icon]]
+Extend the attributes of an icon
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Extending the attributes of an icon in order to enable the selection of
+the appropriate icon for a specific purpose. See
+http://dev.iptc.org/G2-CR00144-extend-the-attributes-of-an-Icon
+
+[[add-uri-to-properties]]
+Add @uri to properties
+^^^^^^^^^^^^^^^^^^^^^^
+
+See A generic way to express concept identifiers as URIs
+
+[[ratings-of-different-kinds]]
+Ratings of different kinds
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+See Working with Social Media
+
+[[adding-scheme-description-to-catalog]]
+Adding scheme description to catalog
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+See http://dev.iptc.org/G2-CR00149-Adding-scheme-description-to-catalog
+
+[[common-set-of-power-attributes]]
+Common set of Power attributes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+See Common Power Attributes group
+
+[[modify-design-of-xml-schema]]
+Modify design of XML Schema
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+See http://dev.iptc.org/G2-CR00151-modify-design-of-XML-Schema
+
+[[add-title-to-target-resource-properties-group]]
+Add @title to Target Resource properties group
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Aligns NewsML-G2 elements with similar properties provided by HTML5 and
+Atom. See
+http://dev.iptc.org/G2-CR00152-adding-title-attribute-to-targetResource-group
+
+[[guidelines-release-4-covered-newsml-g2-v2.7--eventsml-g2-1.6-newsml-g2eventsml-g2-2.9]]
+Guidelines release 4 – covered NewsML-G2 v2.7 -EventsML-G2 1.6
+NewsML-G2/EventsML-G2 2.9
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[[eventsml-g2-merged-with-newsml-g2]]
+EventsML-G2 merged with NewsML-G2
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Please refer to the Chapter headed Unification of NewsML-G2 and
+EventsML-G2
+
+[[hint-and-extension-point-2]]
+Hint and Extension Point
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Adding properties from the NewsML-G2 (NAR) namespace is a method of
+providing processing and metadata Hints, for example conveying the
+caption of a remote picture enables this to be displayed without loading
+the picture itself. However, providing Hints in a "flat" list without
+their parent wrapper element could cause ambiguities, so the inclusion
+of NewsML-G2 properties at the Extension Point must use the following
+rules:
+
+* Any immediate child element from <itemMeta>, <contentMeta> or
+<concept> may be added directly as a Hint and Extension Point without
+its parent element;
+* All other elements MUST be wrapped by their parent element(s),
+excluding the root element.
+* When inserting properties from a target NewsML-G2 resource as
+processing Hints, the properties do NOT have to be extracted directly
+from the target resource, but they MUST be consistent with the structure
+of the target resource.
+
+Please note that the implementation of the +
+metadata Hints was updated in version 2.23 onwards by the adoption +
+of a schema with globalised properties. +
+See Hints and Extension Points in NewsML-G2
+
+[[hop-history]]
+Hop History
+^^^^^^^^^^^
+
+Add a machine-readable transaction log an Item. See Transaction
+History**Error! Reference source not found.**
+
+[[concept-reference]]
+Concept Reference
+^^^^^^^^^^^^^^^^^
+
+Enable Event Concepts to be referenced within NewsML-G2 Packages. See
+Quick Start - Packages and Events in NewsML-G2
+
+[[extend-news-message-header]]
+Extend News Message Header
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Enable News Messages to express more semantically-rich properties using
+QCode values. See News Message Header <header>
+
+[[hash-value]]
+Hash value
+^^^^^^^^^^
+
+Enable the receiver of a NewsML-G2 Item to determine whether the content
+has been altered. See Hash Value <hash>
+
+[[extend-icon-attributes]]
+Extend Icon attributes
+^^^^^^^^^^^^^^^^^^^^^^
+
+Add properties of <icon> to enable a basis for choice when multiple
+icons for content are available. See Content Metadata <contentMeta> in
+the Quick Start Guide to Video
+
+[[video-frame-rate-datatype]]
+Video Frame Rate datatype
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Change the datatype of the Video Frame Rate attribute of the News
+Content Characteristics group from XML Positive Integer to XML Decimal,
+so that drop-frame frame rates (e.g. 29.97) can be expressed. See
+*Error! Reference source not found.*
+
+[[add-video-scaling-attribute]]
+Add video scaling attribute
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Add an attribute to the News Content Characteristics group to indicate
+how the original content was scaled to fit the aspect ratio of a
+rendition. See Video Scaling
+
+[[colour-v-bw-image-and-video]]
+Colour v B/W image and video
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Add an attribute to the News Content Characteristics group to indicate
+whether the content is colour or black-and-white. See Colour Indicator
+
+[[indicating-hdsd-content]]
+Indicating HD/SD content
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Add an attribute to the News Content Characteristics group to indicate
+whether the content is HD or SD (a non-technical "branded" description
+of the video content). See Video Definition
+
+[[content-warning-best-practice]]
+Content Warning Best Practice
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Add Best Practice for expressing a warning about content and for adding
+refinements to the warning.
+
+[[expressing-updates-and-corrections]]
+Expressing updates and corrections
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Best Practice and structures for expressing that a previous Item has
+been updated or corrected by the received version
+
+The changes below were covered by Guidelines revision 3 and earlier:
+
+[[news-architecture-nar-v1.7-v1.8]]
+News Architecture (NAR) v1.7 v1.8
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[[redesign-planning-information-the-planning-item]]
+Redesign planning information: the Planning Item
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A new Planning Item is added to the set of NewsML-G2 items for the
+purpose of providing information about planned coverage and distributed
+deliverables independently of the definition of an event.
+
+All NewsML-G2 Items, including News Items, get an element added under
+item metadata to reference to Planning Items under which control this
+item was created and distributed.
+
+This feature is fully documented in Editorial Planning – the Planning
+Item.
+
+[[add-a-significance-attribute-to-the-bit-elements-of-a-bag]]
+ Add a @significance attribute to the <bit> elements of a <bag>
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This attribute is assigned to a special use case of a bag with subject
+properties: the bag includes one bit representing an event and one or
+more other bits representing entities which are related to this event.
+Only in this case the significance attribute may be used to express the
+significance of this event to the concept of the bit carrying this
+attribute.
+
+See Using @significance with <bag> for a use case and sample code.
+
+[[persistent-values-of-id]]
+Persistent values of @id
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A new attribute is added to the Link1Type of property (PCL) that meets
+the requirement in some circumstances for an @id to be persistent
+throughout the lifetime of a NewsML-G2 Item.
+
+For example, the new generic <deliverableOf> element of all Items points
+to a specific <newsCoverage> element of a Planning Item. It is required
+to make the value persistent over time and versions in order to assure
+consistency in pointing to the same <newsCoverage> element in different
+versions of an Item
+
+The change also enables all elements of the Link1Type to point to
+specific renditions within a News Item, by making the @ids of
+<inlineXML>, <inlineData> and <remoteContent> persistent in the same
+way.
+
+[[changes-to-literal]]
+Changes to @literal
+^^^^^^^^^^^^^^^^^^^
+
+Implementers commented that the definition on the use of @literal
+identifiers in some properties was too strict and did not take account
+of some use cases, specifically:
+
+* literal values could be defined in a provider’s controlled vocabulary
+which is defined by other means than NewsML-G2
+* the absence of @qcode or <bag> should not mandate the use of a
+@literal.
+
+Therefore some statements about the use of @literal have been redefined
+and some more precise statements added to avoid ambiguity.
+
+All statements on the literal value in NewsML-G2 documents should comply
+with these rules and guidelines:
+
+* If a literal value is not used with an assert property then it is not
+required that all instances of that literal value in that item identify
+the same concept.
+* If a literal value is used with an assert property then all instances
+of that literal value in that item must identify the same concept.
+* If a <bag> is used with a property then @qcode and @literal attributes
+must not be used with the property.
+* If a <bag> is not used with a property then the property may have a
+@qcode attribute or a @literal attribute or neither.
+
+Literals may be used as in the following cases:
+
+1.  When a code from a vocabulary which is known to the provider and the
+recipient is used without a reference to the vocabulary. The details of
+the vocabulary are, in this case, communicated outside of NewsML-G2.
+Such a contract could express that a specific vocabulary of literals is
+used with a specific property.
+2.  When importing metadata the values of literals may contain codes
+which have not yet been checked to be from an identified vocabulary.
+3.  As an identifier for linking with an assert element. In this case
+the value could be a random one. If a literal value is used with an
+assert property then all instances of that literal value in that item
+must identify the same concept.
+
+[[deprecate-facet-extend-related]]
+Deprecate <facet>, extend <related>
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The <facet> and <related> properties describe the relationship between
+two concepts, with <facet> describing an "intrinsic" property of a
+concept. In practice, it was found that no clear distinction between the
+use of <facet> and <related> could be made
+
+It was therefore decided to simplify the standard by deprecating <facet>
+and using only <related>, which has also been extended to express
+arbitrary values as well as content relationships.
+
+The new features of <related> are documented in Relationships between
+Concepts.
+
+[[extend-contentmeta-for-concept-items-and-knowledge-items]]
+Extend <contentMeta> for Concept Items and Knowledge Items
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This change creates a group of core descriptive metadata properties for
+NewsML-G2 items that are available for use with the Planning Item,
+Concept Item and Knowledge Item.
+
+This makes the Descriptive Metadata Core Group under <contentMeta>
+consistent across the Planning Item, Concept Item and Knowledge Item. In
+NAR versions prior to 1.8, the Concept Item has no Descriptive Metadata
+and the Knowledge Item has a more limited set. The properties are set
+out below:
+
+Descriptive Metadata Core Group
+
+[cols=",,",options="header",]
+|======================================
+|Title |Name |Cardinality
+|Language |language |0..unbounded
+|Keyword |keyword |0..unbounded
+|Subject |subject |0..unbounded
+|Slugline |slugline |0..unbounded
+|Headline |headline |0..unbounded
+|Description |description |0..unbounded
+|======================================
+
+[[add-concept-details-to-make-them-more-consistent-across-concept-types]]
+ Add concept details to make them more consistent across concept types
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This change aims at applying a consistent design to the details of the
+different concept types: all should have a date when it was created and
+one when it ceased to exist.
+
+* Add a <founded> and a <dissolved> property to <geoAreaDetails>.
+* Add a <ceasedToExist> property to <objectDetails>.
+* Add a <created> and a <ceasedToExist> property to <POIDetails>.
+
+[[newsml-g2-v2.6-v2.7]]
+NewsML-G2 v2.6 v2.7
+~~~~~~~~~~~~~~~~~~~
+
+No specific changes; inherits all appropriate changes from NAR v1.8
+
+[[eventsml-g2-v1.5-v1.6]]
+EventsML-G2 v1.5 v1.6
+~~~~~~~~~~~~~~~~~~~~~
+
+No specific changes; inherits all appropriate changes from NAR v1.8
+
+[[news-architecture-nar-v1.6-v1.7]]
+News Architecture (NAR) v1.6 v1.7
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[[move-partmeta-from-newsml-g2-to-nar-and-extend-it]]
+Move <partMeta> from NewsML-G2 to NAR and extend it
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+NAR 1.6 moves <partMeta> from being a "NewsML-G2 only" element to
+inclusion in the overall News Architecture framework so that it is
+available to be used by all Items in addition to the News Item,
+specifically Package Items and Knowledge Items, including EventsML-G2
+Knowledge Items.
+
+The change also extended <partMeta>, adding a @contentrefs attribute, so
+that it can reference any element in the content section of an item
+which is identified by @id. For a News Item, these are the child
+elements of <contentSet>; for the Package Item, the child elements of
+<groupSet>; and for the Knowledge Item, the child elements of
+<conceptSet>.
+
+Accompanying this change, the structure of <concept> was also modified
+to include an optional @id property, enabling it to be referenced from a
+<partMeta> element of a Knowledge Item.
+
+A use case for this feature is documented in Handling updates to
+Knowledge Items using
+
+[[extended-rights-information-rightsinfo]]
+Extended Rights Information <rightsInfo>
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The <rightsInfo> wrapper is extended to enable providers to
+differentiate between the rights to content and the rights to metadata.
+
+This feature is fully documented, including process models, in Rights
+Metadata.
+
+[[newsml-g2-v2.5-v2.6]]
+NewsML-G2 v2.5 v2.6
+~~~~~~~~~~~~~~~~~~~
+
+No specific changes; inherits all appropriate changes from NAR v1.7
+
+[[eventsml-g2-v1.4-v1.5]]
+EventsML-G2 v1.4 v1.5
+~~~~~~~~~~~~~~~~~~~~~
+
+No specific changes; inherits all appropriate changes from NAR v1.7
+
+[[news-architecture-nar-v1.5-v1.6]]
+News Architecture (NAR) v1.5 v1.6
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[[hierarchy-info-element-hierarchyinfo]]
+ Hierarchy Info element <hierarchyInfo>
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The <hierarchyInfo> element was added as a child of <concept> to
+indicate the position of the concept in a hierarchical taxonomy tree
+using a sequence of QCodes indicating the ancestor concepts to the left
+of the target concept. The element is available at CCL and PCL
+
+For example, From the Media Topic NewsCodes (alias="mtp") using assumed
+codes: The concept "adoption" has QCode "mtp:2788".
+
+Its parent is the concept "family" with the QCode "mtp:2780"
+
+The parent of "family" is the top level concept "society" with the Qcode
+"mtp:1400"
+
+The resulting Hierarchy Info value is:
+
+<hierarchyInfo>mtp:1400 mtp:2780 mtp:2788</hierarchyInfo>
+
+[[hint-and-extension-point-3]]
+Hint and Extension Point
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+The NewsML-G2 design provides for XML Extension Points, allowing
+elements from any other namespaces, and in some cases also from the NAR
+namespace, to be added to a NewsML-G2 element. These Extension Points
+are now termed "Hint and Extension Points".
+
+Adding properties from the NAR namespace is a method of providing
+processing and metadata Hints, for example conveying the caption of a
+remote picture enables this to be displayed without loading the picture
+itself In NAR 1.5 a change allows any immediate child element from
+<itemMeta> or <contentMeta> to be added directly as a Hint and Extension
+Point without its parent element.
+
+In NAR 1.6, this rule is amended to include the <concept> wrapper. The
+rule for this feature is now re-stated as follows:
+
+* Immediate child properties of <itemMeta>, <contentMeta> or <concept> –
+optionally with their descendants – may be used directly under the Hint
+and Extension Point.
+* All other properties require the full path excluding only the item's
+root element.
+
+All other elements MUST be wrapped by their parent element(s), excluding
+the root element.
+
+Please note that the implementation of the +
+metadata Hints was updated in version 2.23 onwards by the adoption +
+of a schema with globalised properties. +
+See Hints and Extension Points in NewsML-G2
+
+[[add-address-details-to-a-point-of-interest-poi]]
+Add address details to a Point of Interest (POI)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Up to NAR 1.5 only a position expressed in latitude and longitude values
+is available to define the location of a POI. In NAR 1.6, a postal
+address is added to add flexibility to the method of giving details of a
+location. Note that the address of an organisation given in
+<contactInfo>may well be different to the actual location of the POI
+associated with the organisations, e.g. the New York Met location on the
+map is different to the postal address used for correspondence.
+
+[[add-sameas-to-the-scheme-declarations-of-a-catalog]]
+Add <sameAs> to the scheme declarations of a catalog
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This feature is fully documented in Private versions and extensions of
+CVs
+
+[[newsml-g2-v2.4-v2.5]]
+NewsML-G2 v2.4 v2.5
+~~~~~~~~~~~~~~~~~~~
+
+No specific changes; inherits all appropriate changes from NAR v1.6
+
+[[eventsml-g2-v1.3-v1.4]]
+EventsML-G2 v1.3 v1.4
+~~~~~~~~~~~~~~~~~~~~~
+
+No specific changes; inherits all appropriate changes from NAR v1.6
+
+[[news-architecture-nar-v1.4-v1.5]]
+News Architecture (NAR) v1.4 v1.5
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following changes are inherited by NewsML-G2 2.4 and EventsML-G2 1.3
+
+[[rendition-2]]
+@rendition
+^^^^^^^^^^
+
+The content wrappers <inlineXML>, <inlineData> and <remoteContent> may
+appear multiple times under <contentSet>, each having a @rendition
+attribute as processing Hint. For example, a picture may have three
+renditions: "web", "preview" and "highRes".
+
+The avoid ambiguity, the NewsML-G2 Specification allows a specific
+rendition value to be used only once per News Item, i.e. there could not
+be two "highRes" renditions in a content set.
+
+[[assert]]
+<assert>
+^^^^^^^^
+
+The original intention of <assert> was to allow the details of a concept
+occurring multiple times within a NewsML-G2 Item to be merged into a
+single place. However, it was realised that <assert> could also be used
+to convey rich details of a concept for properties that provided only a
+limited set of details: name, definition and note.
+
+However, prior to NAR 1.5, the <assert> wrapper could only identify an
+inline concept using @qcode., whereas a concept can be identified by
+both @qcode and @literal.
+
+This limitation was removed and <assert> may have EITHER a @qcode or
+@literal identifier.
+
+[[hint-and-extension-point-4]]
+Hint and Extension Point
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+The NewsML-G2 design provides for XML Extension Points, allowing
+elements from any other namespaces, and in some cases also from the NAR
+namespace, to be added to a NewsML-G2 element. These Extension Points
+are now termed "Hint and Extension Points".
+
+Adding properties from the NAR namespace is a method of providing
+processing and metadata Hints, for example conveying the caption of a
+remote picture enables this to be displayed without loading the picture
+itself. Prior to NAR 1.5, Hints extracted from a target NewsML-G2
+resource could be used freely, i.e. without the need for their parent
+wrapper element. However, providing Hints in a "flat" list could cause
+ambiguities.
+
+In NAR 1.5 the inclusion of NewsML-G2 properties at the Extension Point
+is according to the following rule:
+
+* Any immediate child element from <itemMeta> or <contentMeta> may be
+added directly as a Hint and Extension Point without its parent element;
+* All other elements MUST be wrapped by their parent element(s),
+excluding the root element.
+
+Please note that the implementation of the +
+metadata Hints was updated in version 2.23 onwards by the adoption +
+of a schema with globalised properties. +
+See Hints and Extension Points in NewsML-G2
+
+[[scheme-code-encoding]]
+Scheme Code Encoding
+^^^^^^^^^^^^^^^^^^^^
+
+A full processing model for Scheme URIs and QCodes was defined. See Best
+Practice in QCode exchange
+
+[[add-rendition-to-the-icon-property]]
+Add @rendition to the icon property
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The <icon> property is a child of <link> or <remoteContent> which
+identifies an image to be used as an iconic identifier for the target
+resource. If the target resource has multiple renditions, it makes sense
+to identify which rendition to use for the <icon>
+
+[[ranking-multiple-elements]]
+Ranking Multiple Elements
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Up to NAR 1.5, the elements that support a @rank attribute are:
+
+* <link>
+* <broader> | <narrower> | <sameAs>
+* <itemRef>
+
+NAR 1.5 adds the ability to add @rank to the members of the Descriptive
+Metadata Group, allowing properties such as <language> and <headline> to
+be ranked by the provider according to an importance that is defined by
+the provider.
+
+[[keyword-property]]
+Keyword property
+^^^^^^^^^^^^^^^^
+
+A specific Keyword property was added in NAR 1.5. One reason for the
+addition was to provide backward compatibility with standards such as
+IPTC7901, IIM and NITF, which provide a keyword property.
+
+The semantics of keyword are somewhat open: some providers use keywords
+to denote "key" words that can be used by text-based search engines;
+some use "keyword" to categorise the content using mnemonics, amongst
+other examples.
+
+Therefore IPTC suggests the following rules when implementing the
+Keyword property:
+
+* Assess if any existing NewsML-G2 properties align to the use of the
+metadata. Typical examples are:
+** Genres ("Feature", "Obituary", "Portrait", etc.)
+** Media types ("Photo", "Video", "Podcast" etc.)
+** Products/services by which the content is distributed
+* If the metadata expresses the subject of the content it could go into
+the <subject> property with the keyword string itself in a @literal
+attribute, but it may be better expressed if the keyword string is
+placed in a <name> child element of the subject with a language tag if
+required.
+* If migrated to <subject> property, providers should also consider:
+* Adding @type if the nature of the concept expressed by the keyword can
+be determined
+* Using a QCode if there is a corresponding concept in a controlled
+vocabulary
+* If none of the above conditions are met, then implementers should
+default to using the <keyword> property with a @role if possible to
+define the semantic of the keywords.
+
+The contents of the Keywords field in the example shown below have
+blurred application: they could properly be regarded as subjects, but
+the provider intends that they be used as natural-language "key" words
+that can be used by a text-based search engine to index the content:
+
+<keyword role="krole:index">us</keyword>
+
+<keyword role="krole:index">military</keyword>
+
+<keyword role="krole:index">aviation</keyword>
+
+<keyword role="krole:index">crash</keyword>
+
+<keyword role="krole:index">fire</keyword>
+
+[[multiple-generators]]
+Multiple Generators
+^^^^^^^^^^^^^^^^^^^
+
+Up to NAR 1.5 only one <generator> per NewsML-G2 Item is permitted. The
+use-case is that in some applications where Items are being transformed,
+a history of <generator> information needs to be preserved, each
+instance being refined by a @role attribute.
+
+[[cardinality-of-icon]]
+Cardinality of Icon
+^^^^^^^^^^^^^^^^^^^
+
+More than one <icon> property may be given as a child of <contentMeta>
+or <partMeta> in order to support different renditions, Media Types or
+formats of the same visual appearance of a target resource icon.
+
+[[newsml-g2-v2.3-v2.4]]
+NewsML-G2 v2.3 v2.4
+~~~~~~~~~~~~~~~~~~~
+
+Inherits changes from NAR v1.5 plus the following changes specific to
+NewsML-G2 2.4
+
+[[new-dimension-unit-indicators-for-visual-content]]
+ New dimension unit indicators for visual content
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Some elements holding or referring to news content have the
+dimension-related attributes Image Height (@height) and Image Width
+(@width) which are currently defined to be the "number of pixels" of the
+content dimension. However, some content types require non-pixel units,
+such as ‘points’ for Graphics; analogue video uses different units for
+Image Width and Image Height.
+
+Therefore in NewsML-G2 2.4 additional attributes have been added to
+define the Width Unit (@widthunit) and Height Unit (@heightunit). These
+attributes have QCode values, and the mandatory IPTC CV is
+http://cv.iptc.org/newscodes/dimensionunit/
+
+The following table shows the default dimension units per visual content
+type:
+
+[cols=",,",options="header",]
+|=========================================
+|Content Type a|
+Height Unit
+
+(default)
+
+ a|
+Width Unit
+
+(default)
+
+|Picture |pixels |pixels
+|Graphic: Still / Animated |points |points
+|Video (Analog) |lines |pixels
+|Video (Digital) |pixels |pixels
+|=========================================
+
+The following example uses the implicit default dimension unit of pixels
+for a still image:
+
+<remoteContent
+
+residref="tag:reuters.com,0000:binary_BTRE4A31LE800-THUMBNAIL"
+
+rendition="rend:thumbnail"
+
+contenttype="image/jpeg"
+
+format="fmt:jpegBaseline"
+
+width="100"
+
+height="100"
+
+/>
+
+The following example uses explicit dimension units:
+
+<remoteContent
+
+residref="tag:reuters.com,0000:binary_BTRE37913MM00-THUMBNAIL"
+
+rendition="rend:thumbnail"
+
+contenttype="image/gif"
+
+format="fmt:gif87a"
+
+width="100" *widthunit="dimensionunit:points" *
+
+height="100**" heightunit="dimensionunit:points"**
+
+/>
+
+[[eventsml-g2-v1.2-v1.3]]
+EventsML-G2 v1.2 v1.3
+~~~~~~~~~~~~~~~~~~~~~
+
+Inherits the changes from NAR v1.5. No other changes.
+
+[[news-architecture-nar-1.3-1.4]]
+News Architecture (NAR) 1.3 1.4
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following changes are inherited by NewsML-G2 2.3 and EventsML-G2 1.2
+
+[[revised-embargo]]
+Revised Embargo
+^^^^^^^^^^^^^^^
+
+An embargo can now have an undefined date and time. See Embargo
+
+[[new-remote-info-element]]
+New Remote Info element
+^^^^^^^^^^^^^^^^^^^^^^^
+
+The <remoteInfo> wrapper is a child of <concept>. It complements the
+<link> child of <itemMeta> in allowing the creation of links to
+supplementary resources. Remote Info was added to <concept> so that this
+information is held within the <concept> structure and therefore
+retained if the Concept is extracted from the Concept Item and conveyed
+in a Knowledge Item. See Relationships between Concepts
+
+[[newsml-g2-v2.2-v2.3]]
+NewsML-G2 v2.2 v2.3
+~~~~~~~~~~~~~~~~~~~
+
+Inherits the changes from NAR 1.4. plus the following changes specific
+to NewsML-G2 2.3
+
+[[add-role-to-partmeta.]]
+Add <role> to partMeta.
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+This is in order to indicate the role that part of the content
+identified by the parent <partMeta> has within the overall content
+stream. (e.g. "sting". "slate")
+
+[[revised-time-delimiter]]
+Revised Time Delimiter
+^^^^^^^^^^^^^^^^^^^^^^
+
+The <timeDelim> property provides information about the start and end
+timestamps for parts of streamed content. The @timeunit attribute
+identifies the units used for the timestamps, defined by the mandatory
+IPTC Scheme whose URI is http://cv.iptc.org/newscodes/timeunit/ . In
+NewsML-G2 2.3, new values were added to the Scheme to cater for
+additional business requirements that were identified by members.
+
+See Timing metadata
+
+[[revised-duration-property-and-new-durationunit]]
+Revised @duration property and new @durationunit
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The duration property was defined as the duration in seconds of
+audio-visual content, but in practice is was found that sub-second
+precision for measuring time duration was required. The revised
+definition expresses the duration in the time unit indicated by the new
+@durationunit.
+
+The duration unit attribute uses the integer value time units of the
+recommended IPTC Scheme (URI: http://cv.iptc.org/newcodes/timeunit/),
+e.g. seconds, frames, milliseconds, defaulting to seconds if omitted.
+
+See Duration
+
+[[eventsml-g2-v1.1-v1.2]]
+EventsML-G2 v1.1 v1.2
+~~~~~~~~~~~~~~~~~~~~~
+
+Inherits the changes from NAR v1.4. No other changes
+
+[[sportsml-g2-v2.0-v2.1]]
+SportsML-G2 v2.0 v2.1
+~~~~~~~~~~~~~~~~~~~~~
+
+A number of detailed changes were made to the "plug-in" schemas for
+individual sports, such as Ice Hockey, Basketball, Tennis and Baseball.
+Details of these can be found at:
+http://www.iptc.org/std/SportsML/2.1/documentation/sportsml-2.1-changes-additions.html
+
+A new Tournament Structure was added that will allow implementers to
+precisely express the Format, Group Stage and Standings of tournaments
+such as the 2010 FIFA World Cup.
+
+A structure for Series Scores and Results enables the status of a
+playoff or tournament series to be expressed. Details of the new
+Tournament Structure are documented at:
+http://www.iptc.org/std/SportsML/2.1/documentation/tournament-structure.html.
+
+[[_Ref222817467]][[_Ref223432786]][[_Ref223432792]]
+
+[[_Ref283363880]]
+
+This page intentionally blank
+

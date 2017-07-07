@@ -1,0 +1,49 @@
+= image:iptc_sv_gradient_70x70.jpg[IPTC logo] IPTC NewsML-G2 Guidelines 2017
+keywords: iptc, newsml-g2, xml, format, news, multimedia, multi-media, metadata, standard
+:doctype: book
+:imagesdir: ./images
+:includedir: ./_includes
+:stylesdir: stylesheets/
+:stylesheet: asciidoctor-iptc-stds-01.css
+:source-highlighter: coderay
+:source-language: asciidoc
+:icons: font
+:author: IPTC News Architecture Working Group
+:email: office@iptc.org
+:revnumber: 2016.0.2
+:revdate: 2017-02-21
+:toc: left
+:toclevels: 3
+:nofooter:
+:sectnumlevels: 3
+
+////
+[[how-to-index]]
+include::{includedir}/GuidelinesChapters_2017/1_How-to_Index.adoc[]
+
+[[whats-new-in-newsml-g2-2.23-including-version-2.22]]
+include::{includedir}/GuidelinesChapters_2017/2_What_is_New.adoc[]
+
+[[executive-summary]]
+include::{includedir}/GuidelinesChapters_2017/3_Executive_Summary.adoc[]
+
+[[about-the-iptc]]
+include::{includedir}/GuidelinesChapters_2017/4_About_the_IPTC.adoc[]
+
+[[unification-of-newsml-g2-and-eventsml-g2]]
+include::{includedir}/GuidelinesChapters_2017/5_Unification_of_NewsML-G2.adoc[]
+
+[[how-news-happens]]
+include::{includedir}/GuidelinesChapters_2017/6_How_News_Happens.adoc[]
+
+[[quick-start-newsml-g2-basics]]
+include::{includedir}/GuidelinesChapters_2017/7_QS_NewsML-G2_Basics.adoc[]
+
+[[quick-start-newsml-g2-basics]]
+include::{includedir}/GuidelinesChapters_2017/8_QS_Text.adoc[]
+////
+[[quick-start-newsml-g2-basics]]
+include::{includedir}/GuidelinesChapters_2017/9_QS_Pictures.adoc[]
+
+
+

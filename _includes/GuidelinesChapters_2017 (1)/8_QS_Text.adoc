@@ -1,0 +1,320 @@
+[[quick-start-text]]
+Quick Start: Text
+-----------------
+
+[[introduction-3]]
+Introduction
+~~~~~~~~~~~~
+
+One of the most fundamental needs of a news organisation is to handle
+text. This chapter covers the basics of a simple NewsML-G2 News Item
+containing text content.
+
+We recommend reading the Quick Start Guide to NewsML-G2 Basics +
+before this Quick Start Guide to Text.
+
+[[example]]
+Example
+~~~~~~~
+
+Below is an example story and supporting information as might be
+displayed on the journalist’s editing screen at a fictional news
+provider, Acme News and Media (ANM):
+
+[cols=",",options="header",]
+|=======================================================================
+|*Acme News and Media – Content Editing System*
+|Slugline |US-Finance-Fed
+
+|Created on |2016-11-21 15:21:06
+
+|Source |ANM
+
+|Author |mjameson
+
+|Latest edit |2016-11-21 16:22:45
+
+|Latest editor |moiras
+
+|Categories |economy, finance, business, central bank, monetary policy
+
+|Headline |Fed to halt QE to avert "bubble"
+
+|Byline |By Meredith Jameson
+
+|Location / Date |Washington |21/11/2016
+
+|Body Text |Et, sent luptat luptat, commy nim zzriureet vendreetue modo
+dolenis ex euisis nosto et lan ullandit lum doloreet vulla feugiam
+coreet, cons eleniam il ute facin veril et aliquis ad minis et lor sum
+del iriure dit la feugiamcommy nostrud min ullapat velisl duisismodip
+ero dipit nit utpatum sandrer cipisim nit lortis augiat nulla faccum at
+am, quam velenis nulput la auguerostrud magna commolore eliquatie
+exerate facilis modiamconsed dion henisse quipit at..
+|=======================================================================
+
+This screen contains nearly all of the information needed to create the
+NewsML-G2 document below:
+
+1. [[_Ref468979231]][[_Toc403107995]]Code Listing: NewsML-G2 Text Document
+
+(All Scheme Aliases used in listing below indicate IPTC NewsCodes
+vocabularies, except for the following alias values: _geoloc, is_)
+
+[source, xml]
+----
+include::{includedir}/../../GuidelinesCodeExamples_2017/LISTING_2_NewsML-G2_Text_Document.xml[]
+----
+
+[[document-structure]]
+Document structure
+~~~~~~~~~~~~~~~~~~~
+
+The building blocks of the text document shown above are the <newsItem>
+root element, with additional wrapping elements for metadata about the
+News Item (itemMeta), metadata about the content (contentMeta) and the
+content itself (contentSet). The top level (root) element <newsItem>
+attributes are:
+
+[source, xml]
+----
+<newsItem xmlns="http://iptc.org/std/nar/2006-10-01/"
+	guid="urn:newsml:acmenews.com:20161121:US-FINANCE-FED"
+	version="9"
+	standard="NewsML-G2"
+	standardversion="2.23"
+	conformance="power"
+	xml:lang="en-US">
+----
+
+This is followed by references to the Catalogs used to resolve QCodes in
+the Item, and Rights information:
+
+[source, xml]
+----
+<catalogRef
+	href="http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_29.xml"
+	/>
+<catalogRef
+	href="http://catalog.acmenews.com/news/ANM_G2_CODES_2.xml" />
+<rightsInfo>
+	<copyrightHolder uri="http://www.acmenews.com/about.html#copyright">
+		<name>Acme News and Media LLC</name>
+	</copyrightHolder>
+	<copyrightNotice>Copyright 2016 Acme News and Media LLC</copyrightNotice>
+</rightsInfo>
+----
+
+[[item-metadata-itemmeta-1]]
+Item Metadata <itemMeta>
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Note the three mandatory child elements of the mandatory<itemMeta>:
+
+* Item Class
+* Provider
+* Version Created
+
+A publication status is also mandatory, but the <pubStatus> element may
+be omitted, in which case the publication status is "usable". However,
+it is recommended that the publication status is explicitly given, as in
+this example. As Acme News & Media is fictional, the Provider property
+does not use one of the IPTC Provider NewsCodes, and is expressed by a
+URI:
+
+[source, xml]
+----
+<itemMeta>
+	<itemClass qcode="ninat:text" />
+	<provider uri="http://www.acmenews.com/about.html" />
+	<versionCreated>2016-11-21T16:25:32-05:00</versionCreated>
+	<pubStatus qcode="stat:usable" />
+</itemMeta>
+----
+
+[[content-metadata-contentmeta-1]]
+Content Metadata <contentMeta>
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+[[administrative-metadata-1]]
+Administrative Metadata
++++++++++++++++++++++++
+
+The administrative properties of the example text story are:
+
+[source, xml]
+----
+ <contentCreated>2016-11-21T15:21:06-05:00</contentCreated>
+ <contentModified>2016-11-21T16:22:45-05:00</contentModified>
+----
+
+The place that the content was created uses the <located> element:
+
+[source, xml]
+----
+<located qcode="geoloc:NYC">
+	<name>New York, NY</name>
+</located>
+----
+
+(Note that this is where the story was written, not the place where the
+subject of the story took place. That would be expressed using
+<subject>, part of Descriptive Metadata.)
+
+The author of the article is expressed using the <creator> element:
+
+[source, xml]
+----
+<creator uri="http://www.acmenews.com/staff/mjameson">
+	<name>Meredith Jameson</name>
+</creator>
+----
+
+The Information Source for the article is also given. When used without
+a @role, <infoSource> is used to denote the person or party that
+provided the original information on which the content is based. This is
+the relationship to be expressed here:
+
+[source, xml]
+----
+<infoSource qcode="is:AP">
+	<name>Associated Press</name>
+</infoSource>
+----
+
+The default language for the content is given as U.S. English:
+
+[source, xml]
+----
+<language tag="en-US" />
+----
+
+[[descriptive-metadata-1]]
+Descriptive Metadata
++++++++++++++++++++++
+
+In the example, the Subject properties use QCodes from the Controlled
+Vocabulary of Media Topics NewsCodes that are owned and maintained by
+the IPTC and expressed as QCodes. Thus:
+
+[source, xml]
+----
+<subject qcode="medtop:04000000">
+	<name>economy, business and finance</name>
+</subject>
+<subject qcode="medtop:20000350">
+	<name>central bank</name>
+</subject>
+<subject qcode="medtop:20000379">
+	<name>money and monetary policy</name>
+</subject>
+----
+
+The <slugline> property contains the value of the "Slugline" field of
+the story:
+
+[source, xml]
+----
+<slugline>US-Finance-Fed</slugline>
+----
+
+In a similar fashion, the <headline> property will contain the value of
+the "Headline" field:
+
+[source, xml]
+----
+<headline>Fed to halt QE to avert "bubble"</headline>
+----
+
+[[complete-content-metadata]]
+Complete Content Metadata
++++++++++++++++++++++++++
+
+[source, xml]
+----
+<contentMeta>
+	<contentCreated>2016-11-21T15:21:06-05:00</contentCreated>
+	<contentModified>2016-11-21T16:22:45-05:00</contentModified>
+	<located qcode="geoloc:NYC">
+		<name>New York, NY</name>
+	</located>
+	<creator uri="http://www.acmenews.com/staff/mjameson">
+		<name>Meredith Jameson</name>
+	</creator>
+	<infoSource qcode="is:AP">
+		<name>Associated Press</name>
+	</infoSource>
+	<language tag="en-US" />
+	<subject qcode="medtop:04000000">
+		<name>economy, business and finance</name>
+	</subject>
+	<subject qcode="medtop:20000350">
+		<name>central bank</name>
+	</subject>
+	<subject qcode="medtop:20000379">
+		<name>money and monetary policy</name>
+	</subject>
+	<slugline>US-Finance-Fed</slugline>
+	<headline>Fed to halt QE to avert "bubble"</headline>
+</contentMeta>
+----
+
+[[text-content-choices]]
+Text content choices
+~~~~~~~~~~~~~~~~~~~~
+
+[[inline-xml]]
+Inline XML
+^^^^^^^^^^
+
+The content of the NewsML-G2 document is enclosed by the <contentSet>
+wrapper. In the example, IPTC’s news text mark-up language NITF (News
+Industry Text Format) is used to format the text content. As an XML
+standard, it is contained in an <inlineXML> child element of
+<contentSet>, and uses @contenttype to denote the XML-based standard,
+using the IANA Media Type.
+
+XHTML is also a popular text mark-up choice among NewsML-G2 providers.
+As alternatives, the contents of <inlineXML> may be any XML language
+that can express generic or specialised news information, including
+SportsML-G2 and rNews. Other languages such as XBRL (Extended Business
+Reporting Language) may also be used. The content inside <inlineXML>
+must be valid XML, in other words, it could stand alone as a valid XML
+document in its own namespace.
+
+[source, xml]
+----
+<contentSet>
+	<inlineXML contenttype="application/nitf+xml">
+		<nitf xmlns="http://iptc.org/std/NITF/2006-10-18/">
+
+		<!--STORY CONTENT HERE -->
+
+		</nitf>
+	</inlineXML>
+</contentSet>
+----
+
+[[inline-data]]
+Inline data
+^^^^^^^^^^^
+
+The <inlineData> wrapper element holds plain-text or base64 encoded
+content. Plain text or CDATA content MUST be identified by the
+"text/plain" content type. Binary content, like images, audio clips or
+even PDF or Word documents may be exchanged after proper encoding, but
+it is strongly recommended to use this structure for small assets only.
+The encoding algorithm MAY be indicated using the _encoding_ attribute.
+The following example uses plain text:
+
+[source, xml]
+----
+<contentSet>
+	<inlineData contenttype="text/plain">__
+
+		Et, sent luptat luptat ...
+
+	</inlineData>
+</contentSet>
+----
+

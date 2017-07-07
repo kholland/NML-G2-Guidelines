@@ -1,0 +1,269 @@
+[[introduction]]
+Introduction
+------------
+
+This document is for all those interested in promoting efficient exchange and re-use of multi-media news content within their own organisations and with information partners, using open standards and technologies.
+
+Whilst a good deal of the content of this document is aimed at technical
+architects and software writers, business Influencers and
+decision-makers are encouraged to read the Executive Summary, which
+gives a broadly non-technical justification for the use of IPTC
+Standards, and how they may be applied to solve the real-world issues of
+all organisations that create or consume news.
+
+[[purpose-and-audience]]
+Purpose and Audience
+--------------------
+
+The Guide is intended to provide implementers of the NewsML-G2 Standards
+with a thorough knowledge of the XML data structures used to manage and
+describe content, and an appreciation of the issues involved in
+implementing the standards in their organisation, whether they are a
+content provider, content customer, or software vendor.
+
+[[terms-of-use]]
+Terms of Use
+------------
+
+Copyright © 2017 IPTC, the International Press Telecommunications
+Council. All Rights Reserved.
+
+This document is published under the Creative Commons Attribution 4.0
+license - see the full license agreement at
+http://creativecommons.org/licenses/by/4.0/. By obtaining, using and/or
+copying this document, you (the licensee) agree that you have read,
+understood, and will comply with the terms and conditions of the
+license.
+
+This project intends to use materials that are either in the public
+domain or are available by the permission for their respective copyright
+holders. Permissions of copyright holder will be obtained prior to use
+of protected material. All materials of this IPTC standard covered by
+copyright shall be licensable at no charge.
+
+If you do not agree to the Terms of Use you must cease all use of the
+NewsML-G2 specifications and materials now. If you have any questions
+about the terms, please contact the managing director of the
+International Press Telecommunication Council. You may contact the IPTC
+at https://iptc.org/[www.iptc.org].
+
+While every care has been taken in creating this document, it is not
+warranted to be error-free, and is subject to change without notice.
+Check for the latest version of this Document and applicable NewsML-G2
+Standards and Documentation by visiting
+http://www.newsml-g2.org/doc[www.newsml-g2.org/doc]. The versions of the
+NewsML-G2 Standards covered by this document are listed in About the
+NewsML-G2 Standards.
+
+[[contacting-the-iptc]]
+Contacting the IPTC
+-------------------
+
+IPTC, International Press Telecommunications Council +
+Web address: https://iptc.org/[www.iptc.org] +
+Follow us on Twitter: https://twitter.com/IPTC[@IPTC] and
+https://twitter.com/IPTCupdates[@IPTCupdates] +
+Email: office@iptc.org +
+Business address +
+25 Southampton Buildings
+
+London WC2A 1AL
+
+United Kingdom
+
+The company is registered in England at 10 Portland Business Centre,
+Datchet, Slough, Berks, SL3 9EG +
+as Comité International des Télécommunications de Presse +
+Registration No. 1010968, Limited by Guarantee, Not Registered for VAT
+
+[[acknowledgments]]
+Acknowledgments
+---------------
+
+IPTC member delegates past and present who have contributed to this
+documentation project:
+
+[cols=",",options=“no-header",]
+|================================================================
+|BABY, Vincent |Thomson Reuters
+|BEYNET, Yannick |Agence France Presse
+|CARD, Tony |BBC Monitoring
+|COMPTON, Dave |Thomson Reuters
+|CRAIG-BENNETT, Honor |The Press Association*
+|EVAIN, Jean-Pierre |European Broadcasting Union
+|EVANS, John |Transtel Communications Ltd
+|GEBHARD, Andreas |Getty Images
+|GORTAN, Philipp |APA (Austrian News Agency)
+|GULIJA, Darko |HINA (Croatia News Agency)*
+|HARMAN, Paul |Bloomberg
+|HUSO, Trond |NTB (Norwegian News Agency)
+|KELLY, Paul |XML Team*
+|LE MEUR, Laurent |Agence France Presse*
+|LINDGREN, Johan |Tidningarnas Telegrambyrå (Swedish News Agency)
+|LORENZEN, Jayson |Business Wire
+|MOUGIN, Philippe |Agence France Presse
+|MYLES, Stuart |Associated Press
+|RATHJE, Kalle |Deutsche Presse Agentur
+|SCHMIDT-NIA, Robert |Deutsche Presse Agentur
+|SERGENT, Benoît |European Broadcasting Union
+|STEIDL, Michael |Managing Director, IPTC
+|WHESTON, Siobhán |BBC Monitoring
+|WOLF, Misha |Thomson Reuters
+|================================================================
+
+* Delegate is no longer with the member company in 2016.
+
+Document Author: mailto:kholland@point-house.co.uk[Kelvin Holland],
+Point House Media Ltd.
+
+[[about-the-newsml-g2-standards]]
+About the NewsML-G2 Standards
+-----------------------------
+
+The Standards covered by this document are:
+
+* NewsML-G2, version 2.25
+* SportsML-G2, version 3.0
+
+[[document-history]]
+Document History
+----------------
+
+[cols=",,,",options="header",]
+|==================================================================
+|Revision |Issue Date |Author (revised by) |Remarks
+|1 |2009-03-20 |Kelvin Holland |Public Release
+|2 |2009-11-30 |Kelvin Holland |Public Release
+|3 |2011-01-31 |Kelvin Holland |Public Release
+|3.1 |2011-02-22 |Michael Steidl |Error fixed in 13.4.3
+|4.0 |2011-11-09 |Kelvin Holland |Public Release
+|5.0 |2012-11-16 |Kelvin Holland |Public Release,
+|6.0 |2014-01-15 |Kelvin Holland |Public Release
+|6.1 |2014-03-07 |Kelvin Holland |Minor corrections to code samples
+|7.0 |2014-11-07 |Kelvin Holland |Public Release
+|8.0 |2015-11-17 |Kelvin Holland |Public Release
+|9.0.1 |2016-12-21 |Public Release
+|9.0.2 |2017-01-17 |SportsML chapter updated to v3.0
+|10.0.1 | |Kelvin Holland |Initial working draft
+|==================================================================
+
+[[conventions-used-by-this-document]]
+Conventions used by this document
+---------------------------------
+
+Links to cross-referenced resources within this document are indicated
+by this style
+
+Links to external resources are indicated by this style
+
+Code examples are shown thus:
+
+[source,xml]
+----
+<element attribute= "attribute_value">Data</element>
+----
+
+All XML elements that consist of two (or more) concatenated words are in
+lowerCamel case. For example:
+
+[source,xml]
+----
+<catalog>
+<catalogRef>
+----
+
+Where a word is normally capitalized, it remains so. Thus:
+
+[source,xml]
+----
+<inlineXML>
+----
+
+Attribute names are always all lowercase For example
+
+[source,xml]
+----
+standardversion= "2.23"
+----
+
+The term "Item" with capitalised "I" indicates a NewsML-G2 Item (e.g.
+News Item, Planning Item, etc.).
+
+WARNING: Admonitions indicate especially +
+important notes or +
+warnings to +
+implementers
+
+Note on Spelling (English)
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The IPTC convention for documents in English is to use UK English
+spelling, In general, U.S. English is used for property names and values
+used in IPTC XML Standards (for example, canceled, color, catalog).
+
+A common sense approach dictates that there may be exceptions to this
+convention.
+
+Terminology: MUST and SHOULD
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+There are few mandatory features in NewsML-G2. This document uses the
+terms MUST (NOT), SHOULD (NOT) and MAY as defined in RFC 2119. A MUST
+instruction in this document refers to mandatory actions; SHOULD refers
+to recommended actions or best practice to be used unless there is a
+very good reason not to do so; MAY refers to optional actions.
+
+Note on Time and Date-Time properties
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The XML Specification for time-based properties is based on ISO 8601 and
+permits the omission of time zone/time offset information. However,
+these values MUST be present in NewsML-G2 timestamps that express a date
+AND time, such Item Metadata timestamps, because the exchange of news
+information may cross time zones, and timing information must be
+unambiguous. The following comply:
+
+[source,xml]
+----
+<versionCreated>2016-11-06T12:12:12+01:00</versionCreated> // <1>
+<versionCreated>2016-11-06T12:12:12-01:00</versionCreated> // <2>
+<versionCreated>2016-11-06T12:12:12Z</versionCreated> // <3>
+----
+<1> +ve offset
+<2> -ve offest 
+<3> indicates UTC
+
+The following does NOT comply:
+
+[source,xml]
+----
+<versionCreated>2016-11-06T12:12:12</versionCreated> // no time offset
+----
+
+Administrative content metadata properties such as <contentCreated> and
+descriptive date-time properties such as <founded> and <dissolved> use a
+Truncated DateTime data type permitting parts of the data-time to be
+truncated from the right, for example:
+
+[source,xml]
+----
+<founded>2016-11-06</founded>
+----
+
+complies, but this does not:
+
+[source,xml]
+----
+<founded>2016-11-06T12:00:00</founded>
+----
+
+Note on IPTC NewsCodes vocabularies in NewsML-G2 examples
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The NewsML-G2 examples used in this document and in the accompanying
+files illustrate the use of QCodes and Controlled Vocabularies. Although
+the examples include IPTC NewsCodes and Scheme Aliases as defined in a
+Catalog, some other QCodes are for example only and not controlled by
+the IPTC. In each of the Listings in the document, it will be made clear
+which are NOT values from the IPTC NewsCodes vocabularies.
+

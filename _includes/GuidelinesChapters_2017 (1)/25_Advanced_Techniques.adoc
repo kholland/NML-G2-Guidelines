@@ -1,0 +1,3638 @@
+[[advanced-metadata-techniques]]
+Advanced Metadata Techniques
+----------------------------
+
+[[introduction-17]]
+Introduction
+~~~~~~~~~~~~
+
+NewsML-G2 provides powerful tools for adding value and navigation to
+content, using the <assert> and <inlineRef> properties
+
+In the following sections, we will show how implementers can add
+features such as text mark-up to highlight people and places in the news
+and provide navigation to further resources.
+
+[[the-assert-wrapper]]
+The Assert wrapper
+~~~~~~~~~~~~~~~~~~
+
+The Assert wrapper is an optional and repeatable child of any root Item
+(<newsItem>, <conceptItem> etc.) and represents a concept that can be
+identified using either @uri, @qcode or @literal .Asserts are only
+available at PCL (@conformance="power")
+
+An Assert creates a one-time instance of supplementary information about
+a concept that is local to the Item and can be referenced by the Item’s
+other properties using either a @uri, @qcode or @literal identifier.
+
+The other attributes of <assert> are (from the Edit Attributes group):
+
+[cols=",",options="header",]
+|=====================
+|Name |Datatype
+|id |XML Schema ID
+|creator |QCode
+|modified |DateOptTime
+|=====================
+
+and from the Internationalization group (i18nAttributes):
+
+[cols=",",options="header",]
+|=============================
+|Name |Datatype
+|xml:lang |XML Schema language
+|dir a|
+XML Schema string
+
+Enumeration _ltr, rtl_
+
+|=============================
+
+The content model for <assert> allows it to contain any element from the
+IPTC’s "NAR" namespace, (and from any another namespace). To avoid
+ambiguity, the rules that MUST be followed when adding NewsML-G2
+elements to an Assert are:
+
+* Immediate child elements from <itemMeta>, <contentMeta> or <concept>
+may be added directly to the Assert without the parent element;
+* All other elements MUST be wrapped by their parent element(s),
+excluding the root element.
+
+[[reasons-for-using-asserts]]
+Reasons for using Asserts
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Sometimes it is impractical, inefficient or undesirable to expect
+receivers of Items to retrieve rich structured information about
+concepts from remote resources. In these cases a sub-set of metadata
+relevant to the Item can be stored directly in the Item using Assert.
+For example:
+
+* A provider may decide that it is important to convey supplementary
+information locally within a News Item, such as how to contact an
+organisation that requires a more comprehensive property structure
+"borrowed" from the Concept wrapper.
+* A provider needs to convey a one-time transient value, such as a
+company’s latest share price, directly within the NewsML-G2 document.
+* A news organisation may wish to add value to stories using
+supplementary information about concepts that are part of controlled
+vocabularies, but does not wish to give unrestricted access to the
+knowledge bases that the information is drawn from.
+* A provider wishes to embed supplementary information about concepts
+that are NOT part of controlled vocabularies.
+* Performance or connectivity issues may restrict the ability of
+receivers to retrieve information that is stored remotely.
+
+For example, a Subject property can reference a local Assert, allowing
+the use of properties that are not directly supported by the <subject>
+element:
+
+<contentMeta>
+
+...
+
+<subject type="cpnat:organisation" literal="Acme Widget">
+
+<name>Acme Widget Sales Inc</name>
+
+</subject>
+
+...
+
+</contentMeta>
+
+<assert literal="Acme Widget">
+
+<organisationDetails>
+
+<contactInfo>
+
+<phone>+1 (416) 922 5834</phone>
+
+<email>info@acmewidgets.com</email>
+
+</contactInfo>
+
+</organisationDetails>
+
+</assert>
+
+This example shows how a concept identified by "Acme Widget" which is a
+Subject of the Item, can be expanded locally using an Assert.
+
+It illustrates the use of @literal as an identifier whose scope is
+purely local to the Item. Both @qcode and/or @uri may be used as
+globally-unique identifiers but note that the concept information
+contained in an Assert in an Item is ALWAYS local in scope, whatever the
+type of identifier. Receivers must NOT use the information contained in
+the <assert> outside the scope of the Item providing the information,
+for example by extracting it and storing it in a cache of concepts, or
+in a knowledge base.
+
+This is because the <assert> is intended to be a single-use "snapshot"
+of information about a concept, if the information needs to used
+permanently and periodically updated, the full Concept Item or Knowledge
+Item, which also convey management metadata, should be used instead.
+
+[[merging-concept-information-that-is-used-by-multiple-properties.]]
+Merging concept information that is used by multiple properties.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+If a document, for example, has <subject> and <located> properties that
+reference a single geographical location (i.e. a picture SHOWS
+Stonehenge and was taken AT Stonehenge). The <assert> wrapper can
+provide information about this location that is shared by both
+properties.
+
+<contentMeta>
+
+...
+
+<located type="cpnatexp:geoAreaSublocation"
+qcode="myalias:int001" />
+
+<!-- Camera location -->
+
+...
+
+<subject type="cpnatexp:geoAreaSublocation" qcode="myalias:int001" />
+
+<!-- Subject of picture -->
+
+...
+
+</contentMeta>
+
+<assert qcode="myalias:int001">
+
+<type qcode="cpnatexp:geoAreaSublocation" />
+
+<name>Stonehenge</name>
+
+<broader type="cpnatexp:geoAreaCity">
+
+<name>Amesbury</name>
+
+</broader>
+
+<broader type="cpnatexp:geoAreaProvState">
+
+<name>Wiltshire</name>
+
+</broader>
+
+<broader qcode="iso3166-1a3:GBR" type="cpnatexp:geoAreaCountry">
+
+<name>United Kingdom</name>
+
+</broader>
+
+</assert>
+
+[[example-merged-poi-details]]
+Example: Merged POI Details
+
+In the example below an <address> wrapper has been added as an optional
+child of <POIDetails> to convey the postal address of the location of
+the POI., It is recommended that the address wrapped by <contactInfo>
+should NOT be used to express the location of the POI.
+
+<contentMeta>
+
+<located qcode="artven:int014" />
+
+<subject type="cpnat:abstract" qcode="medtop:__ __20000030">
+
+<name>music theatre</name>
+
+</subject>
+
+<subject type="cpnat:poi" qcode="artven:int014" />
+
+</contentMeta>
+
+<assert qcode="artven:int014">
+
+<name>The Metropolitan Opera House</name>
+
+<definition xml:lang="en-US">
+
+The Metropolitan Opera House is situated in the Lincoln Center for the
+
+Performing Arts on the Upper West Side of Manhattan, New York City.<br/>
+
+The Opera House is located at the center of the Lincoln Center Plaza, at
+
+the western end of the plaza, at Columbus Avenue between 62nd and
+
+65th Streets. <br/>
+
+</definition>
+
+<POIDetails>
+
+<address>
+
+<line>Lincoln Center</line>
+
+<locality type="geotype:city" literal="int015">
+
+<name>New York</name>
+
+</locality>
+
+<area type="geotype:provstate" literal="int016">
+
+<name>New York</name>
+
+</area>
+
+<country literal="US">
+
+<name role="nrol:display">United States</name>
+
+</country>
+
+<postalCode>10023</postalCode>
+
+</address>
+
+<contactInfo>
+
+<web>http://www.themet.org</web>
+
+</contactInfo>
+
+</POIDetails>
+
+</assert>
+
+[[using-concept-details-in-assert-in-previous-versions]]
+Using concept details in <assert> in previous versions
++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Up to NewsML-G2 2.4 and EventsML-G2 1.3, the <concept> wrapper has
+mandatory elements of <conceptId> and <name>, and therefore omitting
+these properties would cause errors if validating against these versions
+of the schema. The workaround to avoid validation errors is to add a
+"dummy" Concept ID, using a randomly-generated code added to a dummy
+Scheme URI provided by the IPTC.
+
+Now, immediate child properties of <concept> may be used directly in
+<assert>, as is already the case for <itemMeta> and <contentMeta>, so
+the need for this workaround is removed.
+
+[[example-using-the-concept-wrapper-with-valid-id]]
+Example: Using the <concept> wrapper with valid ID
+
+In the following example, the <concept> wrapper is used, but the
+assertion is about a concept from a controlled vocabulary, so the
+concept ID makes sense. This assertion will contain supplementary
+information about a concept identified as "artven:int014": used in a
+<located> and a <subject> properties of <contentMeta>. (Note that the
+scope of the information in the <assert> wrapper is LOCAL to the
+document, and may only be updated when the containing Item is modified.)
+
+The example in more detail:
+
+<contentMeta>
+
+<located qcode="artven:int014" />
+
+<subject type="cpnat:abstract" qcode="subj:01017001">
+
+<name>music theatre</name>
+
+</subject>
+
+<subject type="cpnat:poi" qcode="artven:int014" />
+
+</contentMeta>
+
+<assert qcode="artven:int014">
+
+<concept>
+
+<conceptId qcode="artven:int014" />
+
+<name>The Metropolitan Opera House</name>
+
+<definition xml:lang="en-US">
+
+The Metropolitan Opera House is situated in the Lincoln Center for the
+
+Performing Arts on the Upper West Side of Manhattan, New York City.<br/>
+
+The Opera House is located at the center of the Lincoln Center Plaza, at
+
+the western end of the plaza. <br/>
+
+</definition>
+
+<POIDetails>
+
+<contactInfo>
+
+<web>http://www.themet.org</web>
+
+<address>
+
+<line>Lincoln Center</line>
+
+<locality type="geotype:city">
+
+<name>New York</name>
+
+</locality>
+
+<area type="geotype:provstate">
+
+<name>New York</name>
+
+</area>
+
+<country>
+
+<name role="nrol:display">United States</name>
+
+</country>
+
+<postalCode>10023</postalCode>
+
+</address>
+
+</contactInfo>
+
+</POIDetails>
+
+</concept>
+
+</assert>
+
+[[example-using-a-dummy-id]]
+Example: Using a "dummy" ID
+
+If the <located> and <subject> properties use a @literal value and the
+concept itself is not part of a controlled vocabulary, then the Concept
+ID has no meaning. However, it is still needed for the document to be
+valid NewsML-G2.
+
+The QCode is created by generating a random string, or one that can be
+guaranteed unique within the scope of the Item, and appending this to
+the scheme alias "dummy" with the colon separator:
+
+<assert literal="int014">
+
+<concept>
+
+<conceptId qcode="dummy:091013121256" />
+
+<name>The Metropolitan Opera House</name>
+
+The scheme alias "dummy" resolves to a scheme URI hosted for this
+purpose by the IPTC. The scheme alias is part of the IPTC remote
+catalog:
+
+<catalog ...>
+
+...
+
+<scheme alias="dummy"
+
+uri="http://cv.iptc.org/newscodes/dummy/"
+
+/>
+
+...
+
+If a provider wishes to use a different scheme alias with the scheme URI
+defined by the IPTC, they would need to create an entry in their
+catalog:
+
+<catalog ...>
+
+...
+
+<scheme alias="other"
+
+uri="http://cv.iptc.org/newscodes/dummy/"
+
+/>
+
+...
+
+[[using-assert-to-map-from-iim-or-xmp]]
+Using Assert to map from IIM or XMP
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Many media organisations use the IPTC’s IIM standard (Information
+Interchange Model), particularly for pictures. IIM has been embedded
+into professional picture workflows because it was adopted by Adobe for
+the "IPTC Header" fields in Photoshop. This has been succeeded by Adobe
+XMP and IPTC Core for XMP, (See Mapping Embedded Photo Metadata to
+NewsML-G2)
+
+When migrating IIM or IPTC Core (XMP) metadata to NewsML-G2, <assert>
+offers a convenient method for conveying the contents of some fields
+which express the location shown by a picture using machine-readable or
+human-readable values.
+
+For example, the location of the subject of a picture is conveyed using
+the NewsML-G2 <subject> property. However, <subject> cannot directly
+include detailed geographic information that may be contained in the
+embedded metadata. An Assert can be used to convey this information:
+
+<contentMeta>
+
+...
+
+<subject type=__:cpnat:geoArea" qcode="geocodes:abc" />
+
+...
+
+</contentMeta>
+
+<assert qcode="geocodes:abc">
+
+<type qcode="cpnat:geoArea" />
+
+<geoAreaDetails>
+
+<position latitude="35.689962" longitude="139.691634"/>
+
+</geoAreaDetails>
+
+</assert>
+
+[[inline-reference]]
+Inline Reference
+~~~~~~~~~~~~~~~~
+
+The NewsML-G2 <inlineRef> element complements the <assert> property
+described above. Whereas <assert> carries supplementary information
+about concepts referred to in NewsML-G2 metadata, <inlineRef> performs a
+similar function for concepts found in the content of the document, such
+as is carried in inlineXML, and Label or Block type elements.
+
+For example, the payload of a News Item might be text in XHTML; part of
+the text may refer to the Metropolitan Opera House. That portion of the
+text can be linked to information about "The Met", by placing the
+supplementary information in an Inline Reference,
+
+An <inlineRef> wrapper refers to tags with local identifiers (XML Schema
+IDREFS). The content associated with the Inline Reference must be tagged
+by an element that supports an attribute of type ID (not necessarily
+named "id"), examples include the XHTML <span> element, and the NITF
+<org> element
+
+The <inlineRef> element is only available at the Power Conformance Level
+(PCL) and is of Flex1PropType, with additional attributes of @idrefs, as
+noted above, and any members of the Quantify Attributes Group, which
+allows a provider to express, for example, the relevance of the
+supplementary information provided.
+
+[[quantify-attributes-group]]
+ Quantify Attributes Group
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+[cols=",,",options="header",]
+|=======================================================================
+|Name |Datatype |Note
+|confidence |Int100 |An integer from 0 to 100 expressing the provider’s
+confidence in the information provided. A value of 100 indicates the
+highest confidence
+
+|relevance |Int100 |An integer from 0 to 100 expressing the relevance of
+the information provided. A value of 100 indicates the highest
+relevance.
+
+|why |QCode |A QCode from a provider-specific scheme indicating the
+reason that the information was included, for example that it was
+generated by software, or added by an editor.
+|=======================================================================
+
+[[linking-text-content-to-an-inline-reference]]
+Linking text content to an Inline Reference
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A simple example illustrates the use of <inlineRef> to provide
+supplementary information about a concept found in an XHTML press
+release. In this case, the article refers to "the Met". With 100%
+confidence, the provider declares that the name of this concept is "The
+Metropolitan Opera" (linking @id and @idrefs highlighted in bold):
+
+<inlineRef *idrefs="xyz"* confidence="100"
+qcode="acmeorg:int020">
+
+<name role="nrol:display">Metropolitan Opera</name>
+
+<name xml:lang="en-US" role="nrol:full">
+
+New York Metropolitan Opera
+
+</name>
+
+</inlineRef>
+
+<contentSet>
+
+<inlineXML contenttype="application/xhtml+xml">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<title>Free Tosca Open House Announced</title>
+
+</head>
+
+<body>
+
+<h1>New York Met Announces Free Tosca Open House</h1>
+
+<p>NEW YORK (Agencies) - On Thursday, September 17, the
+
+**<span id="xyz">**Met</span> will launch its fourth season of
+
+free Open Houses, with the final dress rehearsal of Luc
+
+Bondy’s new staging of Puccini’s opera, starring Karita
+
+Mattila and conducted by Music Director James Levine.
+
+</p>
+
+<p>Three thousand free tickets, limited to two per person,
+
+will be available beginning at noon on Sunday,
+
+September 13, at the Met box office only. The rehearsal
+
+starts at 11am on September 17, with doors opening at 10:30am.
+
+</p>
+
+</body>
+
+</html>
+
+</inlineXML>
+
+</contentSet>
+
+[[using-inlineref-and-assert-together]]
+Using <inlineRef> and <assert> together
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Inline Ref can provide basic information about a concept, but more
+detailed information can be expressed by linking the concept in the
+content, via <inlineRef>, to an <assert> element, using @literal or
+@qcode.
+
+[[example-1-simple-story-mark-up]]
+Example 1: simple story mark-up
++++++++++++++++++++++++++++++++
+
+The following shows how part of a story text section is associated via
+an inlineRef to a concept for President George W Bush:
+
+<assert qcode="pers:gw.bush">
+
+<name>President George W. Bush</name>
+
+<type qcode="cptType:9"/>
+
+</assert>
+
+<inlineRef idrefs="x1" qcode="pers:gw.bush"
+confidence="50"/>
+
+...
+
+<inlineXML contenttype="application/xhtml+xml" xml:lang="en"
+...>
+
+<html xmlns=__http://www.w3.org/1999/xhtml""_>_
+
+<head><title/><head>
+
+<body>
+
+<!-- Inline2 -->
+
+<p><span id="x1">President Bush</span> makes a speech about Iran
+
+today at 14:00.</p>
+
+...
+
+</body>
+
+</html>
+
+</inlineXML>
+
+The content refers to "President Bush", and the inline reference links
+the text to the concept with a 50% confidence that the person referred
+to in the text is G. W. Bush, as the elder President George Bush could
+be the intended reference.
+
+[[example-2-complex-story-mark-up]]
+Example 2: complex story mark-up
+++++++++++++++++++++++++++++++++
+
+The following expands on Example 1, providing further story text section
+mark-up, and indicating the associated <inlineRef> and <assert> to the
+concepts of President George Bush and Iran.
+
+__
+<assert qcode="pers:gw.bush">
+
+<name>President George W. Bush</name>
+
+<type qcode="cptType:person"/>
+
+</assert>
+
+<assert qcode="pers:g.bush">
+
+<name>President George Bush</name>
+
+<type qcode="cptType:person"/>
+
+</assert>
+
+<assert qcode="N2:IR">
+
+<name>Iran</name>
+
+<type qcode="cptType:geoArea"/>
+
+</assert>
+
+...
+
+<inlineRef idrefs="x1" qcode="pers:gw.bush"
+confidence="50"/>
+
+<inlineRef idrefs="x1__ _x3_" qcode="pers:g.bush"
+confidence="70"/>
+
+<inlineRef idrefs="x7" qcode="N2:IR" confidence="100"/>
+
+...
+
+<inlineXML contenttype="application/xhtml+xml" xml:lang="en"
+...>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head><title/><head>
+
+<body>
+
+<!-- Inline2 -->
+
+<p> <span id="x1">President Bush</span> makes a speech about
+
+<span id="x7">Iran</span> today at 14:00.</p>
+
+<p> Later, <span id="x3">Bush</span> indicated that there were
+
+still many issues to be addressed.</p>
+
+...
+
+</body>
+
+</html>
+
+</inlineXML>
+__
+
+The mark-up associated with ‘President Bush’ implies:
+
+* a 50% confidence in ‘President George W. Bush’ (via
+inlineRef/@idrefs="x1"), _and_
+* a 70% confidence in ‘President George Bush’ (via inlineRef/@idrefs="x1
+x3").
+
+The mark-up associated with ‘Iran’ implies:
+
+* a 100% confidence in ‘Iran’ (via inlineRef/@idrefs="x7"), indicating
+it is a concept type of Geopolitical Unit (cptType:geoArea), refined as
+a Country (geoProp:5).
+
+[[example-3-label-mark-up]]
+Example 3: label mark-up
+++++++++++++++++++++++++
+
+The following shows how a label is associated with an inlineRef (and
+therefore associated with an assert) as per Example 2:
+
+_
+<!-- contentMeta -->
+
+<headline><span id="x8">President Bush</span> in
+
+<span id="x7">Iran</span>.</headline>
+
+...
+
+<assert qcode="pers:gw.bush">
+
+<name>President George W. Bush</name>
+
+<type qcode="cptType:9"/>
+
+</assert>
+
+<assert qcode="N2:IR">
+
+<name>Iran</name>
+
+<type qcode="cptType:5" />
+
+</assert>
+
+...
+
+<inlineRef idrefs="x8" qcode="pers:gw.bush"
+confidence="50"/>
+
+<inlineRef idrefs="x7" qcode="N2:IR" confidence="100"/>
+
+...
+_
+
+[[why-and-how-metadata-has-been-added-why-and-how]]
+Why and How metadata has been added: @why and @how
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If a provider needs to express reasons for the presence of particular
+metadata values, @how and @why attributes may be used with most elements
+as part of the Common Power Attributes (see table below).
+
+The @why tells the end-user what caused the corresponding property to be
+added to the Item, for example that a person added the property based on
+their editorial judgement; @how tells the end-user the means by which
+the metadata value was extracted, for example that it was looked up from
+a database.
+
+The properties are inter-dependent and used mutually exclusively: when
+the value of @why is "direct" (the default or "hidden" value), meaning
+that the metadata was added by a person and/or a software tool directly
+from the content of the Item, it should be omitted and @how used to
+describe the method of extraction, as shown in the following code
+snippet illustrating its use with <subject>:
+
+<subject
+
+type="cpnat:abstract"
+
+qcode="mysubject:JVN"
+
+<!-- @why omitted, as @how only used with @why value "direct" -->
+
+how="howextr:assisted>
+
+<name> JOINT VENTURES</name>
+
+</subject>
+
+If the value of @why is other than "direct", this implies that the value
+was extracted by a tool and therefore @how should be omitted because it
+would be redundant:
+
+<subject
+
+type="cpnat:abstract"
+
+qcode="mysubject:JVN"
+
+<!-- @how omitted, as @why value"inferred" implicitly used a tool -->
+
+why="whypresent:inferred>
+
+<name>JOINT VENTURES</name>
+
+</subject>
+
+To promote interoperability the IPTC recommends that implementers use
+the IPTC NewsCodes How Extracted
+(http://cv.iptc.org/newscodes/howextracted/) with a Scheme Alias of
+"howextr" and Why Present (http://cv.iptc.org/newscodes/whypresent/)
+with a Scheme Alias "whypresent".
+
+The Why Present CV contains three values:
+
+* direct: the value is directly extracted from the content by a tool
+and/or by a person.
+* ancestor: the value is an ancestor of another property value already
+assigned to the content (this implies that the ancestor was derived by a
+tool)
+* inferred: the value was derived by look-up in a taxonomy/database
+(also implicitly by a tool).
+
+The How Extracted CV also contains three values, used only with a @why
+value of "direct":
+
+* assisted: the value was extracted by a person assisted by a tool.
+* person: the value was extracted by a person.
+* tool: the value was extracted by a tool.
+
+See also Hidden Values of NewsML-G2 in the chapter Quick Start:
+NewsML-G2 Basics.
+
+[[adding-customer-specific-metadata]]
+Adding customer-specific metadata
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In cases where customers have their own private metadata added by the
+provider of NewsML-G2 Items, in order to facilitate processing and/or
+routing, the provider may not want to create specific versions of the
+NewsML-G2 Item for each customer.
+
+The solution is to use @custom, available to most elements (see details
+below) in conjunction with the attributes @how and @why to add the
+custom metadata.
+
+Example 1: Use a customer’s rule to express <memberOf> information
+
+A news provider uses a customer’s metadata rules to signal to the
+customer that the content is part of a collection of news entitled
+"Greek Debt". In the code snippet below, @creator expresses that the
+client rule was used to add this metadata, and @modified contains the
+date that the property was added. The @literal contains the customer’s
+code for "Greek Debt" (also given in the name child element)
+
+When @custom is set to "1" or "true" as in this example, this is a
+signal to receivers that the metadata may NOT exist in other instances
+of a NewsML-G2 Item of the same guid and version number.
+
+The @why attribute uses the "inferred" value from the IPTC Why Present
+NewsCodes, and this defines that the property was derived by lookup in a
+taxonomy or database. The @how attribute is not used as it is implicit
+that the property was extracted using a tool.
+
+<memberOf
+
+literal="greek-dbt"
+
+creator="clientrule:r49"
+
+modified="2012-01-13T16:36:00Z"
+
+custom="true"
+
+why="whypresent:inferred">__
+
+<name xml:lang="en">Greek Debt</name>
+
+</memberOf>
+
+[[common-power-attributes-group]]
+Common Power Attributes group
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The @custom attribute is one of several grouped under the Common Power
+Attributes, available to ALL elements in NewsML-G2 except the root
+elements of Items, elements of Ruby mark-up and a few elements of the
+News Message that are not root elements. The following table details the
+Group:
+
+[cols=",,,,",options="header",]
+|=======================================================================
+|Definition |Name |Cardinality |Datatype |Notes
+|The local identifier of the element |id |(0..1) |XML Schema ID |
+
+|The person, organisation or system that created or edited the property.
+|creator |(0..1) |QCodeType |If the corresponding property has no value
+it specifies which party (person, organisation or system) will edit the
+property. 
+
+|The date (and, optionally, the time) when the property was last
+modified. The initial value is the date (and, optionally, the time) of
+creation of the property. |modified |(0..1) |DateOptTimeType |
+
+|If set to true the corresponding property was added to the NewsML-G2
+Item for a specific customer or group of customers only. |custom |(0..1)
+|Boolean |The default value of this property is false which applies when
+this attribute is not used with the property.
+
+|Why the metadata has been included. |why |(0..1) |QCodeType |The
+recommended IPTC CV is http://cv.iptc.org/newscodes/whypresent/ with a
+scheme alias of "whypresent"
+
+|The means by which the value was extracted from the content. |how
+|(0..1) |QCodeType |The recommended IPTC CV is
+http://cv.iptc.org/newscodes/howextracted/ with a Scheme Alias of
+"howextr"
+
+|One or more constraints that apply to publishing the value of the
+property. Each constraint also applies to all descendant elements
+|pubconstraint |(0..1) |QCodeList |Use case: a publishable NewsML-G2
+document may contain metadata, or content references that are private,
+or restricted to certain audiences.
+|=======================================================================
+
+[[aligning-subject-and-keyword-properties]]
+Aligning <subject> and <keyword> properties
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Since the <keyword> property was added to NewsML-G2 in v 2.4, it has
+become apparent that its use case aligns closely with the pre-existing
+<subject> element. In v 2.10, the attributes @confidence and @relevance
+were added to <keyword>, and @why and @how were added to both elements.
+
+Both @confidence and @relevance are helpful to end-users who wish to
+filter results that are generated by software using linguistic
+processing and/or Bayesian inference.
+
+Relevance is a measure of the usefulness of the concept to the user who
+wants to learn more about the principal subject matter of the content. A
+high relevance indicates that the metadata truly expresses the essence
+of the content, while a low relevance indicates a low correlation
+between the metadata and the content. For example, a concept that
+references Barack Obama would be 100 per-cent relevant to an article
+that about the 2012 U.S. presidential election. This would be
+represented as:
+
+relevance="100"
+
+A concept referencing The White House would be less relevant, and might
+be represented as:
+
+relevance="60"
+
+Confidence asserts the reliability of the association between the
+concept and the content and is usually obtained by software engines that
+automatically categorise news, where "100" is the highest value and "0"
+the lowest:
+
+confidence="75"
+
+_Example 1: Keyword_
+
+In the code snippet, the first keyword was extracted directly from the
+content by a person with 100% relevance and confidence. The second
+keyword was "inferred" from the content (@how not present as it defaults
+to "tool") with 100 per cent relevance but 75 per cent confidence.
+
+<contentMeta>
+
+...
+
+<keyword
+
+role="keyrole:TOPIC"
+
+relevance="100"
+
+confidence="100"
+
+how="howextr:person">
+
+Armed Conflict
+
+</keyword>
+
+<keyword
+
+role="keyrole:TOPIC"
+
+relevance="100"
+
+confidence="75"
+
+why="whypresent:inferred">
+
+Civil Unrest
+
+</keyword>
+
+...
+
+</contentMeta>
+
+_Example 2: Subject_
+
+In this snippet taken from an announcement by a company, the subject
+property relating to the company is clearly highly relevant and could
+trigger the inclusion of further information about the company being
+included, for example in an <assert> wrapper. However, another company
+that is only mentioned in passing is only given a relevance of 50 per
+cent.
+
+<contentMeta>
+
+...
+
+<subject
+
+type="cpnat:organisation"
+
+relevance="100"
+
+confidence="100"
+
+how="howextr:assisted"
+
+literal="More Widgets">
+
+<name>More Widgets Corp</name>
+
+</subject>
+
+<!-- Secondary company - relevance < 100 -->
+
+<subject
+
+type="cpnat:organisation"
+
+relevance="50"
+
+confidence="100"
+
+how="howextr:assisted"
+
+literal="First Acme">
+
+<name>First Acme Mercantile Bank</name>
+
+</subject>
+
+...
+
+</contentMeta>
+
+Note that the value of @how in both cases is "assisted" and the
+confidence is 100 per cent, but the relevance is not a reflection of the
+method used to extract the metadata.
+
+[[the-derivation-of-metadata-the-derivedfrom-element]]
+The derivation of metadata: the <derivedFrom> element
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Although fixed taxonomies have their place in helping end-users classify
+news, there is common use of automation to "mine" news for concepts that
+can be used to create links and relationships. In such cases, it can be
+useful – in some cases essential – to create an "audit trail" of the
+derivation of metadata.
+
+For example, if a journalist adds a subject code to an article, it is
+possible to express the reason that concept was added using the
+attributes @why and @how (see above)
+
+In NewsML-G2 v 2.10, an attribute @derivedfrom was added to elements
+that supported the attribute @why. However, this restricted the
+expression of the derivation to property values expressed as QCodes: in
+fact the use case for derivation is often to give this attribution to
+metadata encoded outside the NewsML-G2 framework.
+
+In NewsML-G2 v 2.12, with an extension of @why to almost all NewsML-G2
+elements, it was decided to add a specific <derivedFrom> element to
+NewsML-G2 as a child of the root element and using IDREFS to express the
+relationship between the derivedFrom element and the referring
+propertyfootnote:[The attribute @derivedfrom is deprecated from
+NewsML-G2 v 2.11 on].
+
+Note the direction of the relationship, as illustrated by the following
+snippet: an article about an event in Barcelona uses the event’s Twitter
+_hashtag_ "#sgbcn" as a keyword. The editor of the article subsequently
+creates a NewsML-G2 Event with a Concept ID of "myevents:SGBCN" and
+indicates by the derivedFrom element that the <keyword> with the hashtag
+was _derived from_ this concept. This is done by applying the keyword’s
+id "s1" to the idrefs of the <derivedFrom> element which represents the
+event in Barcelona:
+
+<newsItem>
+
+...
+
+<contentMeta>
+
+<keyword id="s1" role="drol:hashtag">#sgbcn</keyword>
+
+</contentMeta>
+
+<derivedFrom idref="s1" qcode="myevents:SGBCN" />
+
+...
+
+</newsItem>
+
+Based on this it can be asserted that the value of the keyword property
+with the id "s1" has been derivedFrom the event concept identified by
+the QCode "myevents:SGBCN".
+
+See also 26.8.3 Hashtags (below)
+
+[[hints-and-extension-points-in-newsml-g2]]
+Hints and Extension Points in NewsML-G2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[[adding-hints-from-the-nar-namespace]]
+Adding Hints from the NAR namespace
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Hint Points allow NewsML-G2 properties to be extracted from a target
+resource and added to the local document as an aid to processing. For
+example the caption of a remote picture may be displayed without loading
+the picture itself.
+
+Hint properties must be consistent with the target resource but do not
+have to be extracted directly from it. For example a <headline> may not
+be available for a referenced image, but it is permissible to add
+<headline> at the Hint Point.
+
+When using a property as a Hint it MUST be wrapped by its parent
+element(s) (excluding the root element), EXCEPT for the immediate child
+elements of <itemMeta>, <contentMeta> or <concept>. For example, to add
+a copyright notice Hint, the parent element <rightsInfo> must be
+supplied, as shown in the following examples of <itemRef> in a Package
+Item:
+
+<groupSet root=...">
+
+...
+
+<group id=__...>
+
+<itemRef residref=...>
+
+...
+
+<rightsInfo>
+
+<copyrightNotice>
+
+Copyright 2016 Example Enews LLP, all rights reserved
+
+</copyrightNotice>
+
+</rightsInfo>
+
+...
+
+</itemRef>
+
+</group>
+
+...
+
+</groupSet>
+
+A <headline> is added directly because it is an immediate child element
+of <contentMeta>:
+
+<groupSet root=__...>
+
+...
+
+<group id=__...>
+
+<itemRef residref=...>
+
+...
+
+<headline>
+
+EU President Claude Juncker today
+
+</headline>
+
+...
+
+</itemRef>
+
+...
+
+</group>
+
+</groupSet>
+
+1.  Most child elements of <partMeta> are shared with <contentMeta> or
+<itemMeta>, but they MUST be used with the <partMeta> parent element,
+and <partMeta> should include the required delimiter elements
+<timeDelim> or <regionDelim>.
+2.  When implementing Hint Points, providers are advised to the use
+NewsML-G2 version 2.23 (and up) as it is "globalised", that is all of
+the elements that may be used as Hints are defined at a global level in
+the XML schema. Using Hint properties in prior versions of NewsML-G2 MAY
+not validate correctly in some circumstances.
+
+The following elements have a Hint Point. Follow the links to see more
+information about each of them. Note that, apart from Assert, they are
+Link 1 Type properties.
+
+[cols=",,",options="header",]
+|=======================================================================
+|Element |Description |Further information
+|<assert> |Assertion about a concept |link:#the-assert-wrapper[Assert
+Wrapper]
+
+|<itemRef> |Reference in a Package to an external NewsML-G2 Item or web
+resource |link:#item-reference[Item Reference]
+
+|<deliverableOf> |Reference from an Item to a News coverage property of
+a Planning Item |link:#the-delivery-component[Delivery wrapper]
+
+|<deliveredItemRef> |Reference from a News Coverage element to Item(s)
+that have been delivered |link:#the-delivery-component[Delivery wrapper]
+
+|<remoteInfo> |Link from a Concept to an Item or web resource providing
+further information |link:#new-remote-info-element[Remote Info]
+
+|<link> |Link from the current Item to an external Item or web resource
+|link:#using-links[Using Links]
+|=======================================================================
+
+Permitted Hint Properties
+
+Any of the following properties may be used at the Hint Point, subject
+to the rules outlined above.
+
+[cols=",",]
+|===================================
+|Wrapper |Property
+|itemMeta |itemClass
+|itemMeta |provider
+|itemMeta |versionCreated
+|itemMeta |firstCreated
+|itemMeta |embargoed
+|itemMeta |pubStatus
+|itemMeta |role
+|itemMeta |fileName
+|itemMeta |generator
+|itemMeta |profile
+|itemMeta |service
+|itemMeta |title
+|itemMeta |edNote
+|itemMeta |memberOf
+|itemMeta |instanceOf
+|itemMeta |signal
+|itemMeta |altRep
+|itemMeta |deliverableOf
+|itemMeta |hash
+|itemMeta |expires
+|itemMeta |origRep
+|itemMeta |incomingFeedId
+|itemMeta |link
+|itemMeta |itemMetaExtProperty
+|contentMeta |icon
+|contentMeta |urgency
+|contentMeta |contentCreated
+|contentMeta |contentModified
+|contentMeta |located
+|contentMeta |infoSource
+|contentMeta |creator
+|contentMeta |contributor
+|contentMeta |audience
+|contentMeta |exclAudience
+|contentMeta |altId
+|contentMeta |rating
+|contentMeta |userInteraction
+|contentMeta |language
+|contentMeta |genre
+|contentMeta |keyword
+|contentMeta |subject
+|contentMeta |slugline
+|contentMeta |headline
+|contentMeta |dateline
+|contentMeta |by
+|contentMeta |creditline
+|contentMeta |description
+|contentMeta |contentMetaExtProperty
+|concept |conceptId
+|concept |type
+|concept |name
+|concept |definition
+|concept |note
+|concept |facet-DEPRECATED
+|concept |remoteInfo
+|concept |hierarchyInfo
+|concept |sameAs
+|concept |broader
+|concept |narrower
+|concept |related
+|concept |personDetails
+|concept |organisationDetails
+|concept |geoAreaDetails
+|concept |POIDetails
+|concept |objectDetails
+|concept |eventDetails
+|concept |conceptExtProperty
+|===================================
+
+[[adding-special-use-properties]]
+Adding special-use properties
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+[[adding-elements-from-other-namespaces]]
+Adding elements from other namespaces
++++++++++++++++++++++++++++++++++++++
+
+NewsML-G2 implementers will sometimes encounter a use case that does not
+fit the defined semantics of an existing NewsML-G2 metadata property.
+Using a property under an Extension Point is an option, since any
+user-defined structure may be added, but this requires the extension
+properties to be created in a different namespace. Receivers of
+proprietary properties may be unable to use a standard NewsML-G2
+property software module for processing such proprietary properties.
+
+[[adding-newsml-g2-extension-properties]]
+Adding NewsML-G2 Extension properties
++++++++++++++++++++++++++++++++++++++
+
+Most NewsML-G2 elements that wrap a group of metadata properties have a
+generic extension property named after the parent element suffixed with
+"ExtProperty", for example <rightsInfo> has <rightsInfoExtProperty>.
+This enables a special-use property to be expressed using a common type
+which includes @rel to define the relationship with the target concept,
+for example:
+
+<contentMeta> +
+…
+
+<contentMetaExtProperty
+
+rel="mediarel:suitableAudience"
+
+value="PG"
+
+valuedatatype="xs:string"
+
+/>
+
+…
+
+</contentMeta>
+
+This fictional example shows a provider-specific "audience suitability"
+property added to Content Metadata. The semantics of the extension
+property are defined using @rel, followed by the value of the property
+and its datatype.
+
+[[__DdeLink__135_1188536407]]Where there are time restrictions on the
+use of the extension property, these may be expressed using @validfrom
+and @validto.
+
+Even though the property conveys proprietary _data_, such properties can
+now be processed in a consistent manner by a generic NewsML-G2
+processor.
+
+*Full list of available extension properties*
+
+[cols=",,",options="header",]
+|===========================================================
+|Wrapper |Extension Property |Affected Item(s)
+|rightsInfo |rightsInfoExtProperty |all
+|itemMeta |itemMetaExtProperty |all
+|contentMeta |contentMetaExtProperty |All except catalogItem
+|partMeta |partMetaExtProperty |All except catalogItem
+|remoteContent |remoteContentExtProperty |newsItem
+|concept |conceptExtProperty a|
+conceptItem,
+
+knowledgeItem
+
+|group |groupExtProperty |packageItem
+|newsCoverage |newsCoverageExtProperty |planningItem
+|planning |planningExtProperty |planningItem
+|header |headerExtProperty |newsMessage
+|schemeMeta |schemeMetaExtProperty |knowledgeItem
+|===========================================================
+
+[[special-processing-instructions-for-metadata-about-a-part-of-the-content]]
+Special processing instructions for metadata about a part of the content
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Implementers need to be aware of how property values about the content
+as a whole are inherited by individual parts of the content.. All
+property assertions in elements such as <itemMeta> or <contentMeta> are
+inherited by any <partMeta> element and are specifically over-ridden for
+that part of the content when re-stated in a partMeta element.
+
+An example of such inheritance is the use of the <signal> element as a
+child of <itemMeta> and/or <partMeta>:
+
+The <signal> element instructs the NewsML-G2 processor to handle an Item
+or its content in a specific way. When used as a child element of
+<itemMeta> its scope is the entire Item; when used as a child of
+<remoteContent> its scope is the specific rendition of the content. By
+introducing <signal> at the <partMeta> level, providers can specify
+processing instructions for any part of the content.
+
+When used in a <partMeta> element, any processing instructions expressed
+at a higher level in the item are over-ridden for that specific part of
+the content. Thus, using <signal> as an example processing instruction:
+
+<itemMeta....>
+
+<!-- A applies to the whole item, unless overridden -->
+
+<signal... A/>
+
+</itemMeta>
+
+<partMeta id="_1_">
+
+<!-- A does NOT apply to this content part -->
+
+<!-- B applies to this content part only -->
+
+<signal... B/>
+
+</partMeta>
+
+<partMeta id="_2_">
+
+<!-- inherits only the signal A from Item Metadata-->
+
+<!-- B does NOT apply to this content part -->
+
+</partMeta>
+
+Where a processing instruction (from a higher level) is NOT to be
+inherited for a specific part of the content, that processing
+instruction needs to be explicitly ‘’nulled’’ within that specific part
+of the content. Using <signal> again as an example processing
+instruction, a ‘’null’’ value is added to the content part:
+
+<partMeta id="_3_">
+
+<signal qcode="gen:null" /><!-- nulls inheritance of any signal(s)
+from the Item Metadata level -->
+
+</partMeta>
+
+In NewsML-G2 version 2.21 the elements <link> and <edNote> from
+<itemMeta> have also been added to <partMeta>.
+
+[[_Ref244674574]]
+
+[[generic-processes-and-conventions]]
+Generic Processes and Conventions
+---------------------------------
+
+This Chapter discusses some processes, procedures and conventions which
+are generic to all NewsML-G2 Items, and relate to best practice in the
+wider context of news processing.
+
+[[processing-rules-for-newsml-g2-items]]
+Processing Rules for NewsML-G2 Items
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Although at CCL, NewsML-G2 is designed for maximum inter-operability,
+providers are strongly recommended to document their implementation of
+NewsML-G2 and the provider-specific rules and conventions used.
+
+This information must be provided to receivers so that generic NewsML-G2
+processors can be parameterised accordingly
+
+An obvious example is Packages (see Package Processing Considerations)
+where the structure and content types must be pre-arranged between
+provider and receivers in order to facilitate correct processing.
+
+Another example is the use of property attributes such as @role and
+@type which refine the semantic of the property. There needs to be a
+clear understanding of the concepts being used in these circumstances
+for the full value of the information to be useful.
+
+[[using-links]]
+Using Links
+~~~~~~~~~~~
+
+[[introduction-18]]
+Introduction
+^^^^^^^^^^^^
+
+The <link> property is used in the <itemMeta> section of a NewsML-G2
+document to create a navigable link between the Item and a related
+resource. Examples of the target of a link could be a Web page, a
+discrete object such as an image file, or another NewsML-G2 Item.
+
+Valid uses of <link> include:
+
+* To indicate a supplementary resource, for example a picture of a
+person mentioned in an article.
+* To identify the resource that an Item is derived from, for example if
+providing a translation.
+* where systems do not support versioning, to provide a link to the
+previous version of an Item.
+* To identify the previous "take" of a multi-page article, or the
+previous Item in a series of Items. (Note that these use cases are not
+explicitly supported by the current version of the IPTC Item
+Relationship NewsCodes. The <memberOf> property of Item Metadata
+expresses that an Item is part of a series of Items, but not its
+sequence.)
+* Where a News Item conveys formatted text which references an
+illustration, a dependency link from the article to the illustration is
+indicated using <link>.
+
+[[link-properties]]
+Link properties
+^^^^^^^^^^^^^^^
+
+Link uses the LinkType datatype (CCL), with optional attributes for Item
+Relation (@rel) and the Target Resource Attributes group. For each
+<link> at CCL, any number of child <title> properties of the target
+resource may be added.
+
+At PCL the Link1Type datatype is used, optionally with more extensive
+attributes, which permits any property consistent with the structure of
+the target resource to be used as a processing Hint. See Adding Hints
+from the NAR namespace.
+
+[[item-relation-rel-and-the-item-relationship-newscodes]]
+Item Relation @rel and the Item Relationship NewsCodes
+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+A QCode indicating the relationship of the current Item to the target
+resource. For example, if the current Item is a translation from an
+original article, the relationship may be indicated using the IPTC Item
+Relation NewsCodes, for example:
+
+<link rel="irel:translatedFrom">
+
+The default relationship between the host Item and a resource identified
+by a <link> is "See also". The CV broadly defines three types of
+relationship:
+
+* Navigation: "See Also".
+* Dependency: "Depends On".
+* Derivation: includes "Derived From" and other refinements of
+derivation relationships.
+
+The IPTC recommends that for derivation relationships, implementers
+should use the most specific available representation. For example if a
+picture conveyed by the item is a crop of the image indicated by <link>,
+"Derived From" is not inaccurate, but "Cropped From" is preferred as it
+is more specific.
+
+[[iptc-item-relationship-cv-scheme-uri-httpcv.iptc.orgnewscodesitemrelation]]
+IPTC Item Relationship CV (Scheme URI
+http://cv.iptc.org/newscodes/itemrelation/)
+
+[cols=",,",options="header",]
+|=======================================================================
+|Relationship |Code |Definition
+|See Also |seeAlso |The related item or resource can be used as
+additional information. Full rendering of this Item does NOT depend on
+the retrieval of the related item or resource
+
+|Depends On |dependsOn |Full rendering of this Item depends on the
+retrieval of the related item or resource.
+
+|Derived From |derivedFrom |This item was derived from the related item
+or resource.
+
+|Associated With |associatedWith |RETIRED
+
+|Previous Version |previousVersion |The related item is the previously
+published version of this item.
+
+|Translated From |translatedFrom |This item is a translation of the
+related item or resource
+
+|Cropped From |croppedFrom |The visual content of this item has been
+cropped from the related item or resource.
+
+|Evolved From |evolvedFrom |This item was evolved from the related item.
+Typical use is for stories evolving over time, including corrections.
+
+|Processed From |processedFrom |The content of this item has been
+processed from the content of the related item or resource. Do not use
+in the case of cropping (see croppedFrom).
+
+|Previous Version |prevVersion |RETIRED. Replaced by previousVersion
+(see above)
+|=======================================================================
+
+[[target-resource-attributes-2]]
+Target Resource Attributes
+++++++++++++++++++++++++++
+
+These are property attributes that enable the receiver to accurately
+identify the remote resource, its content type and size. See Target
+Resource Attributes for further information.
+
+[[item-title-title]]
+Item Title <title>
+++++++++++++++++++
+
+A short natural language name describing the link, intended to be
+displayed to users. It is not necessary that this <title> should be
+extracted from the target resource. For example, a journalist may wish
+to add a link and write a title for it.
+
+<title xml:lang="en-GB">File picture of President Obama</title>
+
+[[hint-and-extension-point-1]]
+Hint and Extension Point
+++++++++++++++++++++++++
+
+At PCL any number of metadata properties from the IPTC’s News
+Architecture (NAR) namespace may be included. For example, a picture
+referenced by a link may have the recommended filename extracted from
+the target resource as an aid to processing. See Hints and Extension
+Points in NewsML-G2 for detailed guidance on this feature.
+
+[[link-examples]]
+ Link examples
+^^^^^^^^^^^^^^
+
+[[a-supplemental-picture-with-a-text-article-ccl]]
+A supplemental picture with a text article (CCL)
+++++++++++++++++++++++++++++++++++++++++++++++++
+
+The sender of a News Item containing a text article wishes to include a
+link to a picture that may optionally be retrieved to illustrate the
+article. The relationship to the target resource is "see also".
+
+<newsItem xmlns="http://iptc.org/std/nar/2006-10-01/"
+
+guid="tag:acmenews.com,2008:TX-PAR:20090529:JYC85"
+
+version="1"
+
+....>
+
+<itemMeta>
+
+<itemClass qcode="ninat:text" />
+
+....
+
+<edNote>With picture</edNote>
+
+<link
+
+rel="irel:seeAlso" Item relation
+
+residref="tag:acmenews.com,2008:TX-PAR:20090529:JYC80">__ Item ref
+
+<title>
+
+File picture of President Obama Title
+
+<title />
+
+<link />
+
+....
+
+</itemMeta>
+
+....
+
+</newsItem>
+
+[[a-required-picture-with-a-text-article-pcl]]
+A required picture with a text article (PCL)
+++++++++++++++++++++++++++++++++++++++++++++
+
+A News Item contains a text article which is marked up explicitly to
+reference a picture (for example in XHTML). The picture is required for
+correct display of the text-with-picture story, therefore the
+relationship to the target resource is "depends on".
+
+A NewsML-G2 processor should be enabled to pre-fetch this required
+target resource before the content of the news item is processed. As
+shown in the example below, the "real world" link between the article
+and the picture is established using the filename of the linked
+resource.
+
+This example is at PCL; we are able to extract the <itemClass> property
+and <filename>, the recommended filename of the target resource (a News
+Item), from the Item’s <itemMeta> wrapper and add these as child
+elements of <link>.
+
+<newsItem xmlns="http://iptc.org/std/nar/2006-10-01/"
+
+guid="tag:acmenews.com,2008:TX-PAR:20090529:JYC85"
+
+version="1"
+
+standard="NewsML-G2" standardversion="2.23"
+
+conformance="power"
+
+....>
+
+<itemMeta>
+
+<itemClass qcode="ninat:text" />
+
+....
+
+<edNote>With picture</edNote>
+
+<link
+
+rel="irel:dependsOn" Item relation
+
+residref="tag:acmenews.com,2008:TX-PAR:20090529:JYC80">__ Item ref
+
+<itemClass qcode="ninat:text" />
+
+<filename>
+
+obama-omaha-20090606.jpg File name
+
+</filename>
+
+</link>
+
+....
+
+</itemMeta>
+
+<contentSet>
+
+<inlineXML>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+....
+
+<p>At Omaha Beach, President Obama led a ceremony to mark the landing of
+
+thousands of U.S. troops on D-Day.</p>
+
+<img style__="position: absolute; left: 0px; top: 0px;"
+
+src="file:///obama-omaha-20090606.jpg" Picture ref
+
+/>
+
+....
+
+</inlineXML>
+
+</contentSet>
+
+</newsItem>
+
+[[linking-to-previous-versions-of-an-item-pcl]]
+Linking to previous versions of an Item (PCL)
++++++++++++++++++++++++++++++++++++++++++++++
+
+(See also Processing Updates and Corrections) Some content management
+systems do not maintain a common identifier for successive versions of
+an information asset (such as text or picture), but maintain a link to
+the identifier of the previous version of the asset. In these
+circumstances, a <link> can inform recipients that the current Item is a
+new version of a previously published Item, and provide a navigation to
+retrieve the previous version of the Item, if required.footnote:[Even
+where providers use the same ID, it is not mandatory to use a
+consecutive ascending sequence of numbers to indicate successive
+versions of an Item. Where it is required to positively identify the
+previous version of an Item, a provider SHOULD add a <link> to the
+previous version.] The relationship between the current item and the
+previous version is "previousVersion".
+
+<newsItem xmlns="http://iptc.org/std/nar/2006-10-01/"
+
+guid="tag:acmenews.com,2008:TX-PAR:20090529:JYC85" new item
+
+version="1" first version
+
+....>
+
+<itemMeta>
+
+<itemClass qcode="ninat:text" />
+
+....
+
+<edNote>Replaces previous version. MUST correction, updates name of
+
+minister</edNote>
+
+<signal qcode="action:replace" />
+
+<link
+
+rel="irel:previousVersion"
+
+residref="tag:acmenews.com,2008:TX-PAR:20090529:JYC80" previous item
+
+version="1"> first version
+
+<itemClass qcode="ninat:text" /
+
+</link>
+
+....
+
+</itemMeta>
+
+....
+
+</newsItem>
+
+Using this method, other target resources such as previous "takes" of a
+multi-page article, the original picture from which the current item was
+cropped, or the original text from which a translation has been made,
+can be expressed using <link>
+
+[[publishing-status]]
+Publishing Status
+~~~~~~~~~~~~~~~~~
+
+The NewsML-G2 <pubStatus> property uses a mandatory IPTC CV that
+contains three values:
+
+* usable
+* withheld
+* canceled
+
+These terms have a specific meaning in a professional news workflow, and
+it is the IPTC’s intention in designing NewsML-G2 that they be
+interpreted by software systems. They are NOT intended as advisory
+notices to journalists, although of course the Publishing Status may
+well be a read-only property displayed by an editing system.
+
+If no <pubStatus> property is present in an Item, the default value is
+"usable", meaning that the item and its contents may be published.
+
+If an item has a publishing status of "withheld", this signals that the
+item and its contents may NOT be published until further notice. That
+status may be published only after receipt of a new version of the item
+– using the same GUID – that has a status of "usable".
+
+For example, a provider may send an item of news (version 1), and
+subsequently decided that a correction or amplification is needed, which
+requires the sending of a new version of the item. If the new version
+will not be ready for an appreciable time, the provider may send a new
+version (version 2) of the item with a status of "withheld" to stop
+further publication of the incorrect item. When the corrected version is
+ready, it will be sent – using the same GUID – with a status of "usable"
+(version 3).
+
+An item with a status of "withheld" MUST NOT be published. It may only
+have its status changed to "usable", at which point it may be published,
+or "canceled".
+
+If an error cannot be corrected, or the item needs to be permanently
+withdrawn for some other reason, the provider may use "canceled" the
+third value of <pubStatus> (note U.S. spelling). This instructs
+receiving systems to remove all versions of the item from all locations,
+including (and especially) archives. News organisations have faced legal
+action arising from the inadvertent re-publication from an archive of
+defamatory content.
+
+[[_Toc470002542]]Figure 23: State Transition Diagram for <pubStatus>
+
+A "canceled" item CANNOT have its status changed back to "usable" or
+"withheld". If a provider wishes to send revised content, it MUST be
+sent under a NEW GUID.
+
+The <pubStatus> property is part of the <itemMeta> component, and uses a
+QCode value. The scheme alias for the IPTC Publishing Status NewsCodes
+is "stat":
+
+<pubStatus qcode="stat:usable" />
+
+[[embargo]]
+Embargo
+~~~~~~~
+
+Professional, or business-to-business, news organisations often make use
+of an _embargo_ to release information in advance, on the strict
+understanding that it may not be released into the public domain until
+after the _embargo time_ has expired, or until some other form of
+permission has been given.
+
+Embargo is NOT the same as the Publishing Status. Some systems process
+the embargo time using software in order to trigger the release of
+content when the embargo time is passed, but the intention of embargo is
+also as an information management feature for journalists.
+
+Embargos are generally an unwritten agreement and have no legal force.
+Their success depends on cooperation between parties not to abuse the
+system. Possible abuses include imposing unnecessary embargos in order
+to manage the impact of news, or by breaking embargos and releasing news
+into the public domain too early.
+
+NewsML-G2 uses the optional <embargoed> property in <itemMeta> to
+indicate whether an item is under an embargo. If the property is absent
+there is no embargo:
+
+<embargoed>2016-10-23T12:00:00Z</embargoed>
+
+If the property is present AND empty, this enables providers to release
+an item under embargo when the precise date and time that the embargo
+expires is not known. In these circumstances, an <edNote> or some
+contractual agreement between the provider and customer will specify the
+conditions under which the embargo may be lifted.
+
+For example, a provider may release an advance copy of a speech which
+may not be released to the public until the speaker has finished
+delivering it. The provider would have no way of knowing exactly when
+this would be. Therefore some other means of authorising the release may
+be negotiated between the parties, such as email or a phone call:
+
+<embargoed />
+
+<edNote>
+
+Note to editors: STRICTLY EMBARGOED. Not for release until authorised.
+Our +
+News Desk will advise your duty editor by email. Release expected
+about +
+12noon on Monday, February 9.
+
+</edNote>
+
+Check the corresponding NewsML-G2 Specification Document for further
+information regarding processing rules for <embargoed>. The processing
+model is illustrated in Figure 24.
+
+[[_Ref221708567]][[_Ref221708573]][[_Toc470002543]]Figure 24:
+[[_Ref469300493]]Receiver-side rules for processing <embargoed>
+
+[[_Ref222732230]][[_Ref222732233]][[_Ref222733818]][[_Ref222733821]][[_Ref222734868]][[_Ref222734870]]
+
+[[geographical-location]]
+Geographical Location
+~~~~~~~~~~~~~~~~~~~~~
+
+There are two properties of <contentMeta> that express the geographic
+location(s) associated with a NewsML-G2 Item, with a distinction between
+their uses.
+
+The Located <located> property expresses the origin of the content:
+where the content was created, for example a text article written or a
+picture taken. The intention of <located> is as a machine-readable
+equivalent to the location given in a Dateline. (The NewsML-G2
+<dateline> property is also available as a natural-language string. for
+example "MOSCOW, Monday (Reuters)")
+
+The accepted convention, which in some news organisations is formalised
+as part of a code of practice, is that the Dateline identifies the place
+where content is created, NOT the place where an event takes place. They
+may be the same, but this is not necessarily the case.
+
+* In conflict zones, journalists may not have access to the area where
+reported events are taking place.
+* Even when physical access is not an issue, journalists may have relied
+on interviewing people by telephone or on reports from freelance
+correspondents in order to get the material used to write an article.
+
+The Located property is therefore provided to express the place of
+origin of content as part of _Administrative_ Metadata:
+
+<located type="loctype:city" qcode="city:75000">
+
+<name>Paris</name>
+
+</located>
+
+To express the geographical information that is important in the context
+of the article or picture, the Subject property <subject> is used,
+optionally using a Concept type (@type) In the example below
+"cpnat:geoArea" from the IPTC Concept Nature NewsCodes, is used, but
+providers may have their own scheme(s).
+
+The Subject property is _Descriptive_ Metadata:
+
+<subject type="cpnat:geoArea" qcode="city:Tblisi">
+
+<broader qcode="cntry:Georgia">
+
+<name>Georgia</name>
+
+</broader>
+
+</subject>
+
+This news story fragment from Reuters and the accompanying code listing
+illustrate the use of <located> and <subject>. The geographical subjects
+of the report are Georgia and South Ossetia, but the report was written
+in Moscow:
+
+_
+MOSCOW, Monday (Reuters) - The breakaway Georgian region of South
+Ossetia alleged today that two unexploded Georgian shells landed in its
+capital Tskhinvali, but Tbilisi dismissed the claim as nonsense.
+
+Both sides have regularly....
+_
+
+1.  __
+[[_Ref222628089]]Illustrating Located, Subject and Dateline
+__
+
+All Scheme Aliases used in listing below indicate IPTC NewsCodes
+vocabularies, except for the following alias values: _city, cntry, web,
+reg,_
+
+<contentMeta>
+
+<contentCreated>2016-02-09T09:17:00+03:00
+
+</contentCreated>
+
+<located qcode="city:Moscow">
+
+<broader qcode="cntry:Russia" />
+
+</located>
+
+<creator qcode="web:reuters.com">
+
+<name>Thomson Reuters</name>
+
+</creator>
+
+<language tag="en-US" />
+
+<subject type="cpnat:geoArea" qcode="city:Tskhinvali">
+
+<broader qcode="reg:SouthOssetia">
+
+<name>South Ossetia</name>
+
+</broader>
+
+</subject>
+
+<subject type="cpnat:geoArea" qcode="city:Tblisi">
+
+<broader qcode="cntry:Georgia">
+
+<name>Georgia</name>
+
+</broader>
+
+</subject>
+
+<dateline>MOSCOW, Monday (Reuters)</dateline>
+
+</contentMeta>
+
+[[processing-updates-and-corrections]]
+Processing Updates and Corrections
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+By its nature, news may need frequent updating, and in some cases
+correcting, as new facts emerge. The simplest NewsML-G2 mechanism for
+dealing with updated content is to re-issue an item using the same GUID
+with a new Version.
+
+In the absence of any specific instructions from the provider, a
+"usable" item should be regarded as replacing any previous version of
+the item with the same GUID. In practice, a provider is likely to
+provide some supplementary information in the form of a human-readable
+<edNote> which can be displayed to inform recipients of the reason for
+the update.
+
+NewsML-G2 also provides machine-readable features to express whether a
+new version updates or corrects previous versions of an Item and a
+further indication of the impact of the change, using the <signal>
+property under Item Metadata at CCL and PCL.
+
+Signal uses a QCode to identify an action from a CV. To promote
+interoperability, the IPTC maintains NewsCodes for this purpose, but
+note it is up to the provider to specify the rules for applying the
+codes so that their end-users can correctly process the instruction.
+
+[[signalling-an-update-or-correction]]
+Signalling an Update or Correction
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Any version of an item except the initial version is implicitly an
+update of the previous version. It is not required to use the update
+signal, but it is not always possible to infer from the version number
+whether a document is an initial version or is implicitly an update.
+Therefore the IPTC recommends that <signal> is used with the IPTC Signal
+NewsCodes (Scheme URI http://cv.iptc.org/newscodes/signal/ and
+recommended Schema Alias "sig"). The relevant members of the Scheme are:
+
+[cols=",,",options="header",]
+|=======================================================================
+|Code |Definition |Note
+|update |This version of the Item includes an update of some part of the
+previous version of the Item. |Implies that this version of the Item is
+not the initial version
+
+|correction |This version of the Item corrects some part of a previous
+version of the Item. |Implies that this version of the Item is not the
+initial version. This Correction signal does not indicate in which
+version(s) of the Item the corrected error existed.
+|=======================================================================
+
+In addition, the Editorial Note <edNote> property under Item Metadata
+may be used to provide natural language details about the update or
+correction, such as specifying a name in the text that has been
+corrected or whether a paragraph with updated information has been added
+to the text.
+
+<newsItem xmlns="http://iptc.org/std/nar/2006-10-01/"
+
+guid="tag:afp.com,2008:TX-PAR:20090529:JYC80" current item
+
+version="2" new version
+
+....>
+
+<itemMeta>
+
+....
+
+<edNote>Updates previous version by appending these paragraphs</edNote>
+
+<signal qcode="sig:update" />
+
+....
+
+[[signalling-the-impact-of-an-update]]
+Signalling the impact of an update
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+It’s possible to express the impact of an update or correction using
+@severity and one of the Severity NewsCodes
+(http://cv.iptc.org/newscodes/severity/), recommended Scheme Alias "sev"
+. 
+
+The two (self-explanatory) NewsCodes for Severity are:
+
+* Major
+* Minor
+
+For example:
+
+<newsItem xmlns="http://iptc.org/std/nar/2006-10-01/"
+
+guid="tag:afp.com,2008:TX-PAR:20090529:JYC80" current item
+
+version__="234256" new version
+
+....>
+
+<itemMeta>
+
+....
+
+<link
+
+guidref="tag:afp.com,2008:TX-PAR:20090529:JYC80"
+
+version__="1234" />
+
+<edNote>URGENT: Appends judge’s statement to previous version</edNote>
+
+<signal qcode__="sig:update" severity__="sev:major" />
+
+....
+
+[[Warning]]
+
+[[content-warning]]
+Content Warning
+~~~~~~~~~~~~~~~
+
+The <signal> property in Item Metadata may be used to inform end-users
+that the nature of the content being sent may be perceived as being
+offensive to some audiences. This uses the IPTC Signal NewsCodes, with
+Scheme URI http://cv.iptc.org/newscodes/signal and recommended Schema
+Alias "sig" with a code of "cwarn":
+
+<signal qcode__="sig:warn" />
+
+The Signal property is available at CCL and PCL.
+
+Optionally, the nature of the warning can be expressed using the Exclude
+Audience property <exclAudience> and using the IPTC Content Warning
+NewsCodes. The Scheme URI is
+http://cv.iptc.org/newscodes/contentwarning/  and recommended Scheme
+Alias is "cwarn". The Scheme values are:
+
+[cols=",",options="header",]
+|=======================================================================
+|Code |Definition
+|death |The content could be perceived as offensive due to the
+discussion or display of death.
+
+|language |The content could be perceived as offensive due to the
+language used..
+
+|nudity |The content could be perceived as offensive due to nudity.
+
+|sexuality |The content could be perceived as offensive due to the
+discussion or display of sexuality.
+
+|violence |The content could be perceived as offensive due to the
+discussion or display of violence.
+|=======================================================================
+
+For example:
+
+<signal qcode__="sig:warn" />
+
+<exclAudience qcode="cwarn:nudity"/>
+
+<exclAudience qcode="cwarn:language"/>
+
+[[Ratings]][[_Ref340666204]][[_Ref375077249]][[_Ref375077257]]
+
+[[working-with-social-media]]
+Working with Social Media
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[[ratings]]
+Ratings
+^^^^^^^
+
+The ability for end-users to rate or interact with content has undergone
+enormous growth as part of social media and the "socialising" of the
+Web, and has led to a clear business need that user actions and ratings
+must be expressed as part of the metadata for all kinds of content.
+
+G2 provides a set of properties for implementers for a flexible use in
+expressing actions and ratings:
+
+* The <userInteraction> element can be used to express interactions with
+the content of this item such as Facebook "likes", tweets, and page
+views.
+* The <rating> element contains means to express a rating value that
+applies to the content of this item, such as a star rating, and includes
+the ability to convey how many "raters" led to the rating, plus
+information about how the rating system is constructed and how the
+rating value was calculated.
+
+Both elements are children of <contentMeta> in any type of NewsML-G2
+Item, and of <partMeta> in any NewsML-G2 Item except for Concept Items
+and Planning Items.
+
+[[the-userinteraction-element]]
+The <userInteraction> element
++++++++++++++++++++++++++++++
+
+This element expresses the number of times that end-users have
+interacted with content in the form of "Likes", votes, tweets and other
+metrics. If the element is used, it has two mandatory attributes:
+
+* interactions: the count of executed interactions (expressed as a
+non-negative integer)
+* interactiontype: a QCode indicating the type of interaction which is
+reflected by this property. The proposed IPTC CV is User Interaction
+Type, Scheme URI http://cv.iptc.org/newscodes/useractiontype/ with a
+recommended Scheme Alias of "useracttype"
+
+The example below expresses the number of Facebook "Likes", Google+ "+1"
+and tweets garnered by the content conveyed in the NewsML-G2 document.
+
+<contentMeta>
+
+...
+
+<userInteraction
+
+interactions="36"
+
+interactiontype="useracttype:fblike" />
+
+<userInteraction
+
+interactions="22"
+
+interactiontype="useracttype:googleplus" />
+
+<userInteraction
+
+interactions="1203"
+
+interactiontype="useracttype:tweets" />
+
+...
+
+</contentMeta>
+
+...
+
+The User Action Type NewsCodes have a Scheme URI of
+http://cv.iptc.org/newscodes/useractiontype/ and a recommended Scheme
+Alias of "useracttype". NewsCodes in the scheme are:
+
+[cols=",,",options="header",]
+|=======================================================================
+|NewsCode |Name |Definition
+| fblike |Facebook Like |Indicates that the user interaction was
+measured by Facebook's I Like feature.
+
+|googleplus  |Google +1 |Indicates that the user interaction was
+measured by Google's +1 feature.
+
+|retweets  |Twitter re-tweets |Indicates that the user interaction was
+measured by re-tweets of a Twitter tweet.
+
+|tweets |Twitter tweets |Indicates that the user interaction was
+measured by tweets which mention the subject of the content.
+
+|pageviews |Page views |Indicates that the user interaction was measured
+by the number of page views of the content.
+|=======================================================================
+
+[[the-rating-element]]
+The <rating> element
+++++++++++++++++++++
+
+Ratings such as "five stars" have existed for many years, in the news
+domain they have been a long-standing feature of image management
+software. Now they are used on the Web for all kinds of content as
+providers seek to engage audiences and promote feedback. However,
+different types of rating are needed – for example content may be rated
+in terms of how "useful" it was to the user – so the NewsML-G2 <rating>
+element is a wrapper for attributes that can define different rating
+models, including :
+
+* How the rating is expressed
+* How many individual ratings exist
+* How the rating was calculated
+
+For ease of reading, the full attributes of <rating> are tabulated
+below:
+
+[cols=",,,,",options="header",]
+|=======================================================================
+a|
+_
+Definition
+_
+
+ a|
+_
+Name
+_
+
+ a|
+__
+Cardinality
+__
+
+ a|
+__
+Datatype
+__
+
+ a|
+__
+Notes
+__
+
+a|
+_
+The rating of the content expressed as decimal value
+_
+
+ a|
+__
+value
+__
+
+ a|
+
+(1)
+
+
+ a|
+_
+Decimal
+_
+
+ |
+
+a|
+__
+How the value is calculated such as median, sum
+__
+
+ a|
+__
+valcalctype
+__
+
+ a|
+
+(0..1)
+
+
+ a|
+
+QCodeType
+
+
+ |Proposed IPTC CV (see below).
+
+a|
+
+Minimum rating value.
+
+
+ a|
+__
+scalemin
+__
+
+ a|
+
+(1)
+
+
+ a|
+__
+Decimal;
+__
+
+ |The value representing the lowest, or worst, rating that can be given
+
+a|
+
+Maximum rating value.
+
+
+ a|
+__
+scalemax
+__
+
+ a|
+
+(1)
+
+
+ a|
+__
+Decimal;
+__
+
+ |The value representing the highest, or best, rating that can be given
+
+a|
+
+Rating units
+
+
+ a|
+
+scaleunit
+
+
+ a|
+
+(1)
+
+
+ a|
+
+QCodeType
+
+
+ |Two values in the proposed IPTC CV are "star" and "numeric".(see
+below)
+
+a|
+__
+The number of parties who contributed a rating.
+__
+
+ a|
+
+raters
+
+
+ a|
+
+(0..1)
+
+
+ a|
+
+NonNegativeInteger
+
+
+ |If not present, defaults to 1.
+
+a|
+_
+The type of the rating parties.
+_
+
+ a|
+
+ratertype
+
+
+ a|
+
+(0..1)
+
+
+ a|
+
+QCodeType
+
+
+ |Proposed IPTC CV (see below).
+
+a|
+
+Full definition of the rating.
+
+
+ a|
+_
+ratingtype
+_
+
+ a|
+
+(0..1)
+
+
+ a|
+
+QCodeType
+
+
+ |The rating engine or method used, for example Amazon star rating or
+Survey Monkey.
+|=======================================================================
+
+_
+ 
+_
+
+The following example expresses a star rating with a minimum rating of
+one star and a maximum of 5. The rating is 4.5 (the provider and
+end-user may need to agree on how to handle values that are not a whole
+star, for example by rounding and/or using half-stars). The rating was
+calculated from the arithmetic mean of ratings by 123 users.
+
+...
+
+<contentMeta>
+
+...
+
+<rating
+
+value="4.5"
+
+valcalctype="rcalctype:amean"
+
+scalemin="0"
+
+scalemax="5"
+
+scaleunit="rscaleunit:star"
+
+raters="123"
+
+ratertype="rtype:user" />
+
+...
+
+</contentMeta>
+
+...
+
+[[content-rating-newscodes]]
+Content Rating NewsCodes
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+As an aid to interoperability, the IPTC has created Controlled
+Vocabularies (NewsCodes) for the properties @valcalctype, @scaleunit and
+@ratertype:
+
+[[rating-calculation-type-newscodes]]
+Rating Calculation Type NewsCodes
++++++++++++++++++++++++++++++++++
+
+These NewsCodes indicate how the applied numeric rating value was
+calculated from a sample of values. The Scheme URI is
+http://cv.iptc.org/newscodes/rcalctype/ and the recommended Scheme Alias
+is "rcalctype". NewsCodes in the scheme are:
+
+[cols=",,",options="header",]
+|=======================================================================
+|NewsCode |Name |Definition
+|amean |arithmetic mean |Indicates that the numeric value was calculated
+by applying the arithmetic mean algorithm to a sample.
+
+|gmean |geometric mean |Indicates that the numeric value was calculated
+by applying the geometric mean algorithm to a sample.
+
+|hmean |harmonic mean |Indicates that the numeric value was calculated
+by applying the harmonic mean algorithm to a sample.
+
+|median |median |Indicates that the numeric value is the middle value in
+a sorted list of sample values. 
+
+|sum |sum |Indicates that the numeric value was calculated as the sum of
+a sample.
+
+|unknown |unknown |Indicates that the algorithm for calculating the
+numeric value from a sample is not known.
+|=======================================================================
+
+[[rating-scale-unit-newscodes]]
+Rating Scale Unit NewsCodes
++++++++++++++++++++++++++++
+
+These NewsCodes indicate the units used to express the rating value. The
+Scheme URI is http://cv.iptc.org/newscodes/rscaleunit/ and the
+recommended Scheme Alias is "rscaleunit". NewsCodes in the scheme are:
+
+[cols=",,",options="header",]
+|==============================
+|NewsCode |Name |Definition
+|star |star |Star rating
+|number |number |Numeric rating
+|==============================
+
+[[rater-type-newscodes]]
+Rater Type NewsCodes
+++++++++++++++++++++
+
+These indicate the type of the party or parties that contributed to a
+rating. The Scheme URI is http://cv.iptc.org/newscodes/ratertype/,
+recommended Scheme Alias: "rtype". Scheme NewsCodes are:
+
+[cols=",,",options="header",]
+|=======================================================================
+|NewsCode |Name |Definition
+|expert |expert |The persons who rated are experts in what they rated. 
+
+|user  |user  |The persons who rated are using what they rated. 
+
+|customer  |customer  |The persons who rated have bought and are using
+what they rated. 
+
+|mixed  |mixed |The persons who rated are not of the same rater type.
+|=======================================================================
+
+[[hashtags]]
+Hashtags
+^^^^^^^^^
+
+As these are essentially uncontrolled values, at least within the scope
+of NewsML-G2, so the recommended way to add these social media tags is
+by using the <keyword> property with a @role to indicate their purpose.
+A new NewsCode has been added to the IPTC Description
+Rolefootnote:[Description Role NewsCodes may be used with other elements
+when a descriptive qualifier is required.] scheme to enable implementers
+to do this in a standard way:
+
+[cols=",,",options="header",]
+|=======================================================================
+|NewsCode |Name |Definition
+|hashtag |Hashtag |A word or phrase (with no spaces) which is prefixed
+with the hash character "#" 
+|=======================================================================
+
+The Scheme URI is http://cv.iptc.org/newcodes/descriptionrole/ and the
+recommended Scheme Alias is "drol", thus:
+
+<contentMeta>
+
+...
+
+<keyword role="drol:hashtag">#iptcrocks</keyword>
+
+...
+
+</contentMeta>
+
+[[_Ref340665630]]
+
+[[indicating-that-a-news-item-has-specific-content]]
+Indicating that a News Item has specific content
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In some workflows, the content of a News Item may not be available at
+the time of the distribution of its first version. For example, if an
+organisation normally provides a video in HD and SD, but the HD
+rendition is not yet available, there is a lightweight way to inform
+end-users that the content is planned, using @hascontent.
+
+This optional attribute may be added to any child element of
+<contentSet> (inlineXML, inlineData, remoteContent) as a flag to
+indicate whether the element contains content/content reference or is
+either empty/only metadata . @hascontent is simply a Boolean flag with a
+default of "1" or "true", and "0" or "false" to indicate that this
+element contains no content.
+
+The example below is a <remoteContent> showing that an HD rendition of
+the existing SD rendition of a video will follow soon. To make the
+receiver aware of the planned release of the additional rendition, the
+wrapper has been added to contentSet with only metadata defined, and no
+actual content being provided, and a @hascontent value of "isfalse":
+
+<contentSet>
+
+<remoteContent
+
+href="http://www.example.com/video/2008-12-22/20081222-PNN-1517-__
+
+_407624/20081222-PNN-1517-407624.avi"_
+
+format="fmt:avi"
+
+duration="111" durationunit="timeunit:seconds"
+
+videocharacteristic="videodef:SD"
+
+videoframerate="25"
+
+videoaspectratio="16:9" />
+
+<remoteContent
+
+hascontent="false"
+
+format="fmt:avi"
+
+duration="111" durationunit="timeunit:seconds"
+
+videocharacteristic="videodef:HD"
+
+videoframerate="25"
+
+videoaspectratio="16:9" />
+
+</contentSet>
+
+This page intentionally blank
+
+[[_Ref243460693]][[_Ref245987872]]
+
+[[identifying-sources-and-workflow-actors]]
+Identifying Sources and Workflow Actors
+---------------------------------------
+
+[[introduction-19]]
+Introduction
+~~~~~~~~~~~~
+
+NewsML-G2 contains a number of features designed to help providers and
+end-users maintain an audit trail for an Item, its payload and metadata,
+and in some cases to maintain document/content security.
+
+[[information-source-infosource]]
+Information Source <infoSource>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The <infoSource> property, together with its @role, enables
+finely-grained identification of the various parties who provided
+information used to create and develop an item of news. The definition
+of <infoSource> was extended in NewsML-G2 v2.10. It had previously been
+defined as the party that originated or enhanced the content. This was
+extended to "A party (person or organisation) which originated,
+modified, enhanced, distributed, aggregated or supplied the content or
+provided some information used to create or enhance the content."
+
+This extension required that the @role attribute of Information Source
+be more rigorously defined in order to maintain inter-operability
+between providers and receivers, and promote a better understanding of
+the part played by the various actors identified in multiple
+<infoSource> elements.
+
+The value of @role should be taken from the recommended IPTC Info Source
+Role NewsCodes created and maintained for this purpose. The Scheme URI
+is http://cv.iptc.org/newscodes/infosourcerole/ and the recommended
+Scheme Alias is "isrole".
+
+The default value of @role is "isrole:originfo", indicating that the
+party identified originated information used to create or enhance the
+content, and may be omitted, If a party did anything more than originate
+information, one or more @role attributes MUST be applied. The table
+below shows the Info Source Role CV values and definitions.
+
+[cols=",,",options="header",]
+|=======================================================================
+a|
+_
+Code
+_
+
+ a|
+_
+Name
+_
+
+ a|
+_
+Definition
+_
+
+a|
+__
+interviewee
+__
+
+ a|
+__
+Interviewee
+__
+
+ a|
+
+A person who granted an interview
+
+
+a|
+__
+mediaOffice
+__
+
+ a|
+
+Media Office
+
+
+ a|
+__
+The media relationships office of a person, organisation or company.
+__
+
+a|
+__
+origcont
+__
+
+ a|
+
+Content Originator
+
+
+ a|
+__
+A party which originated the content of this item.
+__
+
+a|
+__
+originfo
+__
+
+ a|
+_
+information originator
+_
+
+ a|
+_
+A party which provided some information used to create or enhance the
+content of this item.
+_
+
+a|
+
+spokesperson
+
+
+ a|
+
+Spokesperson
+
+
+ a|
+__
+The spokesperson of a person, organisation or company
+__
+
+|=======================================================================
+
+[[identifying-workflow-actors-a-best-practice-guide]]
+Identifying workflow "actors" – a best practice guide
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The <infoSource> property is one of a set of properties in NewsML-G2
+that are used to identify the actors in the creation and evolution of an
+item of news. The following table is a guide to how these properties
+should be used:
+
+[cols=",,",options="header",]
+|=======================================================================
+a|
+__
+Property
+__
+
+ a|
+_
+Location in an Item
+_
+
+ a|
+__
+Usage notes
+__
+
+a|
+
+News Message
+
+
+ a|
+
+* *
+
+
+ a|
+
+* *
+
+
+a|
+__
+Message Sender
+__
+
+ a|
+
+header/*sender*
+
+
+ a|
+_
+Party sending the _items_ in the message, which may be an organisation
+or a person. Best practice is to identify a sender by a domain name.
+_
+
+a|
+_
+Item
+_
+
+ a|
+
+* *
+
+
+ a|
+
+* *
+
+
+a|
+__
+Hop History
+__
+
+ a|
+_
+hopHistory
+_
+
+ a|
+__
+Identifies the actions and sequence of actions by parties who created,
+enhanced or transformed the content and/or metadata of the Item.(See
+Transaction History <hopHistory> below)
+__
+
+a|
+_
+Copyright Holder
+_
+
+ a|
+_
+rightsInfo/*copyrightHolder*
+_
+
+ a|
+__
+Party claiming, or responsible for, the intellectual property for the
+_content_.
+__
+
+a|
+_
+Copyright Notice
+_
+
+ a|
+_
+rightsInfo/*copyrightNotice*
+_
+
+ a|
+__
+The appropriate copyright text claiming the intellectual property for
+the _content_. The copyright notice may be refined by the Usage Terms.
+__
+
+a|
+_
+Item Provider
+_
+
+ a|
+_
+itemMeta/*provider*
+_
+
+ a|
+_
+The party responsible for the _management and the release_ of the
+NewsML-G2 _Item_. This corresponds to the publisher of the Item.
+_
+
+a|
+__
+Item Generator
+__
+
+ a|
+__
+itemMeta/*generator*
+__
+
+ a|
+
+The name and version of the system or application that generated the
+NewsML-G2 _Item_. Where a role IS NOT specified, the Generator Tool
+applies to the most recent item generation stage.
+
+
+a|
+
+Incoming Feed Identifier
+
+
+ a|
+_
+itemMeta/*incomingFeedId*
+_
+
+ a|
+__
+The incoming feed identifier may be defined by i/ the provider of the
+feed and/or ii/ the processor of the feed. (See Incoming Feed Identifier
+<incomingFeedId>, below)
+__
+
+a|
+_
+Content
+_
+
+ a|
+
+* *
+
+
+ |
+
+a|
+
+Content Creator
+
+
+ a|
+
+contentMeta/*creator*
+
+
+ a|
+
+Party that created the _content_. This MAY also be indicated textually
+in <by>
+
+
+a|
+_
+Information Sources
+_
+
+ a|
+
+contentMeta/*infoSource*
+
+
+ a|
+_
+Person or organisation which originated, modified, enhanced,
+distributed, aggregated or supplied the content or provided some
+information used to create or enhance the content
+
+Typical example for @role:
+
+Isrole:origcont: The original _content_ _owner_.
+_
+
+a|
+__
+Content Contributors
+__
+
+ a|
+_
+contentMeta/*contributor*
+_
+
+ a|
+__
+Person or organization that _modified or enhanced_ the _content_,
+preferably the name of a person.
+
+Typical contributor types represented by @role:
+
+The Editor of the _content_.
+
+An additional Reporter of the _content_.
+__
+
+a|
+_
+Creditline
+_
+
+ a|
+
+contentMeta/*creditline*
+
+
+ a|
+__
+Free-text expression of the credit(s) for the _content_;
+__
+
+a|
+
+Byline
+
+
+ a|
+_
+contentMeta/*by*
+_
+
+ a|
+
+Free-text expression of the person or organisation that created the
+content– see also Content Creator above.
+
+
+|=======================================================================
+
+[[transaction-history-hophistory]]
+Transaction History <hopHistory>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Content may traverse many organisations and workflows in its journey to
+an end user. A news organisation may have third-party providers in
+addition to in-house contributors and editors. There are a number of
+reasons why it may be necessary to document the actions involved in the
+evolution of a news object, for example auditing and payment, or for
+editorial attribution. Hop History provides a machine-readable way of
+capturing and expressing metadata describing these actions.
+
+Using Hop History, the receiver of a NewsML-G2 Item should be able to
+answer questions such as the following:
+
+* Has the object been transformed?
+* Who transformed the object (and when)?
+* Has the object been enhanced?
+* Who enhanced the object (and when)?
+* Did a specific Party perform a specific Action on a specific Target
+(the object and/or content and/or metadata)?
+* Has the object been processed (any Action or Target) by a specific
+Party?
+* What sequence of Party(ies) has processed (any Action or Target) the
+object? 
+
+The object of the actions does not have to be a NewsML-G2 Item; the
+object of the actions may be the content only, or the content plus the
+metadata of the Item even if its format was different in a previous hop.
+Hop History usage is subject to these rules:
+
+* Hop History does not replace any information that may exist in other
+formal metadata blocks (itemMeta, contentMeta, partMeta). For example:
+the Content Creator (a Party in the Hop History with an associated
+Action of ‘created’) MUST be the same as the Party identified as
+contentMeta/creator and the provider MUST ensure these facts are
+consistent.
+* It MUST be possible to remove the Hop History without degrading the
+formal metadata blocks described above.
+
+Each Item can have one <hopHistory> element, which contains one or more
+<hop> elements. Each <hop> may have a @seq attribute to indicate its
+place in a sequence of Hops, and may optionally have a @timestamp.
+
+Each Hop element may identify the <party> involved in the Hop, either as
+a @literal, or @qcode, and an unbounded number of <action> elements that
+describe the action(s) the Party took. Each <action> element may
+identify the type of action, using a @qcode, and the @target of the
+action: whether the action was performed on the full item, the content
+only, or the metadata.
+
+The Scheme URI of the Hop Action CV (referenced by the @qcode of the
+action element) is:
+
+http://cv.iptc.org/newscodes/hopaction/ with a recommended alias of
+"hopaction". The members of the CV are defined as follows:
+
+[cols=",",options="header",]
+|=======================================================================
+|Code |Definition
+|created |A Party has created the target of the action.
+
+|transformed |A Party has transformed the target of the action.
+Transforming means that an existing target was changed in data format.
+
+|enhanced |A Party has enhanced the target of the action.
+|=======================================================================
+
+The default action – indicated by the absence of the <action> element –
+is that the Party forwarded the object without making any changes.
+
+The Scheme URI of the Hop Action Target CV (referenced by @target) is:
+
+ http://cv.iptc.org/newscodes/hopactiontarget/ with a recommended scheme
+alias of "hatarget". The members of the CV are defined as:
+
+[cols=",",options="header",]
+|=======================================================================
+|Code |Definition
+|metadata |Any metadata associated with the content of the object.
+
+|content |The content of the object, which could be present in different
+renditions.
+|=======================================================================
+
+The default target – indicated by the absence of the @target attribute,
+is metadata AND content.
+
+In the Listing below, the provider (Acme Media) expresses a Hop History
+for the News Item as follows:
+
+* The original _content_ was _created_ by Thomson Reuters (note the use
+of EITHER @qcode OR @literal to identify the Party.)
+* The next Party in the sequence, identified as "comp:bwire",
+_transformed_ the _content_ into another format, and _enhanced_ the
+_metadata_.
+* The following Party ("comp:acquiremedia") _created_ new _metadata._
+* The final Party in the sequence of Hops ("comp:AP), _enhanced_ the
+_content_ and _metadata._
+
+1.  _
+[[_Ref434903912]]Hop History
+_
+
+All Scheme Aliases used in listing below indicate IPTC NewsCodes
+vocabularies, except for _comp,_
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<newsItem xmlns="http://iptc.org/std/nar/2006-10-01/"
+
+guid="urn:newsml:acmenews.com:20161125T1205:HOP-HISTORY-EXAMPLE"
+
+version="3"
+
+standard="NewsML-G2"
+
+standardversion="2.23" xml:lang="en-US">
+
+<catalogRef
+
+href="http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_29.xml"
+/>
+
+<catalogRef
+href__="http://www.acmenews.com/synd/catalogs/anmcodes.xml" />
+
+<hopHistory>
+
+<hop seq="1" timestamp="2016-11-10T15:15:00Z">
+
+<party qcode="comp:TR">
+
+<name>Thomson Reuters</name>
+
+</party>
+
+<action qcode="hopaction:created" target="hatarget:content" />
+
+</hop>
+
+<hop seq="2" timestamp="2016-11-10T16:18:00Z">
+
+<party qcode="comp:bwire" />
+
+<!—- transformed content e.g. to a different format -->
+
+<action qcode="hopaction:transformed" target="hatarget:content"
+/>
+
+<!—- enhanced existing metadata -->
+
+<action qcode="hopaction:enhanced" target="hatarget:metadata" />
+
+</hop>
+
+<hop seq="3" timestamp="2016-11-12T18:15:00Z">
+
+<party qcode="comp:aquiremedia" />
+
+<!—- added metadata -->
+
+<action qcode="hopaction:created" target="hatarget:metadata" />
+
+</hop>
+
+<hop seq="4" timestamp="2016-11-12T19:15:00Z">
+
+<party qcode="comp:AP" />
+
+<!—- enhanced content e.g. links to the text of the article -->
+
+<action qcode="hopaction:enhanced" target="hatarget:content" />
+
+<!-- enhanced existing metadata -->
+
+<action qcode="hopaction:enhanced" target="hatarget:metadata" />
+
+</hop>
+
+</hopHistory>
+
+<rightsInfo>
+
+<copyrightHolder uri="http://www.reuters.com" />
+
+</rightsInfo>
+
+<itemMeta>
+
+<itemClass qcode="ninat:text" />
+
+<provider qcode="nprov:reuters" />
+
+<versionCreated>2016-11-12T20:15:00Z
+
+</versionCreated>
+
+<pubStatus qcode="stat:usable" />
+
+</itemMeta>
+
+<!-- metadata and content -->
+
+<!-- metadata and content -->
+
+<!-- metadata and content -->
+
+</newsItem>
+
+[[incoming-feed-identifier-incomingfeedid]]
+Incoming Feed Identifier <incomingFeedId>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Some content providers, notably content aggregators, may need to
+identify the incoming news feed that is the source for a NewsML-G2 Item.
+The <incomingFeedId>, a child property of <itemMeta> enables an
+aggregator to combine the property value with a @role:
+
+a.  
+To apply the provider’s feed identifier to the inbound content as it
+processed into a NewsML-G2 Item, and
+
+b.  __
+To apply the aggregator’s feed identifier for the content in the
+NewsML-G2 Item.
+__
+
+*Attributes of <incomingFeedId>*
+
+[cols=",",options="header",]
+|=======================================================================
+|Attribute |Definition
+|role _or_ roleuri |The role of this feed identifier, for example to
+assert that this is the originator’s identifier for the source feed that
+created the content.
+
+|qcode _or_ uri |The unique identifier for the incoming feed.
+|=======================================================================
+
+The following example is courtesy of Thomson Reuters:
+
+A news story is received from PR Newswire on its UK Regulatory News
+service. The provider’s feed identifier is "PRNUKReg". Thomson Reuters
+applies this code to the resulting Item, and adds its own Incoming Feed
+Identifier "RRR". The resulting code in <itemMeta> would be:
+
+<itemMeta>
+
+...
+
+<incomingFeedId role="feedIdRole:srcFeedId"
+qcode="PRNFeedId:PRNUKReg" />
+
+<incomingFeedId role="feedIdRole:TRFeedId" qcode="TRFeedId:RRR"
+/>
+
+</itemMeta>
+
+Note that @role and @qcode are used in the example, but their IRIType
+siblings @roleuri and @uri may be used instead.
+
+[[original-representation-of-an-item-origrep]]
+Original Representation of an Item <origRep>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The <origRep> property adds the ability for a provider to specify a
+globally unique (and persistent) URL for retrieving a NewsML-G2 Item by
+interactive means, enabling providers to create a retrieval model for
+distributing NewsML-G2 Items, as an alternative to the widely used data
+feed method. Providers may also specify the technical means of
+retrieval. <origRep> is an optional child property of <itemMeta>, which
+may contain many <origRep> properties each specifying a different
+retrieval method and/or the role of the repository hosting the Item
+amongst many possible repositories.
+
+*Attributes of <origRep>*
+
+[cols=",,",options="header",]
+|=======================================================================
+a|
+_
+Name
+_
+
+ a|
+__
+Cardinality
+__
+
+ a|
+_
+Definition
+_
+
+a|
+
+Common Power
+
+
+ a|
+_
+-
+_
+
+ a|
+_
+Inherited attribute group
+_
+
+a|
+_
+Time Validity
+_
+
+ a|
+_
+-
+_
+
+ a|
+_
+Inherited attribute group
+_
+
+a|
+__
+accesstype _or_ +
+accesstypeuri
+__
+
+ a|
+_
+0..1
+_
+
+ a|
+__
+A qualifier that indicates the technical variant for accessing this item
+(for example communication protocols like "http") - expressed by a QCode
+or URI
+__
+
+a|
+_
+reposrole _or_ +
+reposroleuri
+_
+
+ a|
+_
+0..1
+_
+
+ a|
+
+ A qualifier which indicates the role of the stated repository -
+expressed by a QCode or URI.
+
+
+|=======================================================================
+
+*Example*
+
+<itemMeta>
+
+...
+
+<origRep accesstype="acctype:http" reposrole="reprol:mirror">
+
+http://cdn2.example.com/items/dkad19383
+
+</origRep>
+
+</itemMeta>
+
+Note that <origRep> references a NewsML-G2 Item; use <altRep> to specify
+an alternative representation of the Item, for example in a different
+format such as IIM.
+
+[[hash-value-hash]]
+Hash Value <hash>
+~~~~~~~~~~~~~~~~~
+
+The optional <hash> element, a child element <itemMeta>, <assert> and
+<remoteContent>, contains a digital "fingerprint" generated from
+content, that enables end users to verify that the content of a
+NewsML-G2 Item, or an object referenced by an Item, has not been changed
+
+The <hash> property has two attributes: the @hashtype tells the receiver
+the algorithm that was used to generate the hash, and @hashscope tells
+the receiver the parts of the content that were used to create the hash,
+and that therefore can be verified.
+
+There are two recommended IPTC CVs for the <hash> properties. The first
+is Hash Type NewsCodes; Scheme URI
+http://cv.iptc.org/newscodes/hashtype/ with a recommended scheme alias
+of "htype":
+
+[cols=",",options="header",]
+|==============================
+|Code |Definition
+|MD5 |The MD5 hash function
+|SHA-1 |The SHA-1 hash function
+|SHA-2 |The SHA-2 hash function
+|==============================
+
+The second is the Hash Scope NewsCodes; Scheme URI
+http://cv.iptc.org/newscodes/hashscope/ with a recommended scheme alias
+of "hscope". Scheme values are:
+
+[cols=",",options="header",]
+|===========================================================
+|Code |Definition
+|content |Content only (Default case, if @hashscope omitted)
+|provmix |Provider specific mix of content and metadata 
+|===========================================================
+
+In the example below, the <hash> is a child of Item Metadata and the
+scope is a provider-specific mix of metadata and the payload of a News
+Item. The content would be contained in either an <inline> or
+<inlineXML> element, and it would be the responsibility of the provider
+to define (outside NewsML-G2) which metadata properties were in scope
+for creating the hash. For example they may advise customers that the
+<headline> and <by> of a NewsItem are included when generating the hash
+value of the content.
+
+<hash hashtype="htype:md5"
+hashscope="hscope:provmix">hash-code</hash>
+
+A <hash> element may also be added to <remoteContent> indicating that
+the hash was generated from the content of the referenced object. In the
+example below, the target is the thumbnail of an image. The hash scope
+is omitted and defaults to "content":
+
+<remoteContent residref="urn:foobar" rendition="rnd:thumbnail">
+
+...
+
+<hash hashtype="htype:md5">hash-code</hash>
+
+...
+
+</remoteContent>
+
+ When applying a hash value for the content of a NewsML-G2 document, it
+makes sense to place the <hash> in <itemMeta> only for content payloads
+of <inlineXML> or <inlineData>. For Remote Content, where there could be
+multiple renditions of the content, the <hash> should be a child of each
+<remoteContent>
+wrapper.[[_Toc340664764]][[_Toc340667050]][[_Toc340731187]]
+
