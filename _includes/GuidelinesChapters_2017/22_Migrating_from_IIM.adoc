@@ -17,19 +17,19 @@ adopted in professional workflows.
 
 In about 2001, in order to overcome some technical limitations imposed
 by this legacy model, Adobe introduced the Extensible Metadata Platform,
-or XMPfootnote:[Although developed by Adobe, XMP is an open technology
-like its IIM-based predecessor, and has been adopted by other software
-vendors and manufacturers. Adobe and others, including Microsoft, Apple
-and Canon, have formed the Metadata Working Group, a consortium that
-promotes preservation and inter-operability of digital image metadata.
-The MWG web site is
-http://www.metadataworkinggroup.org[www.metadataworkinggroup.org].], to
-its suite of applications that includes Photoshop. Adobe also worked
+or XMP, to its suite of applications that includes Photoshop. Adobe also worked
 with the IPTC to migrate the properties of the legacy "IPTC Header" to
 XMP. Most of the original IIM-based metadata properties are contained in
 the IPTC Core Schema for XMP. Further IPTC properties that are derived
 from NewsML-G2 properties are available in the IPTC Extension Schema for
 XMP.
+
+NOTE: Although developed by Adobe, XMP is an open technology
+like its IIM-based predecessor, and has been adopted by other software
+vendors and manufacturers. Adobe and others, including Microsoft, Apple
+and Canon, have formed the Metadata Working Group, a consortium that
+promotes preservation and inter-operability of digital image metadata.
+The MWG web site is xref::http://www.metadataworkinggroup.org[www.metadataworkinggroup.org].
 
 However, when IIM-based properties were added to software packages such
 as Photoshop, the original semantic definitions of IIM were left behind,
@@ -40,13 +40,13 @@ bringing interested parties together to agree the IPTC Photo Metadata
 Standard, based on recognised current industry practice. The latest
 version (as of this edition of the Guidelines) was approved in 2016.
 (For more information on the Standard visit the IPTC website
-https://iptc.org[iptc.org] and navigate to Photo Metadata.)
+xref::https://iptc.org[iptc.org] and navigate to Photo Metadata.)
 
 A mapping of IIM legacy properties IPTC Core Schema NewsML-G2 is given
-below in 22.8, but this can only be regarded as "the basics". A full
+below in xref::iim-to-newsml-g2-field-mapping-reference[IIM to NewsML-G2 Field Mapping Reference], but this can only be regarded as "the basics". A full
 mapping of the IPTC Photo Metadata Standard backwards to IIM (where
 feasible) and forwards to NewsML-G2 may be found in the document
-https://www.iptc.org/std/photometadata/specification/mapping/iptc-pmd-newsmlg2.html[iptc-pmd-newsmlg2]
+xref::https://www.iptc.org/std/photometadata/specification/mapping/iptc-pmd-newsmlg2.html[iptc-pmd-newsmlg2]
 on the IPTC website. Note that because the photo metadata world has
 moved on since the original IIM specification, the semantic
 interpretation of IIM in the mapping guide follows the Photo Metadata
@@ -62,7 +62,7 @@ panels for Bridge must be downloaded from the IPTC web site and
 installed on your Windows or Mac OS X computer. Adobe CS5 and higher
 provides built-in File Info panels covering both IPTC Core and
 Extension. Be aware that these custom panels only work up to version CS
-5.5 of Bridge. To download visit http://www.iptc.org[www.iptc.org] and
+5.5 of Bridge. To download visit xref::http://www.iptc.org[www.iptc.org] and
 navigate to Photo Metadata.
 
 The IPTC web site also lists image manipulation software packages that
@@ -98,10 +98,10 @@ There is no guarantee that the synchronization of legacy and XMP
 metadata will be supported in future versions of Adobe software, or
 applications from other vendors.
 
-image:media/image23.png[jet_file_info_detail_2013.png,width=503,height=459]
+[[_Toc470002540]]
+image::iptc_sv_gradient_150x150.jpg[jet_file_info_detail_2013.png,width=503,height=459]
+.Figure 21: The IPTC Core metadata panel for an image opened in Adobe Photoshop.
 
-[[_Toc470002540]]Figure 21: The IPTC Core metadata panel for an image
-opened in Adobe Photoshop.
 
 [[picture-services-using-iimxmp]]
 Picture services using IIM/XMP
@@ -150,12 +150,12 @@ IIM resources
 ~~~~~~~~~~~~~
 
 The IPTC web site has an IIM Home page. Visit
-https://iptc.org/standards/[www.iptc.org/standards] and follow the link
+xref::https://iptc.org/standards/[www.iptc.org/standards] and follow the link
 to IIM to view the Specification and other documents. These include a
 list of software packages that support IIM metadata fields, and a link
 to a document that maps IIM fields IPTC Core (XMP) Software Package
 labels, maintained by David Riecks at
-http://www.controlledvocabulary.com[www.controlledvocabulary.com].
+xref::http://www.controlledvocabulary.com[www.controlledvocabulary.com].
 
 More about the use of IIM for photos can be found in the "Photo
 Metadata" section of the IPTC website.
@@ -169,7 +169,8 @@ types other than pictures is now rare, so this section will focus on the
 issue of migrating IIM picture metadata, chiefly those found in Adobe’s
 Photoshop "IPTC Header", to NewsML-G2 properties. It is NOT intended to
 describe a mapping of the complete IIM envelope or IPTC Photo Metadata
-Standard to NewsML-G2. (See 22.1 for a reference to this resource.)
+Standard to NewsML-G2. (Available xref::https://www.iptc.org/std/photometadata/specification/mapping/iptc-pmd-newsmlg2.html[here]
+.)
 
 [[iim-to-newsml-g2-field-mapping-reference]]
 IIM to NewsML-G2 Field Mapping Reference
@@ -179,21 +180,19 @@ IIM is organised into Records and DataSets. The DataSets that are
 embedded in image files are in the Application Record (Record Two). Each
 IIM DataSet is labelled according to the parent Record and its position
 within the Record (these numbers are not necessarily contiguous). The
-IIM Specification contains details of the record structure. (Location
-details above in paragraph 22.6)
+IIM Specification contains details of the record structure. 
 
 The table below shows IIM DataSets that have been (with noted
 exceptions) adopted for the IPTC Photo Metadata. Each DataSet is shown
 with its IIM name, equivalent IPTC Photo Metadata Name (if available),
 and the corresponding NewsML-G2 Property.
 
-[cols=",,,",options="header",]
+[%autowidth,options="header",]
 |=======================================================================
 |DataSet |IIM Name |IPTC Photo Metadata Name |NewsML-G2 Property
 |2:05 |Object Name |Title |itemMeta/title
 
-|2:10 |Urgency |Deprecatedfootnote:[The original IIM properties have no
-equivalent in IPTC Core for XMP] |contentMeta/urgency
+|2:10 |Urgency |Deprecated^*^ |contentMeta/urgency
 
 |2:15 |Category |Deprecated |contentMeta/subject
 
@@ -267,6 +266,8 @@ If the reference is a Job ID use itemMeta/ memberOf
 @role to indicate the role of the contributor
 |=======================================================================
 
+^*^ The original IIM properties have no equivalent in IPTC Core for XMP.
+
 [[iim-to-newsml-g2-mapping-example]]
 IIM to NewsML-G2 Mapping Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -274,27 +275,28 @@ IIM to NewsML-G2 Mapping Example
 The screenshot below shows fields of the IPTC Panel in Adobe Photoshop’s
 File Info dialog, containing metadata from the IPTC Core metadata
 schema. Note the neighbouring tab labelled IPTC Extension that contains
-metadata fields of the IPTC Extension schema. In the example, the IIM
-DataSets to be mapped to NewsML-G2, and their values, are tabulated, and
-in the succeeding paragraphs, the mapping discussed in more detail.
+metadata fields of the IPTC Extension schema. 
 
-image:media/image24.png[jet_file_info_pop-up_2013.png,width=633,height=383]
+image::iptc_sv_gradient_150x150.jpg[jet_file_info_pop-up_2013.png,width=633,height=383]
 
-[[_Toc470002541]]Figure 22: IPTC fields in Photoshop File Info panel
-(photo and metadata ©Thomson Reuters)
+[[_Toc470002541]]
 
-[cols=",,,",options="header",]
+.Figure 22: IPTC fields in Photoshop File Info panel (photo and metadata ©Thomson Reuters)
+
+The table below maps the IIM DataSets from the example to NewsML-G2. In the succeeding paragraphs, the mapping discussed in more detail.
+
+[%autowidth,options="header",]
 |=======================================================================
-|DataSet |IIM Name |Value |Ref
-|2:05 |Object Name |USA-CRASH/MILITARY |22.9.1
+|DataSet |IIM Name |Value |Note
+|2:05 |Object Name |USA-CRASH/MILITARY |
 
-|2:10 |Urgency |4 |22.9.2
+|2:10 |Urgency |4 |
 
-|2:15 |Category |A |No longer used. See 22.9.3
+|2:15 |Category |A |No longer used. 
 
-|2:20 |Supplemental Category |DEF DIS |No longer used. See 22.9.3
+|2:20 |Supplemental Category |DEF DIS |No longer used. 
 
-|2:25 |Keywords |Us |22.9.3
+|2:25 |Keywords |US |
 
 |2:25 |Keywords |Military |
 
@@ -304,44 +306,44 @@ image:media/image24.png[jet_file_info_pop-up_2013.png,width=633,height=383]
 
 |2:25 |Keywords |Fire |
 
-|2:40 |Special Instruction |NO ARCHIVE OR WIRELESS USE |22.9.4
+|2:40 |Special Instruction |NO ARCHIVE OR WIRELESS USE |
 
-|2:55 |Date Created |20081208 21:19:38 |22.9.5
+|2:55 |Date Created |20081208 21:19:38 |
 
-|2:80 |By-Line |John Smith |22.9.6
+|2:80 |By-Line |John Smith |
 
-|2:85 |By-line Title |Staff Photographer |22.9.6
+|2:85 |By-line Title |Staff Photographer |
 
-|2:90 |City |San Diego |22.9.7
+|2:90 |City |San Diego |
 
-|2:92 |Sub-location |University City |22.9.7
+|2:92 |Sub-location |University City |
 
-|2:95 |Province/State |CA |22.9.7
+|2:95 |Province/State |CA |
 
-|2:100 |Country/Primary Location Code |USA |22.9.7
+|2:100 |Country/Primary Location Code |USA |
 
-|2:101 |Country/Primary Location Name |United States |22.9.7
+|2:101 |Country/Primary Location Name |United States |
 
-|2:103 |Original Transmission Reference |SAD02 |22.9.8
+|2:103 |Original Transmission Reference |SAD02 |
 
 |2:105 |Headline |A firefighter walks past the remains of a military jet
 that crashed into homes in the University City neighborhood of San Diego
-|22.9.9
+|
 
-|2:110 |Credit |Acme/John Smith |22.9.6
+|2:110 |Credit |Acme/John Smith |
 
-|2:115 |Source |Acme News LLC |22.9.6
+|2:115 |Source |Acme News LLC |
 
-|2:116 |Copyright Notice |© Copyright Thomson Reuters. |22.9.10
+|2:116 |Copyright Notice |© Copyright Thomson Reuters. |
 
 |2:120 |Caption/Abstract |A firefighter in a flame retardant suit walks
 past the remains of a military jet that crashed into homes in the
 University City neighborhood of San Diego, California December 8, 2008.
 The military F-18 jet crashed on Monday into the California neighborhood
 near San Diego after the pilot ejected, igniting at least one home,
-officials said. |22.9.11
+officials said. |
 
-|2:122 |Writer/Editor |CK |22.9.12
+|2:122 |Writer/Editor |CK |
 |=======================================================================
 
 [[object-name-title]]
@@ -352,27 +354,21 @@ The <title> element is a child of <itemMeta> and is intended to be a
 human-readable identifier. The <itemMeta> block also contains some
 mandatory NewsML-G2 elements, as shown:
 
+[source,xml]
 <itemMeta>
-
-<itemClass qcode="ninat:picture" />
-
-<provider qcode="nprov:AcmeNews" />
-
-<versionCreated>2016-10-19T02:20:00Z</versionCreated>
-
-<pubStatus qcode="stat:usable" />
-
-<fileName>USA-CRASH-MILITARY_001_HI.jpg</fileName>
-
-<title>USA-CRASH/MILITARY</title>
-
-<edNote />
-
+	<itemClass qcode="ninat:picture" />
+	<provider qcode="nprov:AcmeNews" />
+	<versionCreated>2016-10-19T02:20:00Z</versionCreated>
+	<pubStatus qcode="stat:usable" />
+	<fileName>USA-CRASH-MILITARY_001_HI.jpg</fileName>
+	<title>USA-CRASH/MILITARY</title>
+	<edNote />
 </itemMeta>
 
 Some providers may additionally map this DataSet to the NewsML-G2
 <slugline> property in <contentMeta>:
 
+[source,xml]
 <slugline>USA-CRASH/MILITARY</slugline>
 
 [[urgency]]
@@ -384,6 +380,7 @@ IIM, and in the IPTC Photo Metadata Standard. It may still be used in
 some services, and therefore if present may be mapped to the
 corresponding NewsML-G2 property, which is a child of <contentMeta>:
 
+[source,xml]
 <urgency>4</urgency>
 
 [[keywords-1]]
@@ -422,14 +419,11 @@ be used as natural-language "key" words that could be used by a
 text-based search engine to index the content. Therefore, they will be
 mapped to <keyword>.
 
+[source,xml]
 <keyword role="krole:index">us</keyword>
-
 <keyword role="krole:index">military</keyword>
-
 <keyword role="krole:index">aviation</keyword>
-
 <keyword role="krole:index">crash</keyword>
-
 <keyword role="krole:index">fire</keyword>
 
 In IIM, the Keywords DataSet is repeatable, with each holding one
@@ -446,32 +440,23 @@ The contents of this field could go into <edNote>, a child of
 the nature of the instruction is a generic message to the receiver or
 its nature is unknown:
 
+[source,xml]
 <itemMeta>
-
-...
-
-<edNote>NO ARCHIVAL OR WIRELESS USE</edNote>
-
+	...
+	<edNote>NO ARCHIVAL OR WIRELESS USE</edNote>
 </itemMeta>
 
 If appropriate and advised by the provider, an alternative mapping for
 the contents of this field MAY be <usageTerms>, parts of the
 <rightsInfo> block:
 
+[source,xml]
 <rightsInfo>
-
-<copyrightHolder qcode="prov:TR">
-
-<name>Thomson Reuters</name>
-
-</copyrightHolder>
-
-<copyrightNotice>Copyright 2008 Thomson Reuters.
-
-</copyrightNotice>
-
-<usageTerms>NO ARCHIVAL OR WIRELESS USE</usageTerms>
-
+	<copyrightHolder qcode="prov:TR">
+		<name>Thomson Reuters</name>
+	</copyrightHolder>
+	<copyrightNotice>Copyright 2008 Thomson Reuters.  </copyrightNotice>
+	<usageTerms>NO ARCHIVAL OR WIRELESS USE</usageTerms>
 </rightsInfo>
 
 [[date-created]]
@@ -481,27 +466,24 @@ Date Created
 This maps to <contentCreated>, a child of <contentMeta>, since it refers
 to the content itself, for example:
 
+[source,xml]
 <contentMeta>
-
-<contentCreated>2008-12-08</contentCreated>
-
-....
-
+	<contentCreated>2008-12-08</contentCreated>
+	...
 </contentMeta>
 
 When there is a Time Created value present in the IIM Record, this
 should be merged with Date Created, as the NewsML-G2 property accepts a
 Truncated DateTime value (i.e. the value may be truncated if parts of
-the Date-Time are not available).footnote:[If present, the time part
-must be used in full, with time zone, and ONLY in the presence of the
-full date.]
+the Date-Time are not available).
 
+NOTE: If present, the time part must be used in full, with time zone, and ONLY in the presence of the
+full date.
+
+[source,xml]
 <contentMeta>
-
-<contentCreated>2008-12-08T13:30:00-08:00</contentCreated>
-
-....
-
+	<contentCreated>2008-12-08T13:30:00-08:00</contentCreated>
+	...
 </contentMeta>
 
 [[by-line-credit-source]]
@@ -537,16 +519,12 @@ element <related> which in this case is used to express the
 photographer’s job title, again using a QCode, from IIM DataSet 2:85
 (By-line Title)
 
+[source,xml]
 <creator role="crol:photog" qcode="pers:JS001">
-
-<name>John Smith</name>
-
-<related rel="personrel:jobtitle"qcode="stafftitles:photo">
-
-<name>Staff Photographer</name>
-
-</related>
-
+	<name>John Smith</name>
+	<related rel="personrel:jobtitle"qcode="stafftitles:photo">
+		<name>Staff Photographer</name>
+	</related>
 </creator>
 
 [[credit]]
@@ -561,6 +539,7 @@ should be credited when the picture is used. In this context,
 <creditline> is appropriate because it is a natural-language label that
 is intended to be displayed.
 
+[source,xml]
 <creditline>Acme/John Smith</creditline>
 
 [[source-1]]
@@ -593,25 +572,21 @@ In this case, the original copyright holder is Thomson Reuters, and the
 Source is Acme News. The following uses a controlled value to indicate
 the @role of the party named as the Information Source:
 
+[source,xml]
 <contentMeta>
+	...
+	<infoSource role="isrole:provider">
+		<name>Acme News LLC</name>
+	</infoSource>
+	...
 
-...
-
-<infoSource role="isrole:provider">
-
-<name>Acme News LLC</name>
-
-</infoSource>
-
-...
-
-For more on this topic, see Identifying Sources and Workflow Actors.
+For more on this topic, see xref::identifying-sources-and-workflow-actors[Identifying Sources and Workflow Actors]
 
 [[city-provincestate-and-country]]
 City, Province/State and Country
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-As discussed in Quick Start: Pictures and Graphics geographical metadata
+As discussed in xref::quick-start-pictures-and-graphics[Quick Start: Pictures and Graphics] geographical metadata
 in images may have different contexts:
 
 * The location from which the content originates, i.e. where the camera
@@ -633,50 +608,27 @@ advised to check).
 The location shown in the example image may be expressed using a single
 <subject> property for the location, linked to an <assert> block:
 
+[source,xml]
 <contentMeta>
-
-....
-
-<subject type="cpnat:poi" literal="int001" />
-
-....
-
+	...
+	<subject type="cpnat:poi" literal="int001" />
+	...
 </contentMeta>
-
 <assert literal="int001">
-
-<POIDetails>
-
-<address>
-
-<line>University City</line>
-
-<locality qcode="mycity:int002" type="cpnatexp:geoAreaCity">
-
-<name>San Diego</name>
-
-</locality>
-
-<area qcode="mystate:int003" type="cpnatexp:geoAreaProvState">
-
-<name>California</name>
-
-</area>
-
-<country qcode="iso3166-1a2:US" type="cpnatexp:geoAreaCountry">
-
-<name>
-
-United States
-
-</name>
-
-</country>
-
-</address>
-
-</POIDetails>
-
+	<POIDetails>
+		<address>
+			<line>University City</line>
+			<locality qcode="mycity:int002" type="cpnatexp:geoAreaCity">
+				<name>San Diego</name>
+			</locality>
+			<area qcode="mystate:int003" type="cpnatexp:geoAreaProvState">
+				<name>California</name>
+			</area>
+			<country qcode="iso3166-1a2:US" type="cpnatexp:geoAreaCountry">
+				<name>United States</name>
+			</country>
+		</address>
+	</POIDetails>
 </assert>
 
 Using <assert> in this way can be an advantage if a concept is used more
@@ -685,25 +637,16 @@ and the Location Created are the same place, all of the required concept
 details can be grouped in one <assert> and shared by both properties,
 for example:
 
-...
-
+[source,xml]
 <located type="cpnat:poi" literal="int001" />
-
-<!-- Camera location -->
-
-...
-
+	<!-- Camera location -->
+	...
 <subject type="cpnat:poi" literal="int001" />
-
-<!-- Subject of picture -->
-
-...
-
+	<!-- Subject of picture -->
+	...
 <assert literal="int001">
-
-<POIDetails>
-
-....
+	<POIDetails>
+	...
 
 [[original-transmission-reference]]
 Original Transmission Reference
@@ -726,16 +669,15 @@ and @environment indicates the business environment in which the
 identifier can be used. This is expressed using one or more QCodes
 (QCode List).
 
-<altId type="idtype:systemRef" environment="acmesys:mdn__
-acmesys:iim">SAD02</altId>
+[source,xml]
+<altId type="idtype:systemRef" environment="acmesys:mdn acmesys:iim">SAD02</altId>
 
 If the DataSet represents a Job ID, the recommended mapping is to the
 NewsML-G2 <memberOf> property, a child of <itemMeta> (PCL only):
 
+[source,xml]
 <memberOf type="myref:jobref">
-
-[[_Ref237857576]] <name>SAD02</name>
-
+	<name>SAD02</name>
 </memberOf>
 
 [[headline-1]]
@@ -744,12 +686,8 @@ Headline
 
 Maps to the <headline> child of <contentMeta>, a block type element:
 
-<headline xml:lang="en-US">A firefighter walks past the remains of a
-military
-
-jet that crashed into homes in the University City neighborhood of San
-Diego
-
+[source,xml]
+<headline xml:lang="en-US">A firefighter walks past the remains of a military jet that crashed into homes in the University City neighborhood of San Diego
 </headline>
 
 Note the use of @xml:lang to declare the language and variant "en-US".
@@ -761,10 +699,9 @@ Copyright Notice
 These fields correspond to the <copyrightNotice> element, a child of the
 <rightsInfo> block.
 
+[source,xml]
 <copyrightNotice>
-
-Copyright 2008 Thomson Reuters
-
+	Copyright 2008 Thomson Reuters
 </copyrightNotice>
 
 [[captionabstract]]
@@ -775,21 +712,12 @@ The contents of this field are placed in the <description> element, part
 of <contentMeta> with a @role attribute to denote that the description
 is a picture caption:
 
-<description xml:lang="en-US" role="drol:caption">A firefighter
-in a flameproof
-
-suit walks past the remains of a military jet that crashed into homes in
-the
-
-University City neighborhood of San Diego, California December 8, 2008.
-The
-
-military F-18 jet crashed on Monday into the California neighborhood
-near San
-
-Diego after the pilot ejected, igniting at least one home, officials
-said.
-
+[source,xml]
+<description xml:lang="en-US" role="drol:caption">
+	A firefighter in a flameproof suit walks past the remains of a military jet that crashed 
+	into homes in the University City neighborhood of San Diego, California December 8, 2008. 
+	The military F-18 jet crashed on Monday into the California neighborhood near San Diego 
+	after the pilot ejected, igniting at least one home, officials said.
 </description>
 
 [[writereditor]]
@@ -803,12 +731,12 @@ the contributing person and a @role to describe their role in the
 workflow. This property may be extended (at PCL) to include contact
 details and other information such as job title.
 
-<contributor role="crol:capwriter" qcode="pers:CK"
-/>[[_Ref244674968]]
+[source,xml]
+<contributor role="crol:capwriter" qcode="pers:CK" />
 
-1.  _
-[[_Ref435560678]]Embedded photo metadata fields mapped to NewsML-G2
-_
+[[_Ref435560678]]
+
+.LISTING Embedded photo metadata fields mapped to NewsML-G2
 
 The listing below combines the examples above into a complete listing.
 The following options have been used:
@@ -824,181 +752,10 @@ vocabularies, except for the following alias values: _prov, crol, pers,
 personrel, stafftitles, idtype, acmesystem, mycat, mysuppcat, krole,
 cpnatexp, isrole, mycity, mystate, cpnatexp_
 
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-
-<newsItem xmlns="http://iptc.org/std/nar/2006-10-01/"
-
-guid="tag:acmenews.com,2008:WORLD-NEWS:USA20081208098658"
-
-version="9"
-
-standard="NewsML-G2"
-
-standardversion="2.23"
-
-conformance="power">
-
-<catalogRef
-
-href="http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_29.xml"
-/>
-
-<catalogRef
-href="http:/www.acmenews.com/customer/cv/catalog4customers-1.xml" />
-
-<rightsInfo>
-
-<copyrightHolder qcode="prov:TR">
-
-<name>Thomson Reuters</name>
-
-</copyrightHolder>
-
-<copyrightNotice>
-
-Copyright 2008 Thomson Reuters
-
-</copyrightNotice>
-
-<usageTerms>NO ARCHIVAL OR WIRELESS USE</usageTerms>
-
-</rightsInfo>
-
-<itemMeta>
-
-<itemClass qcode="ninat:picture" />
-
-<provider qcode="prov:acmenews" />
-
-<versionCreated>2016-10-19T02:20:00Z</versionCreated>
-
-<pubStatus qcode="stat:usable" />
-
-<fileName>USA-CRASH-MILITARY_001_HI.jpg</fileName>
-
-<title>USA-CRASH/MILITARY</title>
-
-<edNote />
-
-</itemMeta>
-
-<contentMeta>
-
-<urgency>4</urgency>
-
-<contentCreated>2008-12-08T17:30:00-08:00</contentCreated>
-
-<infoSource role="isrole:provider">
-
-<name>Acme News LLC</name>
-
-</infoSource>
-
-<creator role="crol:photog" qcode="pers:JS001">
-
-<name>John Smith</name>
-
-<related rel="personrel:jobtitle" qcode="stafftitles:photo">
-
-<name>Staff Photographer</name>
-
-</related>
-
-</creator>
-
-<altId type="idtype:systemRef"
-environment="acmesystem:mdn:iim">SAD02</altId>
-
-<contributor role="crol:capwriter" qcode="pers:CK" />
-
-<subject type="cpnat:poi" literal="int001" />
-
-<headline xml:lang="en-US">A firefighter walks past the remains of a
-military
-
-jet that crashed into homes in the University City neighborhood of San
-Bernardino
-
-</headline>
-
-<description xml:lang="en-US" role="drol:caption">A firefighter
-in a flameproof
-
-suit walks past the remains of a military jet that crashed into homes in
-the
-
-University City neighborhood of San Bernardino, California October 18,
-2016. The
-
-military F-18 jet crashed on Monday into the California neighborhood
-after the
-
-pilot ejected, igniting at least one home, officials said.
-
-</description>
-
-<creditline>Acme/John Smith</creditline>
-
-<keyword role="krole:index">us</keyword>
-
-<keyword role="krole:index">military</keyword>
-
-<keyword role="krole:index">aviation</keyword>
-
-<keyword role="krole:index">crash</keyword>
-
-<keyword role="krole:index">fire</keyword>
-
-<slugline>USA-CRASH/MILITARY</slugline>
-
-</contentMeta>
-
-<assert literal="int001">
-
-<POIDetails>
-
-<address>
-
-<line>University City</line>
-
-<locality qcode="mycity:int002" type="cpnatexp:geoAreaCity">
-
-<name>San Diego</name>
-
-</locality>
-
-<area qcode="mystate:int003" type="cpnatexp:geoAreaProvState">
-
-<name>California</name>
-
-</area>
-
-<country qcode="iso3166-1a2:US" type="cpnatexp:geoAreaCountry">
-
-<name>United States</name>
-
-</country>
-
-</address>
-
-</POIDetails>
-
-</assert>
-
-<contentSet>
-
-<remoteContent
-
-href="http://www.acmenews.com/content/pictures/hires/20081208/USA-CRASH-MILITARY_001_HI.jpg"
-
-rendition="rnd:highRes" size="3764418"
-contenttype="image/jpeg" width="2500"
-
-height="1445" colourspace="colsp:USSWOPv2" />
-
-</contentSet>
-
-</newsItem>
+[source, xml]
+----
+include::{includedir}/../../GuidelinesCodeExamples_2017/LISTING_26_Embedded_photo_metadata_fields_mapped_to_NewsML-G2.xml[]
+----
 
 [[reconciling-newsml-g2-with-embedded-metadata]]
 Reconciling NewsML-G2 with embedded metadata

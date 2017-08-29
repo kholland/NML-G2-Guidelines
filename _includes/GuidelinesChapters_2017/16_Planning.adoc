@@ -2,7 +2,7 @@
 Editorial Planning – the Planning Item
 --------------------------------------
 
-The news-gathering process is not an ad-hoc process. As outlined in How
+News-gathering is not an ad-hoc process; as outlined in How
 News Happens, professional news organisations need to be well-organised
 so that resources are used effectively, customers get the news they
 need, in time, and editorial standards and quality are maintained.
@@ -75,6 +75,7 @@ planning-specific IPTC "Planning Item Nature" NewsCodes. The Scheme URI
 is: http://cv.iptc.org/newscodes/plinature/ and recommended Scheme Alias
 is "plinat":
 
+[source,xml]
 <itemClass qcode="plinat:newscoverage" />
 
 [[content-metadata-contentmeta-4]]
@@ -96,8 +97,11 @@ different class of Item to be delivered, i.e. a Planning Item for two
 texts, ten pictures and one graphic could have three <newsCoverage>
 components.
 
-[[_Ref272489431]][[_Toc470002536]]Figure 17: Planning Item: the
-newsCoverageSet has one or more newsCoverage components
+image::PlanningItemStructure2016.png[Structure of Planning Item]
+
+.Figure 17: Planning Item: the newsCoverageSet has one or more newsCoverage components
+
+[[_Ref272489431]][[_Toc470002536]]
 
 [[newscoverage]]
 <newsCoverage>
@@ -114,98 +118,21 @@ At CCL, planning information is expressed using a repeatable Block type
 <edNote> to give a natural language description of the planned coverage,
 optionally with some mark-up
 
+[source,xml]
 <edNote>Picture scheduled 2016-11-06T13:00:00+02:00</edNote>
 
 Below is a complete example:
 
-1.  _
-[[_Ref281567715]]Planning Item at CCL
-_
+[[_Ref281567715]]
+.Listing: Planning Item at CCL
 
 All Scheme Aliases used in listing below indicate IPTC NewsCodes
 vocabularies.
 
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-
-<planningItem xmlns="http://iptc.org/std/nar/2006-10-01/"
-
-guid="urn:newsml:iptc.org:20101025:gbmrmdreis4711"
-
-version="8"
-
-standard="NewsML-G2"
-
-standardversion="2.23"
-
-conformance="core"
-
-xml:lang="en">
-
-<catalogRef
-href="http://www.iptc.org/std/catalog/IPTC-G2-Standards_29.xml" />
-
-<catalogRef href="http://www.example.com/events/event-catalog.xml"
-/>
-
-<itemMeta>
-
-<itemClass qcode="plinat:newscoverage" />
-
-<provider qcode="nprov:IPTC" />
-
-<versionCreated>2016-10-18T13:05:00Z
-
-</versionCreated>
-
-<pubStatus qcode="stat:usable" />
-
-</itemMeta>
-
-<contentMeta>
-
-<urgency>5</urgency>
-
-<contentCreated>2016-10-16T12:15:00Z</contentCreated>
-
-<contentModified>2016-10-16T13:35:00Z</contentModified>
-
-</contentMeta>
-
-<newsCoverageSet>
-
-<newsCoverage>
-
-<planning>
-
-<edNote>Text 250 words</edNote>
-
-</planning>
-
-</newsCoverage>
-
-<newsCoverage>
-
-<planning>
-
-<edNote>Picture scheduled 2016-11-06T13:00:00+02:00</edNote>
-
-</planning>
-
-<delivery>
-
-<deliveredItemRef
-
-guidref="tag:example.com,2008:ART-ENT-SRV:USA20081220098658">
-
-</deliveredItemRef>
-
-</delivery>
-
-</newsCoverage>
-
-</newsCoverageSet>
-
-</planningItem>
+[source, xml]
+----
+include::{includedir}/../../GuidelinesCodeExamples_2017/LISTING_17_Planning_Item_a_CCL.xml[]
+----
 
 [[planning-at-power-conformance-level]]
 <planning> at Power Conformance Level
@@ -226,10 +153,12 @@ A key feature of the <planning> element is the ability to use
 <newsContentCharacteristics> to express comprehensive information about
 physical characteristics of the planned content, using the News Content
 Characteristics group of attributes. (see _13.9.9 News Content
-Characteristics_ in the NewsML-G2 Specification Document)footnote:[The
-NewsML-G2 Specification document is available visiting
-http://www.newsml-g2.org/spec[www.newsml-g2.org/spec]. The Specification
-is part of the download package for each Public Release of the standard,
+Characteristics_ in the NewsML-G2 Specification Document)
+
+NOTE: The NewsML-G2 Specification document is available at 
+http://www.newsml-g2.org/spec[www.newsml-g2.org/spec].
+
+The Specification is part of the download package for each Public Release of the standard,
 and contains a full list of attributes in the newsContentCharacteristics
 group.]. The attributes include physical properties of still images,
 video and audio. In v2.18 the group was extended to add attributes for
@@ -248,7 +177,7 @@ usage.
 
 Additional properties of <planning> at PCL:
 
-[cols=",,",options="header",]
+[cols="20,20,60",options="header",]
 |=======================================================================
 |Property |Type |Notes/Example
 |<g2ContentType> |String a|
@@ -256,10 +185,9 @@ Optional, non-repeatable element to indicate the Media Type of the
 intended coverage. The example below indicates that the content to be
 delivered is a NewsML-G2 News Item.
 
+[source,xml]
 <g2ContentType>
-
-application/vnd.iptc.g2.newsitem+xml
-
+	application/vnd.iptc.g2.newsitem+xml
 </g2ContentType>
 
 |<itemClass> |QCode a|
@@ -267,11 +195,13 @@ Optional, non-repeatable element indicates the type of content to be
 delivered, using the IPTC News Item Nature NewsCodes. Since the example
 will show a text article, the Item Class is "text"
 
+[source,xml]
 <itemClass qcode="ninat:text"/>
 
 |<itemCount> |Empty a|
 The number of items to be delivered, expressed as a range:
 
+[source,xml]
 <itemCount rangefrom="1" rangeto="1" />
 
 Both attributes @rangefrom (non-negative integer) and @rangeto (positive
@@ -292,28 +222,18 @@ Concepts and Concept Items for details.
 The example shows the details of a person assigned to create the
 content:
 
+[source,xml]
 <assignedTo
-
-role="erole:editor"
-
-type="cpnat:person"
-
-qcode="pers:54321">
-
-<name>Stilton Cheesewright</name>
-
-<personDetails>
-
-<contactInfo>
-
-<phone>1-418-4567</phone>
-
-<email>stilton@iptc.org</email>
-
-</contactInfo>
-
-</personDetails>
-
+	role="erole:editor"
+	type="cpnat:person"
+	qcode="pers:54321">
+	<name>Stilton Cheesewright</name>
+	<personDetails>
+		<contactInfo>
+			<phone>1-418-4567</phone>
+			<email>stilton@iptc.org</email>
+		</contactInfo>
+	</personDetails>
 </assignedTo>
 
 This information may be required internally by a news organisation as
@@ -329,6 +249,7 @@ may be truncated if the precise date and time is not known. For example,
 if the content is scheduled to arrive at some unspecified time on a day,
 the value would be, for example:
 
+[source,xml]
 <scheduled>2009-10-16</scheduled>
 
 |<service> |Qualified Property a|
@@ -336,10 +257,9 @@ Optional, repeatable. The editorial service to which the content has
 been assigned by the provider and on which the receiver should expect to
 receive the planned content.
 
+[source,xml]
 <service qcode="srv:intwire">
-
-<name>International Wire Service</name>
-
+	<name>International Wire Service</name>
 </service>
 
 |<newsContentCharacteristics> |Empty a|
@@ -349,10 +269,12 @@ group:
 
 - linecount. The count of the number of lines in text content
 
+[source,xml]
 <newsContentCharacteristics linecount="205" />
 
 - pagecount. The number of pages of the planned content.
 
+[source,xml]
 <newsContentCharacteristics pagecount="4" />
 
 |<planningExtProperty> | a|
@@ -372,18 +294,20 @@ Descriptive Metadata for <planning>
 Metadata "hints" may also be added to assist receivers in preparing for
 the planned item, using the Descriptive Metadata Properties group:
 
-[cols=",,",options="header",]
+[cols="20,20,60",options="header",]
 |=======================================================================
 |Property |Type |Notes/Example
 |<by> |Label a|
 Optional, repeatable. Natural language author/creator information:
 
+[source,xml]
 <by>By Stilton Cheesewright</by>
 
 |<creditline> |String a|
 Optional, repeatable. A freeform expression of the credit(s) for the
 content:
 
+[source,xml]
 <creditline>Additional reporting by Bertram Wooster</creditline>
 
 |<dateline> |Label a|
@@ -391,10 +315,9 @@ Optional, repeatable. Natural language information traditionally placed
 at the start of a text by some news agencies, indicating the place and
 time that the content was created:
 
+[source,xml]
 <dateline>
-
-Totley Towers, January 27, 2016 (Reuters)
-
+	Totley Towers, January 27, 2016 (Reuters)
 </dateline>
 
 |<description> |Block a|
@@ -402,11 +325,9 @@ Optional, repeatable. A free form textual description of the intended
 news coverage, with minimal mark-up permitted. The optional @role may
 use a value from the IPTC Description Role NewsCodes:
 
+[source,xml]
 <description role="drol:summary">
-
-Stilton Cheesewright will report on the proceedings from the NewsCodes
-Working Party
-
+	Stilton Cheesewright will report on the proceedings from the NewsCodes Working Party
 </description>
 
 |<genre> |Flex1 Concept Property a|
@@ -417,20 +338,21 @@ value, with optional @type.
 Child elements may be any from the Concept Definition Group and the
 Concept Relationships Group (see Concepts and Concept Items):
 
+[source,xml]
 <genre qcode="mygenre:main">
-
-<name>Main article </name>
-
+	<name>Main article </name>
 </genre>
 
 |<headline> |Label a|
 Optional, repeatable. Headline that will apply to the content:
 
+[source,xml]
 <headline>NewsCodes Working Party</headline>
 
 |<keyword> |String a|
 Optional, repeatable. A freeform term to assist in indexing the content:
 
+[source,xml]
 <keyword>IPTC</keyword>
 
 |<language> |- a|
@@ -442,10 +364,9 @@ Over" that apply to video content.
 The language @tag MUST be expressed using IETF BCP 47 and may have a
 child element of <name>:
 
+[source,xml]
 <language tag="en-GB">
-
-<name>UK English</name>
-
+	<name>UK English</name>
 </language>
 
 |<slugline> |Internationalised String a|
@@ -453,6 +374,7 @@ Optional, repeatable. May have a @role and a @separator which indicates
 the character used as a delimiter between words or tokens used in the
 slugline:
 
+[source,xml]
 <slugline separator="-">US-AUTO-BAILOUT</slugline>
 
 |<subject> |Flex1 Concept Property a|
@@ -460,178 +382,42 @@ Optional, repeatable. Indicates the subject matter of the intended
 coverage. Child elements may be any from the Concept Definition Group
 and the Concept Relationships Group (see Concepts and Concept Items):
 
+[source,xml]
 <subject qcode="medtop:20000304">
-
-<name>media</name>
-
+	<name>media</name>
 subject>
-
 <subject qcode="medtop:20000309">
-
-<name>news agency</name>
-
+	<name>news agency</name>
 </subject>
-
 <subject qcode="medtop:20000763">
-
-<name>IT/computer sciences</name>
-
+	<name>IT/computer sciences</name>
 </subject>
 
 Or
 
+[source,xml]
 <subject qcode="medtop:20000309">
-
-<name>news agency</name>
-
-<broader qcode="medtop:20000304">
-
-<name>Media</name>
-
-</broader>
-
+	<name>news agency</name>
+	<broader qcode="medtop:20000304">
+		<name>Media</name>
+	</broader>
 </subject>
-
 <subject qcode="medtop:20000763">
-
-<name>IT/computer sciences</name>
-
+	<name>IT/computer sciences</name>
 </subject>
 
 |=======================================================================
 
-1.  _
-[[_Ref281567774]]Planning Item at PCL
-_
+[[_Ref281567774]]
+.LISTING: Planning Item at PCL
 
 All Scheme Aliases used in listing below indicate IPTC NewsCodes
 vocabularies.
 
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-
-<planningItem xmlns="http://iptc.org/std/nar/2006-10-01/"
-
-guid="urn:newsml:iptc.org:20101025:gbmrmdreis4711"
-
-version="9"
-
-standard="NewsML-G2"
-
-standardversion="2.23"
-
-conformance="power"
-
-xml:lang="en">
-
-<catalogRef
-href="http://www.iptc.org/std/catalog/IPTC-G2-Standards_29.xml" />
-
-<catalogRef href="http://www.example.com/events/event-catalog.xml"
-/>
-
-<itemMeta>
-
-<itemClass qcode="plinat:newscoverage" />
-
-<provider qcode="nprov:IPTC" />
-
-<versionCreated>2016-10-18T13:45:00Z
-
-</versionCreated>
-
-<pubStatus qcode="stat:usable" />
-
-</itemMeta>
-
-<contentMeta>
-
-<urgency>5</urgency>
-
-<contentCreated>2016-10-16T12:15:00Z</contentCreated>
-
-<contentModified>2016-10-16T13:35:00Z</contentModified>
-
-<headline>The 12 Days of Christmas</headline>
-
-</contentMeta>
-
-<newsCoverageSet>
-
-<newsCoverage id="ID_1234568" modified="2016-09-26T13:19:11Z">
-
-<planning>
-
-<g2contentType>application/nitf+xml</g2contentType>
-
-<itemClass qcode="ninat:text"/>
-
-<assignedTo
-
-coversfrom="2016-12-24T06:00:00Z"
-
-coversto="2016-12-24T23:00:00Z"
-
-qcode="santastaff:ceo">
-
-<name>Chief Elf Officer</name>
-
-</assignedTo>
-
-<scheduled>2016-12-24T23:30:00Z</scheduled>
-
-<headline>All Wrapped Up in Lapland</headline>
-
-<edNote>Text 250 words</edNote>
-
-</planning>
-
-<planning>
-
-<g2contentType>application/nitf+xml</g2contentType>
-
-<itemClass qcode="ninat:text"/>
-
-<assignedTo
-
-coversfrom="2016-12-24T23:00:00Z"
-
-coversto="2016-12-25T12:00:00Z"
-
-qcode="santastaff:santa">
-
-<name>Santa Claus</name>
-
-</assignedTo>
-
-<scheduled>2016-12-25T06:30:00Z</scheduled>
-
-<headline>Santa’s Sleigh Ride</headline>
-
-<edNote>Text 250 words</edNote>
-
-</planning>
-
-</newsCoverage>
-
-<newsCoverage id="ID_1234569" modified="2016-09-26T15:19:11Z">
-
-<planning>
-
-<g2contentType>image/jpeg</g2contentType>
-
-<itemClass qcode="ninat:picture"></itemClass>
-
-<scheduled>2016-12-25T00:00:00Z</scheduled>
-
-<edNote>Picture will be Santa Claus departing with reindeer</edNote>
-
-</planning>
-
-</newsCoverage>
-
-</newsCoverageSet>
-
-</planningItem>
+[source, xml]
+----
+include::{includedir}/../../GuidelinesCodeExamples_2017/LISTING_18_Planning_Item_at_PCL.xml[]
+----
 
 [[the-delivery-component]]
 The <delivery> component
@@ -664,7 +450,7 @@ The permitted attributes of <deliveredItemRef> are listed in the table
 below. In addition, a child <title> element may be added as metadata
 "hint" to the receiver.
 
-[cols=",,",options="header",]
+[cols="20,20,60",options="header",]
 |=======================================================================
 |Property |Type |Notes/Example
 |@rel |QCode |Indicates the relationship between the current Planning
@@ -673,12 +459,14 @@ Item and the target Item
 |@href |URL a|
 Locator for the target resource:
 
+[source,xml]
 href="http://example.com/2008-12-20/pictures/foo.jpg"
 
 |@residref |String a|
 The provider’s identifier for the target resource, i.e. the @guid of the
 Item:
 
+[source,xml]
 residref="tag:example.com,2008:PIX:FOO20081220098658"
 
 |@version |String |The version of the target resource: the @version of
@@ -687,6 +475,7 @@ the Item
 |@contenttype |String a|
 The Media Type of the target resource:
 
+[source,xml]
 contenttype="image/jpeg"
 
 |@format |QCode |A refinement of the Media Type, taken from a CV
@@ -694,98 +483,22 @@ contenttype="image/jpeg"
 |@size |String a|
 Indicates the size of the target resource in bytes:
 
+[source,xml]
 size="3764418"
 
 |=======================================================================
 
-1.  
-[[_Ref281567844]]Planning Item with delivery at CCL
+[[_Ref281567844]]
+.LISTING: Planning Item with delivery at CCL
 
 
 All Scheme Aliases used in listing below indicate IPTC NewsCodes
 vocabularies.
 
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-
-<planningItem xmlns="http://iptc.org/std/nar/2006-10-01/"
-
-guid="urn:newsml:iptc.org:20101025:gbmrmdreis4711"
-
-version="8"
-
-standard="NewsML-G2"
-
-standardversion="2.23"
-
-conformance="core"
-
-xml:lang="en">
-
-<catalogRef
-href="http://www.iptc.org/std/catalog/IPTC-G2-Standards_29.xml" />
-
-<catalogRef href="http://www.example.com/events/event-catalog.xml"
-/>
-
-<itemMeta>
-
-<itemClass qcode="plinat:newscoverage" />
-
-<provider qcode="nprov:IPTC" />
-
-<versionCreated>2016-10-18T13:45:00Z
-
-</versionCreated>
-
-<pubStatus qcode="stat:usable" />
-
-</itemMeta>
-
-<contentMeta>
-
-<urgency>5</urgency>
-
-<contentCreated>2016-10-16T12:15:00Z</contentCreated>
-
-<contentModified>2016-10-16T13:35:00Z</contentModified>
-
-</contentMeta>
-
-<newsCoverageSet>
-
-<newsCoverage id="ID_1234568" modified="2016-09-26T13:19:11Z">
-
-<planning>
-
-<edNote>Text 250 words</edNote>
-
-</planning>
-
-</newsCoverage>
-
-<newsCoverage id="ID_1234569" modified="2016-09-26T15:19:11Z">
-
-<planning>
-
-<edNote>Picture scheduled 2016-12-25T12:0:00-05:00</edNote>
-
-</planning>
-
-<delivery>
-
-<deliveredItemRef>
-
-<title>Henry Robinson pictured today in New York</title>
-
-</deliveredItemRef>
-
-</delivery>
-
-</newsCoverage>
-
-</newsCoverageSet>
-
-</planningItem>
+[source, xml]
+----
+include::{includedir}/../../GuidelinesCodeExamples_2017/LISTING_19_Planning_Item_with_delivery_at_CCL.xml[]
+----
 
 [[delivered-item-reference-power-conformance]]
 Delivered Item Reference: Power Conformance
@@ -793,7 +506,7 @@ Delivered Item Reference: Power Conformance
 
 Additional attributes of <deliveredItemRef> may be used at PCL:
 
-[cols=",,",options="header",]
+[cols="20,20,60",options="header",]
 |=======================================================================
 |Property |Type |Notes/Example
 |@persistentidref |String |Reference to an element *inside* the target
@@ -804,6 +517,7 @@ all versions, i.e. for its entire lifecycle.
 Time a|
 Date range (with optional time) for which the Item Reference is valid:
 
+[source,xml]
 validto="2010-11-20T17:30:00Z"
 
 |@id |XML ID |A local identifier for the <deliveredItemRef>
@@ -833,108 +547,15 @@ At PCL, child elements from the NAR namespace or any other namespace may
 optionally be added. When using elements from the NAR, follow the rules
 set out in Adding Hints from the NAR namespace.
 
-1.  
-[[_Ref281567887]]Planning Item with delivery at PCL
-
+[[_Ref281567887]]
+.LISTING: Planning Item with delivery at PCL 
 
 All Scheme Aliases used in listing below indicate IPTC NewsCodes
 vocabularies.
 
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+[source, xml]
+----
+include::{includedir}/../../GuidelinesCodeExamples_2017/LISTING_20_Planning_Item_with_delivery_at_PCL.xml[]
+----
 
-<planningItem xmlns="http://iptc.org/std/nar/2006-10-01/"
-
-guid="urn:newsml:iptc.org:20101025:gbmrmdreis4711"
-
-version="8"
-
-standard="NewsML-G2"
-
-standardversion="2.23"
-
-conformance="power"
-
-xml:lang="en">
-
-<catalogRef
-href="http://www.iptc.org/std/catalog/IPTC-G2-Standards_29.xml" />
-
-<catalogRef href="http://www.example.com/events/event-catalog.xml"
-/>
-
-<itemMeta>
-
-<itemClass qcode="plinat:newscoverage" />
-
-<provider qcode="nprov:IPTC" />
-
-<versionCreated>2016-10-18T13:05:00Z
-
-</versionCreated>
-
-<pubStatus qcode="stat:usable" />
-
-</itemMeta>
-
-<contentMeta>
-
-<urgency>5</urgency>
-
-<contentCreated>2016-10-16T12:15:00Z</contentCreated>
-
-<contentModified>2016-10-16T13:35:00Z</contentModified>
-
-</contentMeta>
-
-<newsCoverageSet>
-
-<newsCoverage id="ID_1234568" modified="2016-09-26T13:19:11Z">
-
-<planning>
-
-<g2contentType>application/nitf+xml</g2contentType>
-
-<itemClass qcode="ninat:text"/>
-
-<scheduled>2016-12-25T12:30:00-05:00</scheduled>
-
-<headline>Robinson: Must preserve bailout funds</headline>
-
-<edNote>Text 250 words</edNote>
-
-</planning>
-
-</newsCoverage>
-
-<newsCoverage id="ID_1234569" modified="2016-09-26T15:19:11Z">
-
-<planning>
-
-<g2contentType>image/jpeg</g2contentType>
-
-<itemClass qcode="ninat:picture" />
-
-<scheduled>2016-12-25T12:00:00-05:00</scheduled>
-
-<edNote>Picture will be Robinson at today's news conference</edNote>
-
-</planning>
-
-<delivery>
-
-<deliveredItemRef
-
-guidref="tag:example.com,2008:ART-ENT-SRV:USA20081220098658">
-
-<title>Henry Robinson pictured today in New York</title>
-
-</deliveredItemRef>
-
-</delivery>
-
-</newsCoverage>
-
-</newsCoverageSet>
-
-</planningItem>
 

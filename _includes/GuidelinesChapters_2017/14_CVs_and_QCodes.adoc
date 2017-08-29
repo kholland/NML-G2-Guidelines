@@ -86,6 +86,7 @@ A QCode is a string with three parts, all of which MUST be present:
 
 This produces a complete QCode of "stat:usable" represented in XML as
 
+[source,xml]
 qcode="stat:usable"
 
 [[scheme-alias-to-scheme-uri]]
@@ -96,11 +97,9 @@ The key to resolving scheme aliases is the Catalog information, a child
 of the root element of every NewsML-G2 Item. A scheme alias may be
 resolved directly using the <catalog> element:
 
+[source,xml]
 <catalog>
-
-<scheme alias="stat"
-uri="http://cv.iptc.org/newscodes/pubstatusg2/" />
-
+	<scheme alias="stat" uri="http://cv.iptc.org/newscodes/pubstatusg2/" />
 </catalog>
 
 Using the information in <catalog>, a processor now has a _Scheme URI_
@@ -119,15 +118,11 @@ the @href of a <catalogRef> element.
 
 There is likely to be more than one <catalogRef> in an Item:
 
+[source,xml]
 <catalogRef
-
-href="http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_29.xml"
-/>
-
+	href="http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_29.xml" />
 <catalogRef
-
-href="http://www.xmlteam.com/specification/xts-SportsCodesCatalog_1.xml"
-/>
+	href="http://www.xmlteam.com/specification/xts-SportsCodesCatalog_1.xml"/>
 
 These remote catalogs are hosted by specific authorities, in this case
 by the IPTC, and by the information provider XML Team. Each remote
@@ -155,9 +150,11 @@ http-URL should be resolved.
 Entering the above Concept URI in a web browser results in the following
 page being displayed:
 
-image:media/image15.png[image,width=331,height=237]
+[[_Toc470002532]]
 
-[[_Toc470002532]]Figure 13: Human-readable browser page of a Concept URI
+image::concept-uri-in-browser2017.png[Concept URI displayed in browser]
+
+.Figure 13: Human-readable browser page of a Concept URI
 
 A question often asked by implementers is: "What happens if I receive
 files from two providers who inadvertently have a clash of scheme
@@ -179,32 +176,19 @@ appear.
 A processor should correctly process two files with different aliases to
 the same Concept URI:
 
-[[OLE_LINK26]][[OLE_LINK27]]<!-- First Document – scheme alias "subj"
--->
-
+[source,xml]
+<!-- First Document – scheme alias "subj" -->
 <catalog>
-
-<scheme alias="*subj*"
-uri="http://cv.iptc.org/newscodes/subjectcode/" />
-
-....
-
+	<scheme alias="*subj*" uri="http://cv.iptc.org/newscodes/subjectcode/" />
+	...
 </catalog>
-
-<subject type="cpnat:abstract" qcode="subj:1500000" />
-
+	<subject type="cpnat:abstract" qcode="subj:1500000" />
 <!-- Second Document – scheme alias "tema" -->
-
 <catalog>
-
-<scheme alias="_*tema*_"
-uri="http://cv.iptc.org/newscodes/subjectcode/" />
-
-....
-
+	<scheme alias="_*tema*_" uri="http://cv.iptc.org/newscodes/subjectcode/" />
+	...
 </catalog>
-
-<subject type="cpnat:abstract" qcode__="tema:1500000" />
+	<subject type="cpnat:abstract" qcode="tema:1500000" />
 
 This is because the concept resolution process is local to each
 document. The processor can unambiguously resolve the QCode to a Concept
@@ -214,47 +198,30 @@ The following example does NOT work because the same alias is mapped to
 two different URIs within the same document and the processor is unable
 to resolve the QCode to a single Concept URI:
 
+[source,xml]
 <catalog>
-
-<scheme alias="*subject*"
-uri="http://cv.iptc.org/newscodes/subjectcode/" />
-
-....
-
-<scheme alias="*subject*"
-uri="http://cv.example.com/subjectcodes/codelist/" />
-
+	<scheme alias="*subject*" uri="http://cv.iptc.org/newscodes/subjectcode/" />
+...
+	<scheme alias="*subject*" uri="http://cv.example.com/subjectcodes/codelist/" />
 </catalog>
-
-....
-
-<subject type="cpnat:abstract" qcode__="subject:1500000" />
-
-....
+...
+	<subject type="cpnat:abstract" qcode="subject:1500000" />
+...
 
 But the following is CORRECT because it is possible to have different
 aliases within the same document pointing to the same URI and the
 processor can resolve both QCodes:
 
+[source,xml]
 <catalog>
-
-<scheme alias="*subject*"
-uri="http://cv.iptc.org/newscodes/subjectcode/" />
-
-....
-
-<scheme alias="*subj*" uri="http://
-cv.iptc.org/newscodes/subjectcode/" />
-
+	<scheme alias="*subject*" uri="http://cv.iptc.org/newscodes/subjectcode/" />
+...
+	<scheme alias="*subj*" uri="http://cv.iptc.org/newscodes/subjectcode/" />
 </catalog>
-
-....
-
-<subject type="cpnat:abstract" qcode="subject:1500000" />
-
-....
-
-<subject type="cpnat:abstract" qcode="subj:1500000" />
+...
+	<subject type="cpnat:abstract" qcode="subject:1500000" />
+...
+	<subject type="cpnat:abstract" qcode="subj:1500000" />
 
 In this document, there are many references to IPTC NewsCodes and their
 scheme aliases. From the above, it will be obvious that these specific
@@ -265,13 +232,14 @@ consistent use of scheme alias values by implementers.
 QCodes and Taxonomies
 ~~~~~~~~~~~~~~~~~~~~~
 
-Taxonomies, also known as thesauri, knowledge bases etc., are
+Taxonomies, also known as thesauri, knowledge bases and so on, are
 repositories of information about notions or ideas, and about real-world
 "things" such as people, companies and places.
 
 For example, a processor might encounter the following XML in a
 NewsML-G2 document:
 
+[source,xml]
 <subject type="cpnat:person" qcode="pol:rus12345">
 
 The subject property shown here has two QCodes, one for @type, and the
@@ -285,7 +253,7 @@ The second QCode encountered in the subject is "pol:rus12345". Resolving
 this (fictional) scheme alias and suffix might result in the following
 concept URI:
 
-_http://www.example.com/knowledgebase/people/political_leaders/rus12345_
+http://www.example.com/knowledgebase/people/political_leaders/rus12345
 
 Fetching the information at the above resource, may return the following
 information:
@@ -323,9 +291,7 @@ Knowledge Items
 
 In a workflow where partners are exchanging news information using
 NewsML-G2, Knowledge Items are the most compliant method of distributing
-Controlled Vocabularies. The sections below describe the steps to create
-a new CV: first by creating a Scheme (14.5.2) and next creating a
-Knowledge Item from a set of existing Concept Items (14.5.3) for
+a new CV: first by creating a Scheme (see xref:creating-a-new-scheme[Creating a New Scheme]) and next creating a Knowledge Item from a set of existing Concept Items (see xref:creating-a-new-knowledge-item-for-distributing-as-a-cv[Creating a new Knowledge Item for distributing as a CV]) for
 distribution to customers and partners.
 
 Knowledge Items do not necessarily contain all of the information that a
@@ -365,10 +331,9 @@ abc)
 
 Add this Scheme Alias and URI to the catalog:
 
+[source,xml]
 <catalog>
-
-<scheme alias="abc" uri="http://cv.example.org/schemeA/" />
-
+	<scheme alias="abc" uri="http://cv.example.org/schemeA/" />
 </catalog>
 
 If using a remote catalog, change the catalog URI to reflect a new
@@ -380,14 +345,13 @@ using the new Scheme refer to the new version of the remote catalog.
 * Create Concepts as required. You must use the Scheme Alias of the new
 scheme with the identifier of this new concept. For example:
 
-__
+[source,xml]
 <concept> +
 <conceptId created="2009-09-22" qcode="abc:concept-x" +
 ...
 
 The above Concept Identifier resolves to the Concept URI
 "http://cv.example.org/schemeA/concept-x"
-__
 
 [[creating-a-new-knowledge-item-for-distributing-as-a-cv]]
 Creating a new Knowledge Item for distributing as a CV
@@ -432,6 +396,7 @@ Concept ID should no longer be used for new NewsML-G2 Items.
 
 Example of a retired concept:
 
+[source,xml]
 <conceptId created="2006-09-01" retired="2009-12-31"
 qcode="foo:bar" />
 
@@ -485,7 +450,6 @@ to all other existing URIs identifying this concept. +
 - If a slightly modified concept is created and gets a new Concept URI
 it may be considered to establish a closeMatch relationship from SKOS
 [http://www.w3.org/TR/skos-reference/#mapping]
-[[_Toc374625385]][[_Toc374625386]][[_Toc374625387]][[_Toc374625388]][[_Toc374625389]][[]][[]][[_Toc374625390]][[_Ref373060417]][[_Ref340773481]]
 
 [[creating-and-managing-catalogs]]
 Creating and Managing Catalogs
@@ -503,11 +467,9 @@ reference in the Item’s <catalog> to the Controlled Vocabulary in which
 it is included. A <catalog> contains the Scheme Alias and the Scheme
 URI:
 
+[source,xml]
 <catalog>
-
-<scheme alias="timeunit"
-uri="http://cv.iptc.org/newscodes/timeunit/" />
-
+	<scheme alias="timeunit" uri="http://cv.iptc.org/newscodes/timeunit/" />
 </catalog>
 
 [[remote-catalogs]]
@@ -520,15 +482,15 @@ references are aggregated into a stand-alone file which is made
 available as a web resource: known as a Remote Catalog. This file is
 referenced by a <catalogRef> in the Item:
 
+[source,xml]
 <catalogRef
-
-href="http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_29.xml"
-/>
+	href="http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_29.xml" />
 
 Note: the <catalog> element in such a stand-alone file needs an XML
 namespace definition:
 
-<catalog xmlns__="http://iptc.org/std/nar/2006-10-01/">
+[source,xml]
+<catalog xmlns="http://iptc.org/std/nar/2006-10-01/">
 
 The use of stand-alone web resources is preferable because all of the
 QCode mappings are shared across many NewsML-G2 Items; the local
@@ -545,7 +507,8 @@ published with a new URL. This URL may reflect a version number of the
 catalog. This is the method that the IPTC uses to maintain the
 NewsCodes, simply by increasing the file suffix digit by one:
 
-href="..Standards_26.xml" --> href="..Standards_29.xml"
+[source,xml]
+href="..Standards_28.xml" --> href="..Standards_29.xml"
 
 Note that ALL versions of a Remote Catalog must continue to be available
 as a web resource, otherwise existing NewsML-G2 Items and QCodes that
@@ -594,8 +557,7 @@ making resolution difficult or impossible.
 In NewsML-G2 v 2.17, the <schemeMeta> element was added to the Knowledge
 Item, enabling the metadata previously expressed in the <scheme>
 elements of a Catalog to be added directly to a Knowledge Item that
-conveys all the concepts in a Scheme (aka Controlled Vocabulary). See
-13.3.5 Scheme Metadata
+conveys all the concepts in a Scheme (aka Controlled Vocabulary). See xref:scheme-metadata[Scheme Metadata]
 
 [[catalog-item]]
 Catalog Item
@@ -611,21 +573,15 @@ might distribute its catalog to subscribers.
 The Catalog Item shares the generic identification and processing
 instruction attributes associated with all NewsML-G2 items, for example:
 
+[source,xml]
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-
 <catalogItem xmlns="http://iptc.org/std/nar/2006-10-01/"
-
-guid="urn:newsml:iptc.org:20160517:catalog"
-
-version="8"
-
-standard="NewsML-G2"
-
-standardversion="2.23"
-
-conformance="power"
-
-xml:lang="en-GB">
+	guid="urn:newsml:iptc.org:20160517:catalog"
+	version="8"
+	standard="NewsML-G2"
+	standardversion="2.23"
+	conformance="power"
+	xml:lang="en-GB">
 
 The child properties of Catalog Item are restricted to a basic set of
 essentials required for Catalog management:
@@ -667,37 +623,21 @@ practice. Note that the Item Class is set to "cainature:catalog"; this
 uses the IPTC Catalog Item Nature NewsCodes, recommended Scheme Alias
 "cainature":
 
+[source,xml]
 <catalogRef
-
-href="http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_29.xml"
-/>
-
+	href="http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_29.xml" />
 <rightsInfo>
-
-<copyrightHolder uri="http://www.iptc.org">
-
-<name>IPTC</name>
-
-</copyrightHolder>
-
+	<copyrightHolder uri="http://www.iptc.org">
+		<name>IPTC</name>
+	</copyrightHolder>
 </rightsInfo>
-
 <itemMeta>
-
-<itemClass qcode="cainature:catalog" />
-
-<provider qcode="nprov:IPTC">
-
-<name>International Press Telecommunications Council
-
-</name>
-
-</provider>
-
-<versionCreated>2016-05-17T12:00:00Z</versionCreated>
-
-<pubStatus qcode="stat:usable" />
-
+	<itemClass qcode="cainature:catalog" />
+	<provider qcode="nprov:IPTC">
+		<name>International Press Telecommunications Council </name>
+	</provider>
+	<versionCreated>2016-05-17T12:00:00Z</versionCreated>
+	<pubStatus qcode="stat:usable" />
 </itemMeta>
 
 The Catalog information conveyed by the Item is wrapped in the
@@ -705,107 +645,28 @@ The Catalog information conveyed by the Item is wrapped in the
 <catalog>. The Catalog contains one or more <scheme> elements, as
 previously described:
 
+[source,xml]
 <catalogContainer>
-
-<catalog xmlns="http://iptc.org/std/nar/2006-10-01/"
-
-additionalInfo="http://www.iptc.org/goto?G2cataloginfo">
-
-<scheme alias="app"
-uri="http://cv.iptc.org/newscodes/application/">
-
-<definition xml:lang="en-GB">Indicates how the metadata
-
-value was applied.</definition>
-
-<name xml:lang="en-GB">Application of Metadata Values</name>
-
-</scheme>
-
-</catalog>
-
+	<catalog xmlns="http://iptc.org/std/nar/2006-10-01/"
+		additionalInfo="http://www.iptc.org/goto?G2cataloginfo">
+		<scheme alias="app" uri="http://cv.iptc.org/newscodes/application/">
+		<definition xml:lang="en-GB">Indicates how the metadata
+			value was applied.</definition>
+			<name xml:lang="en-GB">Application of Metadata Values</name>
+		</scheme>
+	</catalog>
 </catalogContainer>
 
-</catalogItem>
+[[_Ref374636609]]
 
-1.  __
-[[_Ref374636609]]Complete Catalog Item
-__
+.LISTING Complete Catalog Item
 
-All Scheme Aliases used in listing below indicate IPTC NewsCodes
-vocabularies.
+All Scheme Aliases used in listing below indicate IPTC NewsCodes vocabularies.
 
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-
-<catalogItem xmlns="http://iptc.org/std/nar/2006-10-01/"
-
-guid="urn:newsml:iptc.org:20160517:catalog"
-
-version="8"
-
-standard="NewsML-G2"
-
-standardversion="2.23"
-
-conformance="power"
-
-xml:lang="en-GB">
-
-<catalogRef
-
-href="http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_29.xml"
-/>
-
-<rightsInfo>
-
-<copyrightHolder uri="http://www.iptc.org">
-
-<name>IPTC</name>
-
-</copyrightHolder>
-
-</rightsInfo>
-
-<itemMeta>
-
-<itemClass qcode="cainature:catalog" />
-
-<provider qcode="nprov:IPTC">
-
-<name>International Press Telecommunications Council
-
-</name>
-
-</provider>
-
-<versionCreated>2016-05-17T12:00:00Z</versionCreated>
-
-<pubStatus qcode="stat:usable" />
-
-</itemMeta>
-
-<catalogContainer>
-
-<catalog xmlns="http://iptc.org/std/nar/2006-10-01/"
-
-additionalInfo="http://www.iptc.org/goto?G2cataloginfo">
-
-<scheme alias="app"
-uri="http://cv.iptc.org/newscodes/application/">
-
-<definition xml:lang="en-GB">Indicates how the metadata
-
-value was applied.</definition>
-
-<name xml:lang="en-GB">Application of Metadata Values</name>
-
-</scheme>
-
-</catalog>
-
-</catalogContainer>
-
-</catalogItem>
+[source, xml]
+----
+include::{includedir}/../../GuidelinesCodeExamples_2017/LISTING_13_Complete_Catalog_Item.xml[]
+----
 
 [[processing-catalogs-and-cvs]]
 Processing Catalogs and CVs
@@ -873,14 +734,15 @@ these NewsCodes is "http://cv.iptc.org/newscodes/mediatopic/"
 appropriate department, according to the Media Topic NewsCodes found in
 the Items,
 * A routing table is set up in the processor with a configurable rule
-"all items with a Media Topic NewsCode ‘04000000’ to be routed to the
+"all items with a Media Topic NewsCode `04000000` to be routed to the
 Business News department".
 
 How does the processor "know" that a <subject> property with a QCode
-containing "04000000" is an IPTC Media Topic NewsCode? The processor
+containing `04000000` is an IPTC Media Topic NewsCode? The processor
 should not rely on the scheme alias "medtop"; it could be an alias to
 another CV, or the provider may use another alias:
 
+[source,xml]
 <subject type="cpnat:abstract" qcode="sc:04000000" />
 
 By following the IPTC advice to retrieve all catalog information used by
@@ -891,18 +753,18 @@ In the example, the catalog used by the Item resolves the scheme alias
 "sc" contained in the QCode. The Item contains the line pointing to the
 catalog file:
 
-<catalogRef
-href="http://www.example.org/std/catalog/catalog.example_10.xml" />
+[source,xml]
+<catalogRef href="http://www.example.org/std/catalog/catalog.example_10.xml" />
 
 The processor should have retrieved and cached the contents of the file
 at this URL, and would have in memory the mapping of this alias to the
 Scheme URI:
 
-<scheme alias="sc"
-uri="http://cv.iptc.org/newscodes/mediatopic/" />
+[source,xml]
+<scheme alias="sc" uri="http://cv.iptc.org/newscodes/mediatopic/" />
 
 ...this verifies that the QCode value is from the Media Topic NewsCodes
-scheme. A rule "all items with a Media Topic NewsCode of ‘04000000’ to
+scheme. A rule "all items with a Media Topic NewsCode of `04000000` to
 be routed to the Business News department" is satisfied and the
 NewsML-G2 Item processed appropriately.
 
@@ -972,9 +834,10 @@ modified (when cached concepts are synchronized with those in the latest
 received Knowledge Item) using the modified attribute of <concept>
 
 [[use-case-and-example]]
-Use Case and Example
 
-_
+[discrete]
+===== Use Case and Example
+
 1.       A news site is using a CV maintained by a third-party Scheme
 Authority, for example a CV maintained by the IPTC.
 
@@ -995,10 +858,11 @@ than the corresponding cached concept’s modification timestamp are
 processed as updates to the cache. (Note: this assumes that the Scheme
 Authority always flags Concepts conveyed within a Knowledge Item with a
 modification timestamp, see below.)
-_
 
 [[updates-processing-notes]]
-Updates Processing Notes
+
+[discrete]
+===== Updates Processing Notes
 
 In the above use case, it was assumed that the Scheme Authority always
 flags Concepts with a modification timestamp. In cases where
@@ -1036,56 +900,36 @@ receivers that the concepts in a Knowledge Item have been updated using
 the @modified attribute value informing receivers of the timestamp
 (date-time) of the change.
 
+[source,xml]
 <?xml version="1.0" encoding="UTF-8"?>
-
 <knowledgeItem ...>
-
-...
-
-<itemMeta>
-
-...
-
-</itemMeta>
-
-<contentMeta>
-
-...
-
-</contentMeta>
-
-<conceptSet>
-
-<concept modified="2010-01-28T13:00:00Z">
-
-<conceptId qcode="access:easy" />
-
-...
-
-</concept>
-
-<concept modified="2010-01-28T13:00:00Z">
-
-<conceptId qcode="access:difficult" />
-
-...
-
-</concept>
-
-<concept modified="2009-11-23T13:00:00Z">
-
-<conceptId qcode="access:restricted" />
-
-...
-
-</concept>
-
-</conceptSet>
-
+	...
+	<itemMeta>
+	...
+	</itemMeta>
+	<contentMeta>
+	...
+	</contentMeta>
+	<conceptSet>
+		<concept modified="2010-01-28T13:00:00Z">
+			<conceptId qcode="access:easy" />
+			...
+		</concept>
+		<concept modified="2010-01-28T13:00:00Z">
+			<conceptId qcode="access:difficult" />
+			...
+		</concept>
+		<concept modified="2009-11-23T13:00:00Z">
+			<conceptId qcode="access:restricted" />
+			...
+		</concept>
+	</conceptSet>
 </knowledgeItem>
 
 [[notifying-receivers-of-changes-to-knowledge-items]]
-Notifying receivers of changes to Knowledge Items
+
+[discrete]
+===== Notifying receivers of changes to Knowledge Items
 
 This issue is not necessarily specific to NewsML-G2 news exchange: Most
 news providers have CVs that pre-date NewsML-G2, for example those CVs
@@ -1119,8 +963,7 @@ but the receiver needs to add further workflow stages for its own
 internal purposes.
 
 [[use-schemesameas-to-provide-a-local-language-version-of-a-well-known-cv]]
-Use <schemeSameAs> to provide a local language version of a well-known
-CV
+Use <schemeSameAs> to provide a local language version of a well-known CV
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Some useful and well-known CVs do not have the values of properties such
@@ -1138,30 +981,20 @@ CV, containing all of the NewsCodes it wishes to use with local language
 names and definitions, while making it clear to receivers that these
 codes identify the same concepts as the original IPTC Scheme.
 
-For example, the IPTC Item Relation NewsCodes "irel:seeAlso" resolves
-via the Catalog to a Concept URI
-"http://cv.iptc.org/newscodes/itemrelation/seeAlso" which hosts the
+For example, the IPTC Item Relation NewsCodes `irel:seeAlso` resolves
+via the Catalog to a Concept URI `http://cv.iptc.org/newscodes/itemrelation/seeAlso` which hosts the
 following information about the seeAlso concept:
 
+[source,xml]
 <concept>
-
-<conceptId created="2008-01-29T00:00:00+00:00"
-qcode="irel:seeAlso" />
-
-<type qcode="cpnat:abstract" />
-
-<name xml:lang="en-GB">See also</name>
-
-<definition xml:lang="en-GB">
-
-To fully understand the content of this item see also the content
-
-of the related item.
-
-</definition>
-
-...
-
+	<conceptId created="2008-01-29T00:00:00+00:00" qcode="irel:seeAlso" />
+	<type qcode="cpnat:abstract" />
+	<name xml:lang="en-GB">See also</name>
+	<definition xml:lang="en-GB">
+		To fully understand the content of this item see also the content
+		of the related item.
+	</definition>
+	...
 </concept>
 
 A provider wishes to provide this same information in the Czech
@@ -1169,48 +1002,35 @@ language. As a first step, it creates a new Controlled Vocabulary
 containing the required concepts from the original scheme with
 translated name and definition, for example:
 
+[source,xml]
 <concept>
-
-<conceptId created="2010-01-29T00:00:00+00:00"
-qcode="itemrel:seeAlso" />
-
-<type qcode="cpnat:abstract" />
-
-<name xml:lang="cs">Viz také</name>
-
-<definition xml:lang="cs">
-
-Chcete-li plně pochopit obsah této položky viz též obsah
-
-související položky.
-
-</definition>
-
-...
-
+	<conceptId created="2010-01-29T00:00:00+00:00" qcode="itemrel:seeAlso" />
+	<type qcode="cpnat:abstract" />
+	<name xml:lang="cs">Viz také</name>
+	<definition xml:lang="cs">
+		Chcete-li plně pochopit obsah této položky viz též obsah
+		související položky.
+	</definition>
+	...
 </concept>
 
 The provider then creates a Catalog file, or a new version of an
 existing Catalog file, containing a Scheme Alias and Scheme URI for the
 new CV, thus:
 
+[source,xml]
 <catalog>
-
-<scheme alias="itemrel"
-uri="http://cv.example.org/codes/itemrelation/">
-
-<sameAsScheme>http://cv.iptc.org/newscodes/itemrelation/</sameAsScheme>
-
-</scheme>
-
+	<scheme alias="itemrel" uri="http://cv.example.org/codes/itemrelation/">
+		<sameAsScheme>http://cv.iptc.org/newscodes/itemrelation/</sameAsScheme>
+	</scheme>
 </catalog>
 
 This asserts that the ALL of the codes in the private scheme identified
 by the Scheme URI are semantically the "same as" the corresponding codes
 in the original scheme indicated by the <sameAsScheme> child element of
-<scheme .
+<scheme>.
 
-Note that in this example the provider MUST give the new CV a Scheme
+NOTE: In this example the provider MUST give the new CV a Scheme
 Alias – here it is "itemrel" – that is different to the recommended
 Scheme Alias "irel" of the IPTC Scheme. This is because some IPTC
 schemes are mandatory, so a reference to the IPTC catalog would always
@@ -1225,14 +1045,11 @@ By using the <sameAsScheme> element to the Catalog, the provider is able
 apply a _Same As_ relationship at the level of a set of Concepts. So for
 example, this code:
 
+[source,xml]
 <link
-
-rel="itemrel:seeAlso"
-
-contenttype="image/jpeg"
-
-residref="tag:acmenews.com,2008:TX-PAR:20090529:JYC90"
-
+	rel="itemrel:seeAlso"
+	contenttype="image/jpeg"
+	residref="tag:acmenews.com,2008:TX-PAR:20090529:JYC90"
 />
 
 can be efficiently resolved: a processor does not have to search for a
@@ -1253,11 +1070,9 @@ element."_
 
 So in the example:
 
-<scheme alias="itemrel"
-uri="http://cv.example.org/codes/itemrelation/">
-
-<sameAsScheme>http://cv.iptc.org/newscodes/itemrelation/</sameAsScheme>
-
+[source,xml]
+<scheme alias="itemrel" uri="http://cv.example.org/codes/itemrelation/">
+	<sameAsScheme>http://cv.iptc.org/newscodes/itemrelation/</sameAsScheme>
 </scheme>
 
 In practice, this means:
@@ -1310,47 +1125,34 @@ Example using a new scheme
 Using the shared workflow role example, the original scheme contains
 three concepts for defined roles in a workflow:
 
+[source,xml]
 <conceptSet>
-
-<concept>
-
-<conceptId qcode="wflow:draft" />
-
-...
-
-</concept>
-
-<concept>
-
-<conceptId qcode="wflow:review" />
-
-...
-
-</concept>
-
-<concept>
-
-<conceptId qcode="wflow:release" />
-
-...
-
-</concept>
-
+	<concept>
+		<conceptId qcode="wflow:draft" />
+		...
+	</concept>
+	<concept>
+		<conceptId qcode="wflow:review" />
+		...
+	</concept>
+	<concept>
+		<conceptId qcode="wflow:release" />
+		...
+	</concept>
 </conceptSet>
 
 Properties that use this scheme are resolved through the <catalog> in
 the Item in which they appear, e.g. the Item contains the following
 property in <itemMeta>:
 
+[source,xml]
 <role qcode="wflow:release"
 
 and the catalog statement:
 
+[source,xml]
 <catalog>
-
-<scheme alias="wflow"
-uri="http://cv.example.org/schemes/wfroles/" />
-
+	<scheme alias="wflow" uri="http://cv.example.org/schemes/wfroles/" />
 </catalog>
 
 The receiver needs to add an intermediate role in the workflow,
@@ -1360,71 +1162,46 @@ private scheme were identical to codes contained in the original scheme,
 In Case 2, the concepts in the private scheme use a <sameAs> property at
 the level of each code in the new private scheme.
 
+[source,xml]
 <conceptSet>
-
-<concept>
-
-<conceptId qcode="iwf:draft" />
-
-<sameAs qcode="wflow:draft" />
-
-...
-
-</concept>
-
-<concept>
-
-<conceptId qcode="iwf:review" />
-
-<sameAs qcode="wflow:review" />
-
-...
-
-</concept>
-
-<concept>
-
-<conceptId qcode="iwf:finalreview" />
-
-...
-
-</concept>
-
-<concept>
-
-<conceptId qcode="iwf:release" />
-
-<sameAs qcode="wflow:release" />
-
-...
-
-</concept>
-
+	<concept>
+		<conceptId qcode="iwf:draft" />
+		<sameAs qcode="wflow:draft" />
+		...
+	</concept>
+	<concept>
+		<conceptId qcode="iwf:review" />
+		<sameAs qcode="wflow:review" />
+		...
+	</concept>
+	<concept>
+		<conceptId qcode="iwf:finalreview" />
+		...
+	</concept>
+	<concept>
+		<conceptId qcode="iwf:release" />
+		<sameAs qcode="wflow:release" />
+		...
+	</concept>
 </conceptSet>
 
 G2 Items that use this scheme must use a <catalog> statement to enable
 the processor to resolve both the private "iwf" scheme alias and the
 original "wflow" scheme alias:
 
+[source,xml]
 <catalog>
-
-<scheme alias="iwf" uri="http://support.myorg.com/cv/workflow/"
-/>
-
-<scheme alias="wflow"
-uri="http://cv.example.org/schemes/wfroles/" />
-
+	<scheme alias="iwf" uri="http://support.myorg.com/cv/workflow/" />
+	<scheme alias="wflow" uri="http://cv.example.org/schemes/wfroles/" />
 </catalog
 
 A Knowledge Item containing <sameAs>, <broader>, or <narrower>
 properties like the above must also contain a <catalog> allowing the
 QCodes to be resolved, in this case:
 
+[source,xml]
 <catalog>
-
-<scheme alias="wflow"
-uri="http://cv.example.org/schemes/wfroles/" />
-
+	<scheme alias="wflow" uri="http://cv.example.org/schemes/wfroles/" />
 </catalog>
 
 [[best-practice-in-qcode-exchange]]
@@ -1439,13 +1216,13 @@ readable. In other words, a Concept URI should be a URL.
 
 The unreserved characters that are permitted in a URL are:
 
-A B C D E F G H I J K L M N O P Q R S T U V W X Y Z +
+`A B C D E F G H I J K L M N O P Q R S T U V W X Y Z +
 a b c d e f g h i j k l m n o p q r s t u v w x y z +
-0 1 2 3 4 5 6 7 8 9 - _ . ~
+0 1 2 3 4 5 6 7 8 9 - _ . ~`
 
 the reserved characters are:
 
-! * ' ( ) ; : @ & = + $ , / ? % # [ ]
+`! * ' ( ) ; : @ & = + $ , / ? % # [ ]`
 
 In order to promote unambiguous processing of QCodes, the IPTC defines
 that it is the responsibility of providers to encode Concept URIs as
@@ -1462,19 +1239,21 @@ resolving QCodes according to the rules outlined below.
 The reason for the recommendation is illustrated by the following
 example of a provider distributing a document containing:
 
+[source,xml]
 <subject qcode="fc:3#FTSE" />
 
 The catalog entry for a parent Scheme is (say):
 
+[source,xml]
 <scheme alias="fc" uri="http://cv.example.org/schemes/fc/" />
 
 The receiver could transform this QCode literally to this URI:
 
-_http://cv.example.org/schemes/fc/3#FTSE_
+`http://cv.example.org/schemes/fc/3#FTSE`
 
 Or the receiver could percent-encode the # (%23), yielding:
 
-_http://cv.example.org/schemes/fc/3%23FTSE_
+`http://cv.example.org/schemes/fc/3%23FTSE`
 
 The resources identified by these two URIs are both valid by RFC 3986
 but they are different!
@@ -1483,6 +1262,7 @@ Following the IPTC definition, the provider must include the per-cent
 encoding into the QCode of the first example if this is required by the
 system resolving the URIs:
 
+[source,xml]
 <subject qcode="fc:3%23FTSE" />
 
 [[non-ascii-characters]]
@@ -1497,8 +1277,8 @@ If a code contains non-ASCII characters, for example accented
 characters, the Unicode encoding UTF-8 must be used, in line with normal
 practice.
 
-For example, the UTF-8 encoding of the "å" character is a two-byte value
-of C3~hex~ A5~hex~ which would be percent-coded as "%C3%A5".
+For example, the UTF-8 encoding of the `å` character is a two-byte value
+of `C3~hex~ A5~hex~` which would be percent-coded as `%C3%A5`.
 
 [[white-space-in-codes]]
 White Space in Codes
@@ -1509,14 +1289,14 @@ to the NewsML-G2 specifications may contain spaces. As the NewsML-G2
 Specification does not allow white space characters in Codes, this
 section recommends a workaround.
 
-Whitespace characters in Codes - in practice, only spaces (20~hex~) -
+Whitespace characters in Codes - in practice, only spaces (`20~hex~`) -
 are replaced by a sequence of one or more unreserved characters that is
 reused for this purpose according to the practices of the provider; it
 is recommended that such a sequence is not part of the any of the codes
 used by the provider.
 
 For example, if a code contains a space, the space character might be
-replaced by ~~. Receivers would be informed to translate this string
+replaced by `~~`. Receivers would be informed to translate this string
 back to a space character in order to match the QCode against a list of
 codes that contain spaces.
 
@@ -1539,8 +1319,8 @@ Scheme Aliases
 
 These do not have to be encoded as they will never be part of the full
 Concept URI. A Scheme Alias may contain any character except a colon
-(3A~hex~) or white space characters (20~hex~ or 09 ~hex~ or 0D ~hex~ or
-0A ~hex~)
+(`3A~hex~`) or white space characters (`20~hex~` or `09 ~hex~` or `0D ~hex~` or
+`0A ~hex~`)
 
 [[processing-received-codes]]
 Processing Received Codes
@@ -1552,20 +1332,20 @@ following steps:
 1.  Apply any XML decoding to the string (this should be performed by
 your XML processor)
 2.  Retrieve the QCode value from the document +
-example: fôô:bår
+example: `fôô:bår`
 3.  Identify the first colon starting from the left; the string on left
 of the colon is the scheme alias, the string on the right of the colon
 is the code. If there is no colon, the QCode is invalid. In the example,
 therefore: +
-Scheme Alias = fôô +
-Code Value = bår
+Scheme Alias = `fôô` +
+Code Value = `bår`
 4.  Check whether the alias is defined in a catalog. If not, the QCode
 is invalid. +
-example: <scheme alias="fôô" uri="http://cv.example.org/cv/somecodes/"
-/>
+example: `<scheme alias="fôô" uri="http://cv.example.org/cv/somecodes/"
+/>`
 5.  Append the Code Value to the Scheme URI to make the full Concept
 URI: +
-example: http://cv.example.org/cv/somecodes/bår
+example: `http://cv.example.org/cv/somecodes/bår`
 6.  It is highly recommended to use only full Concept URIs to compare
 identifiers of concepts.
 
@@ -1582,6 +1362,7 @@ value type. This was restricted to properties that used @qcode or
 @literal to hold the identifier, but additionally allowed providers to
 express the full URI if required. Example:
 
+[source,xml]
 <subject uri="http://example.com/people?id=12345&group=223" />
 
 The same flexibility was made available to properties with QCode or
@@ -1589,15 +1370,14 @@ QCodeList attribute types in version 2.18. New URI sibling attributes
 (IRIType) were added to these properties by appending "uri" to the QCode
 name. For example @rendition gets a @renditionuri sibling, such that:
 
+[source,xml]
 <remoteContent rendition="rnd:highRes"
-
 ... />
 
 may now be alternatively expressed as:
 
-<remoteContent
-renditionuri="http://cv.iptc.org/newscodes/rendition/highRes"
-
+[source,xml]
+<remoteContent renditionuri="http://cv.iptc.org/newscodes/rendition/highRes"
 ... />
 
 Implementers are advised NOT use both QCode and URI type attributes for
@@ -1606,33 +1386,20 @@ attribute takes precedence. The following extract shows how the
 <contentSet> of the code listing from Quick Start: Pictures and Graphics
 would use the URI sibling properties:
 
+[source,xml]
 <contentSet>
-
-<remoteContent
-renditionuri="http://cv.iptc.org/newscodes/rendition/highRes"
-
-href="./GYI0062134533.jpg"
-
-version="1"
-
-size="346071" __
-
-contenttype="image/jpeg" __
-
-width="1500"
-
-height="1001" __
-
-colourspaceuri="http://cv.iptc.org/newscodes/colorspace/AdobeRGB" __
-
-orientation="1"
-
-layoutorientationuri="http://cv.iptc.org/newscodes/layoutorientation/horizontal">
-
-<altId type="gyiid:masterID">105864332__</altId>
-
-...
-
+	<remoteContent renditionuri="http://cv.iptc.org/newscodes/rendition/highRes"
+		href="./GYI0062134533.jpg"
+		version="1"
+		size="346071"
+		contenttype="image/jpeg"
+		width="1500"
+		height="1001" 
+		colourspaceuri="http://cv.iptc.org/newscodes/colorspace/AdobeRGB" 
+		orientation="1"
+		layoutorientationuri="http://cv.iptc.org/newscodes/layoutorientation/horizontal">
+		<altId type="gyiid:masterID">105864332</altId>
+		...
 </contentSet>
 
 This code is listed in full in the file _LISTING 3A Photo in NewsML-G2
@@ -1640,7 +1407,7 @@ This code is listed in full in the file _LISTING 3A Photo in NewsML-G2
 in the Guidelines download package.
 
 For a full list of QCode type attributes and their URI siblings see
-table 14.13 below
+the table xref:full-list-of-the-qcode-type-attributes-and-their-uri-siblings[List of QCode attributes and their URI siblings] below
 
 [[change-to-cardinality-of-qcode-type-attributes]]
 Change to cardinality of QCode Type attributes
@@ -1651,7 +1418,7 @@ After the introduction of @uri and later the "URI Sibling" attributes, a
 remained mandatory for some properties. From v2.20 this constraint is
 lifted and the cardinality of QCode attributes in these properties is
 changed from (1) to (0..1) in order to allow @uri and "URI sibling"
-attributes to be used on their own. The table 14.14 below lists the
+attributes to be used on their own. The table xref:properties-affected-by-changed-cardinality-of-qcode-attributes[Properties affected by changed cardinality of QCode attributes] below lists the
 properties affected by lifting the mandatory use of QCodes. The rules
 are now as follows, according to the version of NewsML-G2 being used:
 
@@ -1713,12 +1480,11 @@ the vocabulary are, in this case, communicated outside NewsML-G2. Such a
 contract could express that a specific vocabulary of literals is used
 with a specific property.
 
-3.  __
+3. 
 When importing metadata which may contain codes which have not yet been
 checked to be from an identified vocabulary: the code values are
 represented as literals until the vocabulary is identified; thereafter,
 a controlled identifier can be used.
-__
 
 The following rules govern the use of @literal:
 
@@ -1733,20 +1499,18 @@ literal value in the Item identify the same concept. If the provider
 uses the same literal value for different concepts, an assert element
 using this literal value MUST NOT be used, as the concept is
 indeterminate.
-1.  [[properties-with-no-identifier]]
+
+[[properties-with-no-identifier]]
 Properties with no identifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 It is permissible for a NewsML-G2 element with a Flexible Property type
 to have no concept identifier:
 
-
+[source,xml]
 <provider>
-
-<name>Getty Images North America</name>
-
+	<name>Getty Images North America</name>
 </provider>
-
 
 As a special case, when a <bag> child element is used with a property to
 create a composite concept, a concept identifier MUST NOT be used with
@@ -1754,23 +1518,15 @@ the parent property (neither @qcode, nor @uri nor @literal). The new
 composite concept is created by the multiple existing concepts
 identified by a @qcode in each <bit> element of the <bag>:
 
-__
+[source,xml]
 <subject>
-
-<name>Bread</name>
-
-<bag>
-
-<bit qcode="ingredient:flour"/>
-
-<bit qcode="ingredient:water"/>
-
-<bit qcode="ingredient:yeast"/>
-
-</bag>
-
+	<name>Bread</name>
+	<bag>
+		<bit qcode="ingredient:flour"/>
+		<bit qcode="ingredient:water"/>
+		<bit qcode="ingredient:yeast"/>
+	</bag>
 </subject>
-__
 
 [[full-list-of-the-qcode-type-attributes-and-their-uri-siblings]]
 Full list of the QCode type attributes and their URI siblings
@@ -1862,5 +1618,4 @@ Properties affected by changed cardinality of QCode attributes
 |timedelim |timeunit |timeunituri
 |=======================================================
 
-[[_Toc403107226]][[_Toc403108056]][[_Toc403107228]][[_Toc403108058]][[_Ref222632195]][[_Ref222632238]][[_Ref222737066]][[_Ref222793020]][[_Ref222793025]][[_Ref222795421]][[_Ref222818136]]
 

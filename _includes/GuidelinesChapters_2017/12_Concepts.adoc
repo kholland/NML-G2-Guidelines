@@ -80,16 +80,13 @@ Concept ID <conceptId>
 A concept MUST contain a <conceptId> which takes the form of a QCode
 (@qcode) attribute. Optionally the full URI may be added using a @uri.
 If URI resolved from @qcode is not the same as the @uri value,
-
 then the URI resolved from the @qcode takes precedence. Optionally, this
 can be refined using date-time for @created and @retired.
 
+[source,xml]
 <concept>
-
-<conceptId created="2009-01-01T12:00:00Z" qcode="foo:bar" />
-
-...
-
+	<conceptId created="2009-01-01T12:00:00Z" qcode="foo:bar" />
+	...
 </concept>
 
 When a concept is retired by use of the @retired attribute of
@@ -106,35 +103,24 @@ A concept MUST contain at least one <name>, a natural language name for
 the concept, with optional attributes of @xml:lang and @dir (text
 direction):
 
+[source,xml]
 <concept>
-
-<conceptId qcode="foo:bar" />
-
-<name>Mario Draghi</name>
-
+	<conceptId qcode="foo:bar" />
+		<name>Mario Draghi</name>
 </concept>
 
 Concepts are designed to be useable in multiple languages:
 
+[source,xml]
 <concept>
-
-<conceptId created="2000-10-30T12:00:00+00:00"
-qcode="medtop:01000000" />
-
-<type qcode="cpnat:abstract" />
-
-<name xml:lang="en-GB">arts, culture and entertainment</name>
-
-<name xml:lang="de">Kultur, Kunst, Unterhaltung</name>
-
-<name xml:lang="fr">Arts, culture, et spectacles</name>
-
-<name xml:lang="es">arte, cultura y espectáculos</name>
-
-<name xml:lang="ja-JP">文化</name>
-
-<name xml:lang="it">Arte, cultura, intrattenimento</name>
-
+	<conceptId created="2000-10-30T12:00:00+00:00" qcode="medtop:01000000" />
+	<type qcode="cpnat:abstract" />
+	<name xml:lang="en-GB">arts, culture and entertainment</name>
+	<name xml:lang="de">Kultur, Kunst, Unterhaltung</name>
+	<name xml:lang="fr">Arts, culture, et spectacles</name>
+	<name xml:lang="es">arte, cultura y espectáculos</name>
+	<name xml:lang="ja-JP">文化</name>
+	<name xml:lang="it">Arte, cultura, intrattenimento</name>
 </concept>
 
 [[concept-type]]
@@ -153,9 +139,10 @@ only express one kind of relationship – "is a(n)". It is used to express
 the most obvious, or primary, inherent characteristic of a concept, as
 in:
 
-"arts, culture and entertainment" (Subject) "is an" (Predicate)
-"abstract concept" (Object):
+`arts, culture and entertainment` _(Subject)_ `is a(n)` _(Predicate)_
+`abstract concept` _(Object)_:
 
+[source,xml]
 <type qcode="cpnat:abstract" />
 
 The current types agreed by the IPTC and contained in the "concept
@@ -180,12 +167,10 @@ if required. Block type elements may use an optional @role QCode to
 differentiate repeating Definition statements such as "summary" and
 "long":
 
-<definition xml:lang="en-GB" role="definitionrole:short">__
-
-Matters pertaining to the advancement and refinement of the human mind,
-
-of interests, skills, tastes and emotions
-
+[source,xml]
+<definition xml:lang="en-GB" role="definitionrole:short">
+	Matters pertaining to the advancement and refinement of the human mind,
+	of interests, skills, tastes and emotions
 </definition>
 
 Note that although much of this information could be, and may be,
@@ -200,10 +185,9 @@ The <note> element may be used to add supplemental natural-language
 information on the concept as a block of text with some optional
 mark-up, again with an optional @role:
 
+[source,xml]
 <note>
-
-This is a top-level concept from the IPTC Media Topic NewsCodes
-
+	This is a top-level concept from the IPTC Media Topic NewsCodes
 </note>
 
 [[conveying-concepts-the-concept-item-structure]]
@@ -223,60 +207,6 @@ default "usable" if the property is absent).
 
 Content Metadata is optional and is not included in this example:
 
-All Scheme Aliases used in listing below indicate IPTC NewsCodes
-vocabularies, except for the following alias values: +
-_svc,_
-
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-
-<conceptItem xmlns="http://iptc.org/std/nar/2006-10-01/"
-
-guid="urn:newsml:iptc.org:20080229:ncdci-subjectcode"
-
-version="101018123521"
-
-standard="NewsML-G2"
-
-standardversion="2.23"
-
-<catalogRef
-
-href="http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_29.xml"
-/>
-
-<rightsInfo>
-
-<copyrightHolder>
-
-<name>IPTC - International Press Telecommunications Council, 20 Garrick
-Street, London WC2E 9BT, UK</name>
-
-</copyrightHolder>
-
-<copyrightNotice>Copyright 2008, IPTC, www.iptc.org, All
-
-Rights Reserved</copyrightNotice>
-
-</rightsInfo>
-
-<itemMeta>
-
-<itemClass qcode="cinat:concept" />
-
-<provider qcode="nprov:IPTC" />
-
-<versionCreated>2016-11-07T12:35:21+01:00</versionCreated>
-
-<firstCreated>2008-02-29T12:00:00+00:00</firstCreated>
-
-<pubStatus qcode="stat:usable" />
-
-<title xml:lang="en">Concept Item delivering a
-
-concept requested from the IPTC Media Topic NewsCodes</title>
-
-</itemMeta>
-
 Note the <itemClass> property for a Concept Item must use the IPTC
 Concept Item Nature NewsCodes with a recommended Scheme Alias of "cinat"
 and denotes this Item conveys a NewsML-G2 Concept.
@@ -288,129 +218,17 @@ Completed Concept Item
 This example is a Concept Item that describes one of the IPTC Media
 Topic NewsCodes:
 
-1.  _
-[[_Ref374636483]]Abstract Concept conveyed in a NewsML-G2 Concept Item
-_
+[[abstract-concept-in-concept-item]]
+
+.LISTING Abstract Concept conveyed in a NewsML-G2 Concept Item
 
 All Scheme Aliases used in listing below indicate IPTC NewsCodes
 vocabularies.
 
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-
-<conceptItem xmlns="http://iptc.org/std/nar/2006-10-01/"
-
-guid="urn:newsml:iptc.org:20080229:ncdci-subjectcode"
-
-version="101018123521"
-
-standard="NewsML-G2"
-
-standardversion="2.23">__
-
-<catalogRef
-
-href="http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_29.xml"
-/>
-
-<rightsInfo>
-
-<copyrightHolder>
-
-<name>IPTC - International Press Telecommunications Council, 20
-
-Garrick Street, London WC2E 9BT, UK</name>
-
-</copyrightHolder>
-
-<copyrightNotice>Copyright 2008, IPTC, www.iptc.org, All
-
-Rights Reserved</copyrightNotice>
-
-</rightsInfo>
-
-<itemMeta>
-
-<itemClass qcode="cinat:concept" />
-
-<provider qcode="nprov:IPTC" />
-
-<versionCreated>2016-11-07T12:35:21+01:00</versionCreated>
-
-<firstCreated>2008-02-29T12:00:00+00:00</firstCreated>
-
-<pubStatus qcode="stat:usable" />
-
-<title xml:lang="en">Concept Item delivering a
-
-concept requested from the IPTC Media Topic NewsCodes</title>
-
-</itemMeta>
-
-<concept>
-
-<conceptId created="2000-10-30T12:00:00+00:00"
-qcode="medtop:01000000" />
-
-<type qcode="cpnat:abstract" />
-
-<name xml:lang="en-GB">arts, culture and entertainment</name>
-
-<name xml:lang="de">Kultur, Kunst, Unterhaltung</name>
-
-<name xml:lang="fr">Arts, culture, et spectacles</name>
-
-<name xml:lang="es">arte, cultura y espectáculos</name>
-
-<name xml:lang="ja-JP">文化</name>
-
-<name xml:lang="it">Arte, cultura, intrattenimento</name>
-
-<definition xml:lang="en-GB">Matters pertaining to the advancement
-and refinement
-
-of the human mind, of interests, skills, tastes and
-emotions</definition>
-
-<definition xml:lang="de">Sachverhalte, die die Veränderung und
-Weiterentwicklung
-
-des menschlichen Geistes, der Interessen, des Geschmacks, der
-Fähigkeiten und
-
-der Gefühle betreffen.</definition>
-
-<definition xml:lang="fr">Tout ce qui est relatif à la création
-d'œuvres, au
-
-développement des facultés intellectuelles, et à leur représentation
-
-publique</definition>
-
-<definition xml:lang="es">Asuntos pertinentes al avance y
-refinamiento de la mente
-
-humana, intereses, habilidades, gustos y emociones.</definition>
-
-<definition xml:lang="ja-JP">
-
-人間の精神や興味、技能、嗜好、感情の進歩や洗練に関係する事柄</definition>
-
-<definition xml:lang="it">Creazione e rappresentazione dell'opera
-d'arte, gli
-
-Interessi intellettuali, il gusto e le emozioni umane</definition>
-
-<note xml:lang="en-GB">
-
-This is a top-level concept from the IPTC Media Topic NewsCodes
-
-</note>
-
-</concept>
-
-</conceptItem>
-
-[[_Toc374625136]][[_Toc374625137]][[_Toc374625138]][[_Toc374625139]][[_Toc374625140]][[_Toc374625141]][[_Toc374625142]][[_Toc374625143]][[_Toc374625144]][[_Toc374625145]][[_Toc374625146]][[_Toc374625147]][[_Toc374625148]][[_Toc374625149]][[_Toc374625150]][[_Toc374625151]][[_Toc374625152]][[_Toc374625153]][[_Toc374625154]][[_Toc374625155]][[_Toc374625156]][[_Toc374625157]][[_Toc374625158]][[_Toc374625159]][[_Toc374625160]][[_Toc374625161]][[_Toc374625162]][[_Toc374625163]][[_Toc374625164]][[_Toc374625165]][[_Toc374625166]][[_Toc374625167]][[_Toc374625168]][[_Toc374625169]][[_Toc374625170]][[_Toc374625171]][[_Toc374625172]][[_Toc374625173]][[_Toc374625174]][[_Toc374625175]][[_Toc374625176]]
+[source, xml]
+----
+include::{includedir}/../../GuidelinesCodeExamples_2017/LISTING_10_Abstract_Concept_conveyed_in_a_NewsML-G2_Concept_Item.xml[]
+----
 
 [[concepts-for-real-world-entities]]
 Concepts for real-world entities
@@ -430,54 +248,31 @@ The document structure is as previously described, with a root
 optional and may only contain Administrative metadata properties, such
 as <contentModified> (not included in the example)
 
+[source,xml]
 <?xml version="1.0" encoding="UTF-8"?>
-
 <conceptItem xmlns="http://iptc.org/std/nar/2006-10-01/"
-
-guid="urn:newsml:iptc.org:20080229:ncdci-person"
-
-version="1010181123618"
-
-standard="NewsML-G2"
-
-standardversion="2.23"
-
-<catalogRef
-
-href="http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_29.xml"
-/>
-
-<rightsInfo>
-
-<copyrightHolder>
-
-<name>IPTC - International Press Telecommunications Council, 20
-
-Garrick Street, London WC2E 9BT, UK</name>
-
-</copyrightHolder>
-
-<copyrightNotice>Copyright 2008, IPTC, www.iptc.org, All
-
-Rights Reserved</copyrightNotice>
-
-</rightsInfo>
-
-<itemMeta>
-
-<itemClass qcode="cinat:concept" />
-
-<provider qcode="nprov:IPTC" />
-
-<versionCreated>2016-11-07T12:38:18Z</versionCreated>
-
-<firstCreated>2008-12-29T11:00:00Z</firstCreated>
-
-<pubStatus qcode="stat:usable" />
-
-<title xml:lang="en">Concept Item describing Mario Draghi</title>
-
-</itemMeta>
+	guid="urn:newsml:iptc.org:20080229:ncdci-person"
+	version="1010181123618"
+	standard="NewsML-G2"
+	standardversion="2.23"
+	<catalogRef
+		href="http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_29.xml"
+	/>
+	<rightsInfo>
+		<copyrightHolder>
+			<name>IPTC - International Press Telecommunications Council, 20 Garrick Street, London WC2E 9BT, UK</name>
+		</copyrightHolder>
+		<copyrightNotice>Copyright 2008, IPTC, www.iptc.org, All
+		Rights Reserved</copyrightNotice>
+	</rightsInfo>
+	<itemMeta>
+		<itemClass qcode="cinat:concept" />
+		<provider qcode="nprov:IPTC" />
+		<versionCreated>2016-11-07T12:38:18Z</versionCreated>
+		<firstCreated>2008-12-29T11:00:00Z</firstCreated>
+		<pubStatus qcode="stat:usable" />
+		<title xml:lang="en">Concept Item describing Mario Draghi</title>
+	</itemMeta>
 
 [[top-level-concept-details]]
 Top-level concept details
@@ -486,48 +281,26 @@ Top-level concept details
 The <concept> wrapper starts with the properties common to all types of
 concepts:
 
+[source,xml]
 <concept>
-
-<conceptId created="2009-01-10T12:00:00Z" qcode="people:329465"
-/>
-
-<type qcode="cpnat:person" />
-
-<name xml:lang="en-GB">Mario Draghi</name>
-
-<definition xml:lang="en-GB" role="definitionrole:biog">
-
-Mario Draghi, born 3 September 1947,
-
-is an Italian banker and economist who succeeded Jean-Claude Trichet as
-the
-
-President of the European Central Bank on 1 November 2011. He was
-previously
-
-the governor of the Bank of Italy from January 2006 until October 2011.
-In 2014
-
-Forbes nominated Draghi 9th most powerful person in the world.<br />
-
-</definition>
-
-<note xml:lang="en-GB">
-
-Not Mario D’roggia, international powerboat racer
-
-</note>
-
-<related rel="relation:occupation" qcode="jobtypes:puboff" />
-
-<sameAs type="cpnat:person" qcode="pers:567223">
-
-<name>DRAGHI, Mario</name>
-
-</sameAs>
-
-....
-
+	<conceptId created="2009-01-10T12:00:00Z" qcode="people:329465"/>
+	<type qcode="cpnat:person" />
+	<name xml:lang="en-GB">Mario Draghi</name>
+	<definition xml:lang="en-GB" role="definitionrole:biog">
+		Mario Draghi, born 3 September 1947,
+		is an Italian banker and economist who succeeded Jean-Claude Trichet as the
+		President of the European Central Bank on 1 November 2011. He was previously
+		the governor of the Bank of Italy from January 2006 until October 2011.
+		In 2014 Forbes nominated Draghi 9th most powerful person in the world.<br />
+	</definition>
+	<note xml:lang="en-GB">
+		Not Mario D’roggia, international powerboat racer
+	</note>
+	<related rel="relation:occupation" qcode="jobtypes:puboff" />
+		<sameAs type="cpnat:person" qcode="pers:567223">
+			<name>DRAGHI, Mario</name>
+		</sameAs>
+	....
 </concept>
 
 Note the inclusion of Concept Relationship properties: the <related>
@@ -550,13 +323,15 @@ Born <born> and Died <died>
 
 The date of birth and date of death of the person, for example:
 
+[source,xml]
 <born>1947-09-03</born>
 
-The data type is "TruncatedDateTime", which means that the value is a
+[[TruncatedDateTime]]The data type is "TruncatedDateTime", which means that the value is a
 date, with an optional time part. The date value may be truncated from
 the right to a minimum of YYYY. If used, the time must be present in
 full, with time zone, and ONLY in the presence of the full date.
 
+[source,xml]
 <born>1947</born>
 
 [[affiliation-affiliation]]
@@ -565,10 +340,9 @@ Affiliation <affiliation>
 
 An affiliation of the person to an organisation.
 
+[source,xml]
 <affiliation type="orgnat:employer" qcode="org:ECB">
-
-<name>European Central Bank</name>
-
+	<name>European Central Bank</name>
 </affiliation>
 
 Note that the @type refers to the type of organisation – not the type of
@@ -597,17 +371,15 @@ needed to express different @roles, for example different "work" and
 An "Electronic Address" type allows the expression of @role (QCode) to
 qualify the information, for example
 
+[source,xml]
 <email role="addressrole:office">
-
-info@ecb.eu
-
+	info@ecb.eu
 </email>
 
 |Instant Message Address |<im> |Electronic Address a|
+[source,xml]
 <im role="imsrvc:reuters">
-
-jc.trichet.ecb.eu@reuters.net
-
+	jc.trichet.ecb.eu@reuters.net
 </im>
 
 |Phone Number |<phone> |Electronic Address |
@@ -615,10 +387,9 @@ jc.trichet.ecb.eu@reuters.net
 |Fax Number |<fax> |Electronic Address |
 
 |Web site |<web> |IRI a|
+[source,xml]
 <web role="webrole:corporate">
-
-www.ecb.eu
-
+	www.ecb.eu
 </web>
 
 |Postal Address |<address> |Address |See below for details of Address
@@ -657,26 +428,17 @@ value, or no value with a <name> child element
 
 For example:
 
+[source,xml]
 <address role="addrole:postal">
-
-<line>Postfach 16 03 19</line>
-
-<locality>
-
-<name>Frankfurt am Main</name>
-
-</locality>
-
-<country qcode="iso3166-1a2:DE">
-
-<name xml:lang="en">Germany</name>
-
-</country>
-
-<postalCode>D-60066</postalCode>
-
-<worldRegion qcode="maxmindcc:EU">Europe</worldRegion>
-
+	<line>Postfach 16 03 19</line>
+	<locality>
+		<name>Frankfurt am Main</name>
+	</locality>
+	<country qcode="iso3166-1a2:DE">
+		<name xml:lang="en">Germany</name>
+	</country>
+	<postalCode>D-60066</postalCode>
+	<worldRegion qcode="maxmindcc:EU">Europe</worldRegion>
 </address>
 
 [[putting-it-together]]
@@ -685,177 +447,18 @@ Putting it together
 
 The complete concept listing for this example:
 
-1.  __
-[[_Ref374636537]]Person Concept conveyed in a NewsML-G2 Concept Item
-__
+.LISTING Person Concept conveyed in a NewsML-G2 Concept Item
+
 
 All Scheme Aliases used in listing below indicate IPTC NewsCodes
 vocabularies, except for the following alias values: _relation,
 jobtypes, pers, definitionrole, orgnat, org, contactrole, addressrole,
 imsrvc, phonerole, faxrole, addrole, maxmindcc._
 
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-
-<conceptItem xmlns="http://iptc.org/std/nar/2006-10-01/"
-
-guid="urn:newsml:iptc.org:20080229:ncdci-person"
-
-version="1010181123618"
-
-standard="NewsML-G2"
-
-standardversion="2.23"
-
-<catalogRef
-
-href="http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_29.xml"
-/>
-
-<rightsInfo>
-
-<copyrightHolder>
-
-<name>IPTC - International Press Telecommunications Council, 20
-
-Garrick Street, London WC2E 9BT, UK</name>
-
-</copyrightHolder>
-
-<copyrightNotice>Copyright 2008, IPTC, www.iptc.org, All
-
-Rights Reserved</copyrightNotice>
-
-</rightsInfo>
-
-<itemMeta>
-
-<itemClass qcode="cinat:concept" />
-
-<provider qcode="nprov:IPTC" />
-
-<versionCreated>2016-11-07T12:38:18Z</versionCreated>
-
-<firstCreated>2008-12-29T11:00:00Z</firstCreated>
-
-<pubStatus qcode="stat:usable" />
-
-<title xml:lang="en">Concept Item describing Mario Draghi</title>
-
-</itemMeta>
-
-<concept>
-
-<conceptId created="2009-01-10T12:00:00Z" qcode="people:329465"
-/>
-
-<type qcode="cpnat:person" />
-
-<name xml:lang="en-GB">Mario Draghi</name>
-
-<definition xml:lang="en-GB" role="definitionrole:biog">
-
-Mario Draghi, born 3 September 1947,
-
-is an Italian banker and economist who succeeded Jean-Claude Trichet as
-the
-
-President of the European Central Bank on 1 November 2011. He was
-previously
-
-the governor of the Bank of Italy from January 2006 until October 2011.
-In 2014
-
-Forbes nominated Draghi 9th most powerful person in the world.<br />
-
-</definition>
-
-<note xml:lang="en-GB">
-
-Not Mario D’roggia, international powerboat racer
-
-</note>
-
-<related rel="relation:occupation" qcode="jobtypes:puboff" />
-
-<sameAs type="cpnat:person" qcode="pers:567223">
-
-<name>DRAGHI, Mario</name>
-
-</sameAs>
-
-<personDetails>
-
-<born>1947-09-03</born>
-
-<affiliation type="orgnat:employer" qcode="org:ECB">
-
-<name>European Central Bank</name>
-
-</affiliation>
-
-<contactInfo role="contactrole:official">
-
-<email role="addressrole:office">info@ecb.eu</email>
-
-<im role="imsrvc:reuters">president.ecb.eu@reuters.net</im>
-
-<phone role="phonerole:switch">+49 69 13 44 0</phone>
-
-<fax role="faxrole:central">+49 69 13 44 60 00</fax>
-
-<web>www.ecb.eu</web>
-
-<address role="addrole:physical">
-
-<line>Kaiserstrasse 29</line>
-
-<locality>
-
-<name>Frankfurt am Main</name>
-
-</locality>
-
-<country qcode="iso3166-1a2:DE">
-
-<name xml:lang="en">Germany</name>
-
-</country>
-
-<postalCode>D-60311</postalCode>
-
-<worldRegion qcode="maxmindcc:EU">Europe</worldRegion>
-
-</address>
-
-<address role="addrole:postal">
-
-<line>Postfach 16 03 19</line>
-
-<locality>
-
-<name>Frankfurt am Main</name>
-
-</locality>
-
-<country qcode=" iso3166-1a2:DE">
-
-<name xml:lang="en">Germany</name>
-
-</country>
-
-<postalCode>D-60066</postalCode>
-
-<worldRegion qcode="maxmindcc:EU">Europe</worldRegion>
-
-</address>
-
-</contactInfo>
-
-</personDetails>
-
-</concept>
-
-</conceptItem>
+[source, xml]
+----
+include::{includedir}/../../GuidelinesCodeExamples_2017/LISTING_11_Person_Concept_conveyed_in_a_NewsML-G2_Concept_Item.xml[]
+----
 
 [[more-real-world-entities]]
 More real-world entities
@@ -875,13 +478,15 @@ Founded <founded> and Dissolved <dissolved>
 The date of foundation / dissolution of the organisation, equivalent to
 born/died for a person, for example
 
+[source,xml]
 <founded>1998-06-01</founded>
 
 Or
 
+[source,xml]
 <founded>1998</founded>
 
-(See note on Truncated Date Time Property Type in 12.5.3.1)
+See note on xref:TruncatedDateTime[Truncated Date Time Property Type]
 
 [[location-location]]
 Location <location>
@@ -890,10 +495,9 @@ Location <location>
 A place where the organisation is located, expressed as Flexible
 Property, NOT an address, repeated as many times as needed. For example:
 
+[source,xml]
 <location type="loctypes:regoff" qcode="poi:75001">
-
-<name>Paris</name>
-
+	<name>Paris</name>
 </location>
 
 [[contact-information-contactinfo]]
@@ -947,6 +551,7 @@ Founded
 The Date and optionally the time plus time zone, that the geopolitical
 area was founded
 
+[source,xml]
 <founded>1998</founded>
 
 [[dissolved]]
@@ -971,7 +576,7 @@ Address
 +++++++
 
 The location of the point of interest expressed as a postal address. The
-<address> element is a wrapper for child elements described in 12.5.3.4.
+<address> element is a wrapper for child elements described in xref:postal-address-address[Postal Address] 
 In this context, the address is expressly the location of the POI,
 whereas the <address> wrapper when used as a child of <contactInfo> (see
 below) expresses the address of the entity who should be contacted about
@@ -981,7 +586,7 @@ the POI, which could be an office some distance away.
 Position <position>
 +++++++++++++++++++
 
-The coordinates of the location as described in 12.6.2.1
+The coordinates of the location as described in xref:position-position[Position]
 
 [[opening-hours-openhours]]
 Opening Hours <openHours>
@@ -991,6 +596,7 @@ The opening hours of the POI are expressed as a Label type, which is an
 internationalized string – a natural language expression – extended to
 include @role if required. Example:
 
+[source,xml]
 <openHours>9.30am to 5.30pm, closed for lunch from 1pm to
 2pm</openHours>
 
@@ -1000,6 +606,7 @@ Capacity <capacity>
 
 The capacity of the POI is expressed as a Label:
 
+[source,xml]
 <capacity>10.000 seats</capacity>
 
 [[contact-information-contactinfo-1]]
@@ -1019,34 +626,25 @@ Methods of accessing the POI, including directions. This is a Block type
 of element, allowing some mark-up and may be repeated as often as
 needed:
 
+[source,xml]
 <access role="traveltype:public">
-
-The Jubilee Line is recommended as the quickest route to ExCeL London.
-At Canning
-
-Town change to the DLR (upstairs on platform 3) for the quick two-stop
-journey
-
-to Custom House for ExCeL Station.
-
+	The Jubilee Line is recommended as the quickest route to ExCeL London. At Canning
+	Town change to the DLR (upstairs on platform 3) for the quick two-stop journey
+	to Custom House for ExCeL Station.
 </access>
-
 <access role="traveltype:road">
-
-When driving to ExCeL London follow signs for Royal Docks, City Airport
-and ExCeL
-
-There is easy access to the M25, M11, A406 and A13.
-
+	When driving to ExCeL London follow signs for Royal Docks, City Airport and ExCeL
+	There is easy access to the M25, M11, A406 and A13.
 </access>
 
 [[detailed-information-details]]
- Detailed Information <details>
+Detailed Information <details>
 +++++++++++++++++++++++++++++++
 
 Detailed information about the location of the POI expressed as a Block
 type:
 
+[source,xml]
 <details>Room M345, 3^rd^ Floor</details>
 
 [[creation-of-poi-created]]
@@ -1056,6 +654,7 @@ Creation of POI <created>
 The date (and optionally a time) on which the Point Of Interest was
 created.
 
+[source,xml]
 <created>2016-06-23</created>
 
 [[destruction-or-teardown-of-poi-ceasedtoexist]]
@@ -1065,6 +664,7 @@ Destruction or teardown of POI <ceasedToExist>
 The date (and optionally a time) on which the Point Of Interest ceased
 to exist; perhaps in reference to a temporary POI:
 
+[source,xml]
 <ceasedToExist>2016-06-23</ceasedToExist>
 
 [[object-details-objectdetails]]
@@ -1086,6 +686,7 @@ Creation Date <created>
 The date and, optionally, the time and time zone when the object was
 created. Non-repeatable.
 
+[source,xml]
 <created>1994-06-14</created>
 
 [[creator-creator]]
@@ -1095,10 +696,9 @@ Creator <creator>
 A party (person or organisation) that created the object, expressed as a
 Flexibly Property type. Repeatable.
 
+[source,xml]
 <creator type="cpnat:organisation" qcode="nyse:ba">
-
-<name>The Boeing Company</name>
-
+	<name>The Boeing Company</name>
 </creator>
 
 In this case, the object is a Boeing 777 airliner.
@@ -1110,10 +710,9 @@ Copyright Notice <copyrightNotice>
 Any necessary copyright notice for claiming the intellectual property of
 the object. A repeatable Label type:
 
+[source,xml]
 <copyrightNotice role="iprole:company>
-
-Copyright 2008 Boeing Aircraft, all rights reserved
-
+	Copyright 2008 Boeing Aircraft, all rights reserved
 </copyrightNotice>
 
 [[relationships-between-concepts]]
@@ -1126,29 +725,18 @@ another concept. For example, our subject was born in Rome. We could
 create a concept for Rome as follows, with a <broader> property that
 denotes that the city as part the region of Lazio:
 
+[source,xml]
 <concept>
-
-<conceptId qcode="urban:roma" />
-
-<type qcode="cpnat:geoArea" />
-
-<definition role="definitionrole:short">
-
-Rome (Italian: Roma) is a city and special commune
-
-(named "Roma Capitale") in Italy. Rome is the capital of Italy and also
-of the
-
-homonymous province and of the region of Lazio.<br />
-
-</definition>
-
-<broader type="cpnat:geoArea" qcode="locale:lazio">
-
-<name xml:lang="en">Lazio (region)</name>
-
-</broader>
-
+	<conceptId qcode="urban:roma" />
+	<type qcode="cpnat:geoArea" />
+	<definition role="definitionrole:short">
+		Rome (Italian: Roma) is a city and special commune
+		(named "Roma Capitale") in Italy. Rome is the capital of Italy and also
+		homonymous province and of the region of Lazio.<br />
+	</definition>
+	<broader type="cpnat:geoArea" qcode="locale:lazio">
+		<name xml:lang="en">Lazio (region)</name>
+	</broader>
 </concept>
 
 <narrower> expresses the reverse relationship. A concept for Rhône could
@@ -1161,10 +749,9 @@ has an equivalent concept in some other taxonomy. For example, we may
 know that AFP’s knowledge base of people has an entry for Mario Draghi
 that can be referenced using the appropriate alias.
 
+[source,xml]
 <sameAs type="cpnat:person" qcode="AFPpers:567223">
-
-<name>DRAGHI, Mario</name>
-
+	<name>DRAGHI, Mario</name>
 </sameAs>
 
 The sameAs property also assists inter-operability because it can be
@@ -1176,22 +763,19 @@ on using ISO-3166 Country Codes to classify nationality. The provider
 can assist recipients to make a direct reference to their preferred
 scheme using "sameAs":
 
+[source,xml]
 <sameAs qcode="iso3166-1a2:DE" />
-
 <sameAs qcode="iso3166-1a3:DEU" />
-
 <sameAs qcode="iso3166n:276" />
-
 <related> allows the expression of a relationship with another concept
+
 that cannot be expressed using <broader>, <narrower>, or <sameAs>. For
 example, the "European Central Bank" may be "related to" "Mario Draghi"
 – thus the ECB concept may include:
 
-<related rel="relation:hasPresident" type="cpnat:person"
-qcode="people:329465">
-
-<name>Mario Draghi</name>
-
+[source,xml]
+<related rel="relation:hasPresident" type="cpnat:person" qcode="people:329465">
+	<name>Mario Draghi</name>
 </related>
 
 The nature of the relationship is expressed using @rel; the example
@@ -1208,13 +792,9 @@ For example, if the European Central Bank is the second most important
 concept related to Mario Draghi, amongst other concepts related to him,
 we can express this as follows:
 
-<related rank="2" rel="relation:hasPresident"
-type="cpnat:person"
-
-qcode="people:329465">
-
-<name>Mario Draghi</name>
-
+[source,xml]
+<related rank="2" rel="relation:hasPresident" type="cpnat:person" qcode="people:329465">
+	<name>Mario Draghi</name>
 </related>
 
 [[expressing-quantitative-values-using-related]]
@@ -1233,31 +813,21 @@ the value (e.g. the currency) using @valueunit and @valuedatatype.
 For example, to express scores in a sports game where the named team won
 by 4 goals to 2 and gained 3 points:
 
+[source,xml]
 <concept xmlns:xs="http://www.w3.org/2001/XMLSchema">
-
-<conceptId qcode="ukprem:WBA" />
-
-<name>West Bromwich Albion</name>
-
-...
-
-<related rel="crel:scoreFor" value="4"
-valueunit="valunits:goals"
-
-valuedatatype="xs:nonNegativeInteger" />
-
-<related rel="crel:scoreAgainst" value="2"
-valueunit="valunits:goals"
-
-valuedatatype="xs:nonNegativeInteger" />
-
-<related rel="crel:pointsAdded" value="3"
-valueunit="valunits:points"
-
-valuedatatype="xs:nonNegativeInteger" />
-
-...
-
+	<conceptId qcode="ukprem:WBA" />
+	<name>West Bromwich Albion</name>
+	...
+	<related rel="crel:scoreFor" value="4" 
+		valueunit="valunits:goals"
+		valuedatatype="xs:nonNegativeInteger" />
+	<related rel="crel:scoreAgainst" value="2"
+		valueunit="valunits:goals"
+		valuedatatype="xs:nonNegativeInteger" />
+	<related rel="crel:pointsAdded" value="3"
+		valueunit="valunits:points"
+		valuedatatype="xs:nonNegativeInteger" />
+	...
 </concept>
 
 A further example, expresses a recommendation from an analyst in the
@@ -1265,34 +835,23 @@ financial markets where the EUR changes from 39 to 44 (expressed as a
 value), and the rank changes from Hold to Buy (expressed as a value or
 QCode):
 
+[source,xml]
 <concept xmlns:xs="http://www.w3.org/2001/XMLSchema">
-
-...
-
-<related rel="crel:price_new" value="44"
-valueunit="iso4217a:EUR"
-
-valuedatatype="xs:decimal" />
-
-<related rel="crel:price_old" value="39"
-valueunit="iso4217a:EUR"
-
-valuedatatype="xs:decimal" />
-
-<related rel="crel:rank_old" value="Hold"
-valueunit="valunits:trRanks"
-
-valuedatatype="xs:string" />
-
-<related rel="crel:rank_new" value="Buy"
-valueunit="valunits:trRanks"
-
-valuedatatype="xs:string" />
-
-<related rel="crel:rank_new" qcode="trRanks:Buy" />
-
-...
-
+	...
+	<related rel="crel:price_new" value="44"
+		valueunit="iso4217a:EUR"
+		valuedatatype="xs:decimal" />
+	<related rel="crel:price_old" value="39"
+		valueunit="iso4217a:EUR"
+		valuedatatype="xs:decimal" />
+	<related rel="crel:rank_old" value="Hold"
+		valueunit="valunits:trRanks"
+		valuedatatype="xs:string" />
+	<related rel="crel:rank_new" value="Buy"
+		valueunit="valunits:trRanks"
+		valuedatatype="xs:string" />
+	<related rel="crel:rank_new" qcode="trRanks:Buy" />
+		...
 </concept>
 
 When using <related>: ONLY ONE out of @qcode, @uri, @literal, OR @value
@@ -1327,96 +886,55 @@ matching that of <link>. This enables implementers to provide links to
 supplementary information inside the <concept> wrapper, and thus into a
 Knowledge Item:
 
+[source,xml]
 <concept>
-
-<conceptId created="2009-01-10T12:00:00Z" qcode="people:329465"
-/>
-
-<type qcode="cpnat:person" />
-
-<name xml:lang="en-GB">Mario Draghi</name>
-
-<definition xml:lang="en-GB" role="definitionrole:biog">
-
-Mario Draghi, born 3 September
-
-1947, is an Italian banker and economist who succeeded Jean-Claude
-Trichet
-
-as President of the European Central Bank on 1 November 2011.<br />
-
-</definition>
-
-<related rel="relation:occupation" qcode="jobtypes:puboff" />
-
-<remoteInfo "link" start
-
-rel="irel:seeAlso"
-
-contenttype="image/jpeg">
-
-residref="tag:acmenews.com,2008:TX-PAR:20090529:JYC90" Item ref
-
-<title>
-
-ECB official portrait picture of Mario Draghi
-
-</title>
-
-</remoteInfo> "link" end
-
-<personDetails>
-
-<born>1942-12-20</born>
-
-....
-
-<contactInfo role="contactrole:official">
-
-....
-
-</contactInfo>
-
-</personDetails>
-
+	<conceptId created="2009-01-10T12:00:00Z" qcode="people:329465"/>
+	<type qcode="cpnat:person" />
+	<name xml:lang="en-GB">Mario Draghi</name>
+	<definition xml:lang="en-GB" role="definitionrole:biog">
+		Mario Draghi, born 3 September
+		1947, is an Italian banker and economist who succeeded Jean-Claude Trichet
+		as President of the European Central Bank on 1 November 2011.<br />
+	</definition>
+	<related rel="relation:occupation" qcode="jobtypes:puboff" />
+	<remoteInfo "link" start
+		rel="irel:seeAlso"
+		contenttype="image/jpeg">
+		residref="tag:acmenews.com,2008:TX-PAR:20090529:JYC90" // Item ref
+		<title>ECB official portrait picture of Mario Draghi</title>
+	</remoteInfo> "link" end
+	<personDetails>
+		<born>1942-12-20</born>
+	....
+		<contactInfo role="contactrole:official">
+	....
+		</contactInfo>
+	</personDetails>
 </concept>
 
-Using the rules given in 26.2.2.4, when adding properties of the target
-NewsML-G2 Item, the parent property must be included if it is not from
-either <contentMeta> or <itemMeta>. For example, a <description> element
-extracted from <contentMeta> (no parent needed):
+Using the rules given in xref:hints-and-extension-points-in-newsml-g2[[Hints and Extension Points]] when adding properties of the target NewsML-G2 Item, the parent property must be included if it is not from
+either <contentMeta> or <itemMeta>. For example, a <description> element extracted from <contentMeta> (no parent needed):
 
+[source,xml]
 <remoteInfo
-
-rel="irel:seeAlso"
-
-contenttype="video/mpeg">
-
-residref="tag:acmenews.com,2008:TX-PAR:20090529:JYC90" <description>
-
-ECB official video of Mario Draghi working with senior
-
-colleagues at the Bank
-
-</description>
-
+	rel="irel:seeAlso"
+	contenttype="video/mpeg">
+	residref="tag:acmenews.com,2008:TX-PAR:20090529:JYC90" 
+	<description>
+		ECB official video of Mario Draghi working with senior colleagues at the Bank
+	</description>
+		
 Contrast with a <description> from <partMeta>, which must be included as
 the parent element:
 
+[source,xml]
 <remoteInfo>
-
-<partMeta partid="part1" seq="1"
-
-<description>The first part shows...</description>
-
-</partMeta>
-
-<partMeta partid="part2" seq="2"
-
-<description>The second part shows...</description>
-
-</partMeta>
-
+	<partMeta partid="part1" seq="1"
+		<description>The first part shows...</description>
+	</partMeta>
+	<partMeta partid="part2" seq="2"
+		<description>The second part shows...</description>
+	</partMeta>
 </remoteInfo>
 
 [[concepts-in-practice]]
@@ -1431,5 +949,4 @@ Knowledge Item. This is discussed in Knowledge Items.
 The use of Concepts to convey Event information is discussed in Events
 in NewsML-G2.
 
-[[OLE_LINK3]][[OLE_LINK4]]
 

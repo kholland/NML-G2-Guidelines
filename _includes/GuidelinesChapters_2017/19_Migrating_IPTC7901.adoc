@@ -27,7 +27,7 @@ mapping of IPTC 7901 fields in the provider’s systems.
 Message Header
 ~~~~~~~~~~~~~~
 
-[cols=",,",options="header",]
+[cols="20,20,60",options="header",]
 |=======================================================================
 |Field Name |Example |NewsML-G2 Property and Example
 |Source Identification |FRS a|
@@ -35,10 +35,12 @@ The 7901 definition is "to identify the news service of the originator
 and the message." An equivalent NewsML-G2 property would be the
 <destination> property of News Message:
 
+[source,xml]
 <destination>FRS</destination>
 
 An alternative property would be <channel>
 
+[source,xml]
 <channel>FRS</channel>
 
 Within a News Item, there is a <service> property that may also be used,
@@ -60,10 +62,12 @@ has two equivalents:
 
 <urgency> in the Administrative Metadata group of <contentMeta>
 
+[source,xml]
 <urgency>3</urgency>
 
 <priority> in the <header> of News Message.
 
+[source,xml]
 <priority>3</priority>
 
 If the 7901 field is mapped from an editorial system and is under the
@@ -83,10 +87,9 @@ receiver to get more information about the code, or to download all of
 the codes in order to populate a GUI menu. The CV would be expressed
 using <subject> in Content Metadata
 
+[source,xml]
 <subject type="cpnat:abstract" qcode="cat:POL">
-
-<name>Politics</name>
-
+	<name>Politics</name>
 </subject>
 
 |Word Count |195 a|
@@ -96,10 +99,9 @@ NewsML-G2 Specification can be downloaded by visiting
 http://www.newsml-g2.org/spec[www.newsml-g2.org/spec].) The plain text
 of IPTC 7901 is an attribute of the Inline Data component <inlineData>
 
+[source,xml]
 <inlineData wordcount="195">
-
-Text text text
-
+	Text text text
 </inlineData>
 
 There is no limit to the number of words that can be conveyed in
@@ -114,18 +116,22 @@ Providers converting from IPTC 7901 to NewsML-G2 should determine the
 source of the information that is being put into the 7901 fields, and
 map to the appropriate NewsML-G2 property.
 
-Customers converting an IPTC 5901 service into NewsML-G2 and who are
+Customers converting an IPTC 7901 service into NewsML-G2 and who are
 unsure about which of NewsML-G2’s properties to populate with the 7901
 information should consult the provider’s documentation, or inquire of
 the provider,
 
+
+|Keyword/Catch-Line |US-POLITICS/BUSH a|
+
+
 Part of the content of the Keyword/Catch-Line field may be equivalent to
 the NewsML-G2 <slugline> property in the Descriptive Metadata group of
-<contentMeta>.
+<contentMeta>. 
 
+[source,xml]
 <slugline separator="-">US-POLITICS/BUSH</slugline>
 
-|Keyword/Catch-Line | |
 |=======================================================================
 
 [[message-text]]
@@ -159,6 +165,7 @@ timestamp may be preserved in <firstCreated>
 These properties are of XML date time type so must express the FULL date
 and a time with time zone:
 
+[source,xml]
 <versionCreated>2009-02-09T12:30:00Z</versionCreated>
 
 If the provider believes that the IPTC 7901 day and time is being
@@ -174,6 +181,7 @@ preserved in <contentCreated>, If <contentModified> is used, then
 Both properties use TruncatedDateTime property type, allowing the value
 to be truncated from the right.
 
+[source,xml]
 <contentCreated>2009-02-09</contentCreated>
 
 [cols=",,",options="header",]

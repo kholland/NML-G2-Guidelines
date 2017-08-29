@@ -7,7 +7,7 @@ Introduction
 ~~~~~~~~~~~~
 
 When designing a NewsML-G2 feed, some fundamental questions need to be
-asked, including:
+asked, such as:
 
 * What is the provider’s business value proposition and how must this be
 supported by the NewsML-G2 implementation?
@@ -46,10 +46,7 @@ needs.
 For all content types, note the basic NewsML-G2 rule: a single logical
 item of content per News Item, which can be represented by more than one
 technical representation. For multiple pieces of content in a named
-relationship, use the Package Item (see
-link:#quick-start---packages[Chapter 8]) and for sending one or more
-NewsML-G2 Items in a transmission workflow, the
-link:#exchanging-news-news-messages[News Message] may be used.
+relationship, use the xref::quick-start-packages[Package Item,] and for sending one or more NewsML-G2 Items in a transmission workflow, the xref::exchanging-news-news-messages[News Message] may be used.
 
 [[content-choices]]
 Content choices
@@ -83,8 +80,7 @@ Pictures
 ++++++++
 
 As binary content, pictures (and graphics) are conveyed using the
-<remoteContent> wrapper. The Quick Start: Pictures and Graphics chapter
-gives an overview of NewsML-G2 features and the relationship between
+<remoteContent> wrapper. The xref::quick-start-pictures-and-graphics[Quick Start: Pictures and Graphics] chapter gives an overview of NewsML-G2 features and the relationship between
 NewsML-G2 metadata and embedded metadata such as the "IPTC Core" fields
 in JPEG/TIFF files. There is also a chapter on Mapping Embedded Photo
 Metadata to NewsML-G2 that provides more detailed information on this
@@ -104,13 +100,13 @@ potentially multiple technical renditions) that requires each part or
 shot to have its own administrative and descriptive metadata.
 
 NewsML-G2 serves both of these content models, which are described in
-the Quick Start: Video chapter.
+the xref::quick-start-video[Quick Start: Video] chapter.
 
 [[the-basics]]
 The Basics
 ~~~~~~~~~~
 
-The Chapter on link:#quick-start-newsml-g2-basics[NewsML-G2 Basics] has
+The Chapter on xref::quick-start-newsml-g2-basics[NewsML-G2 Basics] has
 a description of the mandatory and commonly-used properties.
 
 [[identification-and-version-control]]
@@ -119,7 +115,7 @@ Identification and version control
 
 Choose a scheme for generating the @guid of NewsML-G2 Items. The IPTC
 has registered a namespace urn "newsml" and a specification for this
-purpose (see Item Identifier) but other schemes such as TAG URI are
+purpose (see xref::item-identifier[Item Identifier]) but other schemes such as TAG URI are
 available.
 
 Decide how Item version will be generated: it must start at "1" and
@@ -145,6 +141,8 @@ and ignore PCL properties! There is no rule for this enforced by the
 schema files, so this situation will not currently be caught by
 validation during testing of the feed.
 
+WARNING: The Core Conformance Level of NewsML-G2 is not being developed beyond v2.25. All new features will now be added to Power Conformance Level only.
+
 [[validation]]
 Validation
 ~~~~~~~~~~
@@ -154,15 +152,15 @@ files will be essential. The IPTC recommends that validation should not
 be required in production: it can be resource intensive and introduces a
 potential point of failure. If a provider chooses to validate production
 documents, they must NOT validate against the schema files hosted by the
-IPTC for production documents.
+IPTC.
 
-[[catalogs-and-controlled-vocabularies.]]
-Catalogs and Controlled Vocabularies.
+[[catalogs-and-controlled-vocabularies]]
+Catalogs and Controlled Vocabularies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Even after following the advice about using NewsCodes (above) it is
 almost certain that some provider specific schemes will be needed. See
-the section on link:#controlled-vocabularies-and-qcodes[Controlled
+the section on xref::controlled-vocabularies-and-qcodes[Controlled
 Vocabularies] for detailed information on how to create and maintain CVs
 and Catalogs.
 
@@ -170,7 +168,7 @@ and Catalogs.
 Rights Information
 ~~~~~~~~~~~~~~~~~~
 
-See Chapter 23 Rights Metadata to go beyond the basics of expressing
+See Chapter on xref::rights-metadata[Rights Metadata] to go beyond the basics of expressing
 rights information.
 
 [[management-metadata]]
@@ -228,7 +226,7 @@ indicated by <versionCreated> element in itemMeta.
 
 For a full description of the timestamps and processing rules, see the
 NewsML-G2 Specification, which may be downloaded. This can be downloaded
-by visiting http://www.newsml-g2.org/spec[www.newsml-g2.org/spec].
+by visiting http://www.newsml-g2.org/spec[newsml-g2.org/spec].
 
 A number of existing implementations use only itemMeta/versionCreated
 for text, but for picture, graphics and video, it is generally accepted
@@ -243,8 +241,7 @@ Publishing Status/Embargoed
 Both properties of <itemMeta> have "hidden" values, in that there are
 default values that are assumed if the actual properties are absent.
 Publishing Status defaults to "usable" and Embargoed to "none". There
-are separate topics for these properties in Chapter 26 Generic Processes
-and Conventions.
+are separate topics for these properties in the chapter on xref::generic-processes-and-conventions[Generic Processes and Conventions].
 
 [[links]]
 Links
@@ -494,7 +491,7 @@ The mark-up in red indicates mandatory usage
 
 (subj)
 
- |-
+|-
 | a|
 (cpnat)
 
@@ -502,7 +499,7 @@ The mark-up in red indicates mandatory usage
 
 (why)
 
- |-
+|-
 |description |(drol) |Medium
 |partMeta |- |Medium
 |(tech helpers) | |

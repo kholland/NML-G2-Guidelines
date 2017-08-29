@@ -106,7 +106,11 @@ many features of SportsML-G2 is beyond the scope of this Guide, this
 Chapter documents the implementation of specific SportsML-G2 features
 and shows by example how its use may be extended.
 
-[[_Ref221010865]][[_Toc470002537]]Figure 18: Structure of a SportsML-G2
+[[_Ref221010865]][[_Toc470002537]]
+
+image::SportsML-G2Item2016.png[]
+
+Figure 18: Structure of a SportsML-G2
 document matches NewsML-G2
 
 As shown in the diagram, the <contentSet> wrapper appropriate to
@@ -145,16 +149,12 @@ referenced using <catalogRef> and @href to a catalog file, and/or the
 (scheme) using the <scheme> child element with @alias and @uri
 attributes.
 
+[source,xml]
 <catalogRef
-href="http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_29.xml"
-/>
-
-<catalog>
-
-<scheme alias="fixture"
-uri="http://xmlteam.org/newscodes/fixture#" />
-
-</catalog>
+	href="http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_29.xml" />
+	<catalog>
+		<scheme alias="fixture" uri="http://xmlteam.org/newscodes/fixture#" />
+	</catalog>
 
 [[item-metadata-2]]
 Item Metadata
@@ -162,18 +162,13 @@ Item Metadata
 
 A typical <itemMeta> block may include the following:
 
+[source,xml]
 <itemMeta>
-
-<itemClass qcode="ninat:text"/>
-
-<provider qcode="web:www.xmlteam.com"/>
-
-<versionCreated>2016-10-19T16:00:00Z</versionCreated>
-
-<pubStatus qcode="stat:usable"/>
-
-<fileName>xt.5932656-preview.xml</fileName>
-
+	<itemClass qcode="ninat:text"/>
+	<provider qcode="web:www.xmlteam.com"/>
+	<versionCreated>2016-10-19T16:00:00Z</versionCreated>
+	<pubStatus qcode="stat:usable"/>
+	<fileName>xt.5932656-preview.xml</fileName>
 </itemMeta>
 
 Note that it contains a recommended <filename> for the item.
@@ -199,115 +194,60 @@ different controlled vocabularies.
 players, plus the classification of the sport (in this case using the
 IPTC Media Topic NewsCodes)
 
+[source,xml]
 <contentMeta>
-
-<contentCreated>2016-10-19T12:17:00-05:00</contentCreated>
-
-<located qcode="city:Philadelphia">
-
-<broader qcode="reg:Pennsylvania" />
-
-<broader qcode="cntry:USA" />
-
-</located>
-
-<creator qcode="web:sportsnetwork.com">
-
-<name>The Sports Network</name>
-
-</creator>
-
-<altId type="idtype:tsn-id" id="sportsnetwork.com-5932656" />
-
-<altId type="idtype:revision-id"
-
-id="l.mlb.com-2009-e.19358-pre-event-coverage-sportsnetwork.com" />
-
-<genre qcode="spfixt:pitcher-preview">
-
-<name xml:lang="en-US">Game Pitcher Preview</name>
-
-<broader qcode="spct:event-summary" />
-
-</genre>
-
-<genre qcode="spct:event-summary" />
-
-<genre type="xts-genre:tsn-fixture"
-qcode="tsn-fixture:mlbpreviewxml" />
-
-<language tag="en-US" />
-
-<subject qcode="medtop:15000000">
-
-<name xml:lang="en-US">sport</name>
-
-</subject>
-
-<subject qcode="medtop:20000849">
-
-<name xml:lang="en-US">Baseball</name>
-
-<broader qcode="medtop:15000000" />
-
-</subject>
-
-<subject qcode="league:l.mlb.com">
-
-<name xml:lang="en-US">Major League Baseball</name>
-
-<broader qcode="medtop:15000000" />
-
-<sameAs qcode="medtop:20000849" />
-
-</subject>
-
-<subject type="spct:conference"
-qcode="vendconf:l.mlb.com-c.national">
-
-<name xml:lang="en-US">National</name>
-
-<broader qcode="vendleague:l.mlb.com" />
-
-</subject>
-
-<subject type="cpnat:event"
-qcode="vendevent:l.mlb.com-2007-e.19358" />
-
-<subject type="spct:team" qcode="vendteam:l.mlb.com-t.19">
-
-<name>Philadelphia Phillies</name>
-
-</subject>
-
-<subject type="spct:team" qcode="vendteam:l.mlb.com-t.26">
-
-<name>Arizona Diamondbacks</name>
-
-</subject>
-
-<subject type="cpnat:person" qcode="vendperson:l.mlb.com-p.456">
-
-<name role="nrol:full">Doug Davis</name>
-
-<sameAs qcode="fssID:45679" />
-
-</subject>
-
-<subject type="cpnat:person" qcode="vendperson:l.mlb.com-p.123">
-
-<name role="nrol:full">Freddy Garcia</name>
-
-<sameAs qcode="fssID:45680" />
-
-</subject>
-
-<headline>Pitcher Preview: Arizona Diamondbacks (29-23) at Philadelphia
-
-Phillies (26-24),7:05 p.m.</headline>
-
-<slugline separator="-">AAV!PREVIEW-ARI-PHI</slugline>
-
+	<contentCreated>2016-10-19T12:17:00-05:00</contentCreated>
+	<located qcode="city:Philadelphia">
+		<broader qcode="reg:Pennsylvania" />
+		<broader qcode="cntry:USA" />
+	</located>
+	<creator qcode="web:sportsnetwork.com">
+		<name>The Sports Network</name>
+	</creator>
+	<altId type="idtype:tsn-id" id="sportsnetwork.com-5932656" />
+	<altId type="idtype:revision-id"
+		id="l.mlb.com-2009-e.19358-pre-event-coverage-sportsnetwork.com" />
+	<genre qcode="spfixt:pitcher-preview">
+		<name xml:lang="en-US">Game Pitcher Preview</name>
+		<broader qcode="spct:event-summary" />
+	</genre>
+	<genre qcode="spct:event-summary" />
+	<genre type="xts-genre:tsn-fixture" qcode="tsn-fixture:mlbpreviewxml" />
+	<language tag="en-US" />
+	<subject qcode="medtop:15000000">
+		<name xml:lang="en-US">sport</name>
+	</subject>
+	<subject qcode="medtop:20000849">
+		<name xml:lang="en-US">Baseball</name>
+		<broader qcode="medtop:15000000" />
+	</subject>
+	<subject qcode="league:l.mlb.com">
+		<name xml:lang="en-US">Major League Baseball</name>
+		<broader qcode="medtop:15000000" />
+		<sameAs qcode="medtop:20000849" />
+	</subject>
+	<subject type="spct:conference" qcode="vendconf:l.mlb.com-c.national">
+		<name xml:lang="en-US">National</name>
+		<broader qcode="vendleague:l.mlb.com" />
+	</subject>
+	<subject type="cpnat:event" qcode="vendevent:l.mlb.com-2007-e.19358" />
+	<subject type="spct:team" qcode="vendteam:l.mlb.com-t.19">
+		<name>Philadelphia Phillies</name>
+	</subject>
+	<subject type="spct:team" qcode="vendteam:l.mlb.com-t.26">
+		<name>Arizona Diamondbacks</name>
+	</subject>
+	<subject type="cpnat:person" qcode="vendperson:l.mlb.com-p.456">
+		<name role="nrol:full">Doug Davis</name>
+		<sameAs qcode="fssID:45679" />
+	</subject>
+	<subject type="cpnat:person" qcode="vendperson:l.mlb.com-p.123">
+		<name role="nrol:full">Freddy Garcia</name>
+		<sameAs qcode="fssID:45680" />
+	</subject>
+	<headline>Pitcher Preview: Arizona Diamondbacks (29-23) at Philadelphia
+		Phillies (26-24),7:05 p.m.</headline>
+	<slugline separator="-">AAV!PREVIEW-ARI-PHI</slugline>
 </contentMeta>
 
 [[inlinexml-and-the-sports-content-component]]
@@ -323,11 +263,10 @@ This becomes clear in the <contentSet> component. The content will be
 conveyed as SportsML-G2. The appropriate wrapper for this type of
 content is <inlineXML>.
 
+[source,xml]
 <contentSet>
-
-<inlineXML contenttype="application/sportsml+xml">
-
-<sports-content>
+	<inlineXML contenttype="application/sportsml+xml">
+		<sports-content>
 
 The Inline XML wrapper must contain a complete XML document from any
 namespace – in this case <sports-content> is the root element of a
@@ -345,7 +284,7 @@ NewsML-G2 convention of using "camel case" names (for example
 compatibility with previous versions of SportsML, which existed as a
 standalone format before the creation of NewsML-G2.
 
-Sports Content may hold the following child elements
+Sports Content may hold the following child elements:
 
 [[schedules-or-fixtures-schedule]]
 Schedules or Fixtures <schedule>
@@ -359,7 +298,7 @@ Sports Event <sports-event>
 +++++++++++++++++++++++++++
 
 Contains metadata and data about a sporting competition – a sporting
-content that generally ends with a winner
+content that generally ends with a winner.
 
 [[standing-standing]]
 Standing <standing>
@@ -385,7 +324,7 @@ a period of time, for example, Rugby World Cup, UEFA Champions League,
 American Football Conference.
 
 For the purposes of this example, we will discuss the properties of
-Sports Event
+Sports Event.
 
 [[sports-event-wrapper-in-more-detail]]
 Sports Event wrapper in more detail
@@ -416,36 +355,22 @@ Additionally, there are properties for recording the Event Sponsor and
 details of the Event Venue, The following information might apply to the
 Australian Open men’s tennis final:
 
+[source,xml]
 <event-metadata key="vendkey:l.atp.com-2009-e.19358"
-
-event-status="speventstatus:mid-event"
-
-start-date-time="2016-01-28T19:05:00+11:00">
-
-<event-sponsor
-
-type="main"
-
-name="Kia__ __Motors">
-
-</event-sponsor>
-
-<site>
-
-<site-metadata capacity="15,000" surface="vendst:Plexicushion"
-
-home-page-url="www.australianopen.com" key="site:aus209">
-
-<name>Rod Laver Arena, Melbourne Park</name>
-
-</site-metadata>
-
-<site-stats attendance="13,879" temperature="38"
-
-temperature-units="Centigrade" />
-
-</site>
-
+	event-status="speventstatus:mid-event"
+	start-date-time="2016-01-28T19:05:00+11:00">
+	<event-sponsor
+		type="main"
+		name="Kia Motors">
+	</event-sponsor>
+	<site>
+		<site-metadata capacity="15,000" surface="vendst:Plexicushion"
+		home-page-url="www.australianopen.com" key="site:aus209">
+			<name>Rod Laver Arena, Melbourne Park</name>
+		</site-metadata>
+		<site-stats attendance="13,879" temperature="38"
+		temperature-units="Centigrade" />
+	</site>
 </event-metadata>
 
 There is a choice of many attributes of <event-metadata> to record
@@ -470,46 +395,26 @@ Contains information about a team, its players, management, home
 location, and performance statistics. For example, a typical (not
 comprehensive <team> component:
 
+[source,xml]
 <team id="l.mlb.com-t.16">
-
-<team-metadata key="vendteam:l.mlb.com-t.16" alignment="home">
-
-<name role="nrol:full">Philadelphia Phillies</name>
-
-<name part="nprt:common">Philadelphia </name>
-
-<name part="nprt:nickname">Phillies</name>
-
-</team-metadata>
-
-<player id="l.mlb.com-p.20339">
-
-<player-metadata position-event="spbblposition:1"
-key="vendperson:l.mlb.com-p.20339">
-
-<name role="nrol:full">Freddy Garcia</name>
-
-<name part="nprt:given">Freddy</name>
-
-<name part="nprt:family">Garcia</name>
-
-</player-metadata>
-
-<player-stats>
-
-<player-stats-baseball>
-
-<stats-baseball-pitching earned-runs="4.81" wins="1"
-losses="3"
-
-winning-percentage=".250"/>
-
-</player-stats-baseball>
-
-</player-stats>
-
-</player>
-
+	<team-metadata key="vendteam:l.mlb.com-t.16" alignment="home">
+		<name role="nrol:full">Philadelphia Phillies</name>
+		<name part="nprt:common">Philadelphia </name>
+		<name part="nprt:nickname">Phillies</name>
+	</team-metadata>
+	<player id="l.mlb.com-p.20339">
+		<player-metadata position-event="spbblposition:1" key="vendperson:l.mlb.com-p.20339">
+			<name role="nrol:full">Freddy Garcia</name>
+			<name part="nprt:given">Freddy</name>
+			<name part="nprt:family">Garcia</name>
+		</player-metadata>
+		<player-stats>
+			<player-stats-baseball>
+				<stats-baseball-pitching earned-runs="4.81" wins="1" losses="3"
+				winning-percentage=".250"/>
+			</player-stats-baseball>
+		</player-stats>
+	</player>
 </team>
 
 [[player-player]]
@@ -521,41 +426,24 @@ teams, personal information and statistics. The example below shows how
 a player component might be used to record performance statistics in a
 rugby match:
 
+[source,xml]
 <player id="l.irb.org.worldcup-p.51">
-
-<player-metadata key="vendperson:l.irb.org.worldcup-p.51"
-position-event="spbblposition:right-wing"
-
-uniform-number="14" status="starter">
-
-<name role="nrol:full">__Vincent__ _Clerc_ </name>
-
-</player-metadata>
-
-<player-stats score="0">
-
-<player-stats-rugby>
-
-<stats-rugby-offensive tries-scored="0" conversion-attempts="0"
-
-conversions-scored="0"
-
-penalty-goal-attempts="0" penalty-goals-scored="0"
-drop-goals-scored="0"
-
-handling-errors="0" kicks-total="9" kicks-into-touch="5"
-runs="10"
-
-metres-gained="10"/>
-
-<stats-rugby-defensive tackles="10" tackles-missed="4"/>
-
-<stats-rugby-foul cautions-total="0" ejections-total="0"/>
-
-</player-stats-rugby>
-
-</player-stats>
-
+	<player-metadata key="vendperson:l.irb.org.worldcup-p.51"
+		position-event="spbblposition:right-wing"
+		uniform-number="14" status="starter">
+		<name role="nrol:full">__Vincent__ _Clerc_ </name>
+	</player-metadata>
+	<player-stats score="0">
+		<player-stats-rugby>
+			<stats-rugby-offensive tries-scored="0" conversion-attempts="0"
+			conversions-scored="0"
+			penalty-goal-attempts="0" penalty-goals-scored="0"
+			handling-errors="0" kicks-total="9" kicks-into-touch="5" runs="10"
+			metres-gained="10"/>
+			<stats-rugby-defensive tackles="10" tackles-missed="4"/>
+			<stats-rugby-foul cautions-total="0" ejections-total="0"/>
+		</player-stats-rugby>
+	</player-stats>
 </player>
 
 [[award-award]]
@@ -563,23 +451,17 @@ Award <award>
 +++++++++++++
 
 A medal, cup, placing or other type of award, which can be assigned to
-an event, a team or a player using a local idref. .
+an event, a team or a player using a local idref.
 
+[source,xml]
 <player id="P1">
-
-<player-metadata
-
-key="vendperson:us.olympics.swim.123">
-
-<name role="nrol:full" >__Michael__ _Phelps_ </name>
-
-</player-metadata>
-
+	<player-metadata
+		key="vendperson:us.olympics.swim.123">
+		<name role="nrol:full" >__Michael__ _Phelps_ </name>
+	</player-metadata>
 </player>
-
-<award award-type="spawtype:medal" name="Gold__ _Medal"_
-
-player-or-team-idref="P1" />
+<award award-type="spawtype:medal" name="Gold Medal"
+	player-or-team-idref="P1" />
 
 [[event-actions-event-actions]]
 Event Actions <event-actions>
@@ -588,48 +470,28 @@ Event Actions <event-actions>
 From version 3 all actions are generic. Here is a possible action
 structure for a point in a tennis match:
 
+[source,xml]
 <player id="P1">
-
-<player-metadata key="vendperson:atp001">
-
-<name role="nrol:full">__Roger__ __Federer__</name>
-
-</player-metadata>
-
+	<player-metadata key="vendperson:atp001">
+		<name role="nrol:full">dRoger Federer</name>
+	</player-metadata>
 </player>
-
 <player id="P2">
-
-<player-metadata key="vendperson:atp:002">
-
-<name role="nrol:full">__Rafal__ __Nadal__</name>
-
-</player-metadata>
-
+	<player-metadata key="vendperson:atp:002">
+		<name role="nrol:full">__Rafal__ __Nadal__</name>
+	</player-metadata>
 </player>
-
 <actions>
-
-<action set="3" game="10">
-
-<action shot-type="sptenshot:volley"
-
-receiver-score="sptengameresult:30"
-
-serve-number="vendtenserve:first"
-
-server-score="sptengameresult:game">
-
-<participant idref="P1" role="vendtenrole:server"/>
-
-<participant idref="P2" role="vendtenrole:receiver"/>
-
-<participant idref="P1" role="vendtenrole:ball-winner"/>
-
-</action>
-
-</action>
-
+	<action set="3" game="10">
+		<action shot-type="sptenshot:volley"
+			receiver-score="sptengameresult:30"
+			serve-number="vendtenserve:first"
+			server-score="sptengameresult:game">
+			<participant idref="P1" role="vendtenrole:server"/>
+			<participant idref="P2" role="vendtenrole:receiver"/>
+			<participant idref="P1" role="vendtenrole:ball-winner"/>
+		</action>
+	</action>
 </actions>
 
 [[highlight-highlight]]
@@ -640,66 +502,35 @@ A textual highlight for the event. An example of its use would be to
 provide a commentary-style text report on the progress of a match that
 could be used in a dynamic online application:
 
+[source,xml]
 <highlight id="h.718300" class="PRE_KICK-OFF">
-
-Liverpool make three changes from the side that drew with Wigan. Out go
-Babel, Lucas and
-
-Benayoun. In come Riera, Kuyt and Alonso. Robbie Keane meanwhile isn't
-even in the squad
-
-amid rumours that he is set to re-join Spurs.
-
-<sports-property formal-name="minutes-elapsed" value="0" />
-
+	Liverpool make three changes from the side that drew with Wigan. Out go Babel, Lucas and
+	Benayoun. In come Riera, Kuyt and Alonso. Robbie Keane meanwhile isn't even in the squad
+	amid rumours that he is set to re-join Spurs.
+	<sports-property formal-name="minutes-elapsed" value="0" />
 </highlight>
-
 <highlight id="h.718351" class="KICK_OFF">
-
-We are underway here at a chilly Anfield.
-
-<sports-property formal-name="minutes-elapsed" value="0" />
-
+	We are underway here at a chilly Anfield.
+	<sports-property formal-name="minutes-elapsed" value="0" />
 </highlight>
-
 <highlight id="h.718358" class="COMMENT">
-
-Good counter attack from Liverpool as Fabio Aurelio overlaps down the
-left and plays it
-
-into Steven Gerrard, but Frank Lampard does well to track back and
-tackle his England team-
-
-mate.
-
-<sports-property formal-name="minutes-elapsed" value="2" />
-
+	Good counter attack from Liverpool as Fabio Aurelio overlaps down the left and plays it
+	into Steven Gerrard, but Frank Lampard does well to track back and tackle his England team-mate.
+	<sports-property formal-name="minutes-elapsed" value="2" />
 </highlight>
-
-....
-
+...
 <highlight id="h.718402" class="YELLOW_CARD">
-
-Javier Mascherano is booked for a clumsy tackle on John Obi Mikel.
-
-<sports-property formal-name="minutes-elapsed" value="21" />
-
+	Javier Mascherano is booked for a clumsy tackle on John Obi Mikel.
+	<sports-property formal-name="minutes-elapsed" value="21" />
 </highlight>
-
-....
-
+...
 <highlight id="h.718579" class="GOAL">
-
-LIVERPOOL 1-0 CHELSEA. Fabio Aurelio crosses from the left-hand side and
-TORRES dives in to
-
-head home and score a vital goal for Liverpool.
-
-<sports-property formal-name="minutes-elapsed" value="89" />
-
+	LIVERPOOL 1-0 CHELSEA. Fabio Aurelio crosses from the left-hand side and TORRES dives in to
+	head home and score a vital goal for Liverpool.
+	<sports-property formal-name="minutes-elapsed" value="89" />
 </highlight>
 
-Note the use of @class to refine the semantic of each highlight
+NOTE: Note the use of @class to refine the semantic of each highlight
 property. The highlight element can hold any content.
 
 [[officials-officials]]
@@ -710,28 +541,18 @@ A container for one or more officials taking part in the event. The
 child elements <official-metadata> and <official-stats> hold information
 about the official, including rating information. For example:
 
+[source,xml]
 <officials>
-
-<official>
-
-<official-metadata key="vendperson:fifa02345"
-
-Position-event="vendoffpos:referee">
-
-<name role="nrol:full">Keith Burkinshaw</name>
-
-</official-metadata>
-
-<official-stats>
-
-<rating rating-issuer="FIFA" rating-maximum="8"
-
-rating-value="8" />
-
-</official-stats>
-
-</official>
-
+	<official>
+		<official-metadata key="vendperson:fifa02345"
+			Position-event="vendoffpos:referee">
+			<name role="nrol:full">Keith Burkinshaw</name>
+		</official-metadata>
+		<official-stats>
+			<rating rating-issuer="FIFA" rating-maximum="8"
+			rating-value="8" />
+		</official-stats>
+	</official>
 </officials>
 
 [[wagering-statistics-wagering-stats]]
@@ -744,334 +565,31 @@ straight spread and total score. The following example shows that the UK
 bookmaker William Hill is offering odds on an event of 10-1 from 8-1,
 together with a timestamp.
 
+[source,xml]
 <wagering-stats comment="Multiple wagering-odds can be given">
-
-<wagering-odds bookmaker-key="book:uk23456"
-
-bookmaker-name="William Hill"
-
-date-time="20090202T15:00:00Z"
-
-numerator="10"
-
-denominator="1"
-
-numerator-opening="8"
-
-denominator-opening="1">
-
-</wagering-odds>
-
+	<wagering-odds bookmaker-key="book:uk23456"
+		bookmaker-name="William Hill"
+		date-time="20090202T15:00:00Z"
+		numerator="10"
+		denominator="1"
+		numerator-opening="8"
+		denominator-opening="1">
+	</wagering-odds>
 </wagering-stats>
 
-1.  _
-[[_Ref222567332]]A complete sample SportsML-G2 document
-_
+[[_Ref222567332]]
+
+.LISTING: A complete sample SportsML-G2 document
 
 All Scheme Aliases used in listing below indicate IPTC NewsCodes
 vocabularies, except for the following alias values: _web, city, reg,
 cntry, idtype, spcpnat, spfixt, dclass, xts-genre, tsn, conf, league,
 event, team, person, fssID and player._
 
-<?xml version="_1.0_" encoding="_UTF-8_" standalone="_yes_"?>
-
-<newsItem xmlns="_http://iptc.org/std/nar/2006-10-01/_"
-
-xmlns:xsi="_http://www.w3.org/2001/XMLSchema-instance_"
-
-xmlns:nitf="_http://iptc.org/std/NITF/2006-10-18/_"
-
-xmlns:xs="_http://www.w3.org/2001/XMLSchema_"
-
-standard="_NewsML-G2_"
-
-standardversion="_2.23_" version="_1"_ conformance="_power_"
-xml:lang="_en-US_"
-
-guid="urn:newsml:sportsml.org:20160502:xt.prog.20150606005942-43710-16.068-event-stats-progressive">
-
-<catalogRef
-
-href="_http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_27.xml_"/>
-
-<catalogRef
-
-href="_http://www.iptc.org/std/catalog/catalog.IPTC-Sports_1.xml_"/>
-
-<itemMeta>
-
-<itemClass qcode="_ninat:text_"/>
-
-<provider qcode="_web:xmlteam.com_">
-
-<name>XML Team Solutions, Inc.</name>
-
-</provider>
-
-<versionCreated>2015-06-06T00:59:42-04:00</versionCreated>
-
-<pubStatus qcode="_stat:usable_"/>
-
-<fileName>xt.prog.20150606005942-43710-16.068-event-stats-progressive</fileName>
-
-</itemMeta>
-
-<contentMeta>
-
-<contentCreated>2015-06-06T00:59:42-04:00</contentCreated>
-
-<located qcode="_city:Philadelphia_">
-
-<broader qcode="_reg:Pennsylvania_"/>
-
-<broader qcode="_cntry:CA_"/>
-
-</located>
-
-<creator qcode="_web:sportsnetwork.com_">
-
-<name>The Sports Network, Inc.</name>
-
-</creator>
-
-<genre qcode="_spfixt:event-stats-progressive_">
-
-<name xml:lang="_en-US_">Progressive Event Statistics</name>
-
-<broader qcode="_spct:event-summary_"/>
-
-</genre>
-
-<genre qcode="_spct:event-summary_"/>
-
-<language tag="_en-US_"/>
-
-<subject type="_spct:season"_ literal="_2015_"/>
-
-<subject type="_spct:season-type_" qcode="_spct:season-regular_"/>
-
-<subject qcode="_subj:15000000_">
-
-<name xml:lang="_en-US_">sport</name>
-
-</subject>
-
-<subject qcode="_subj:15007000_">
-
-<name xml:lang="en-US">__Baseball</name>
-
-<broader qcode="_subj:15000000_"/>
-
-</subject>
-
-<subject qcode="_vendleague:l.mlb.com"_ type="_spct:league_">
-
-<name xml:lang="en-US">__Major League Baseball</name>
-
-<broader qcode="_subj:15007000_"/>
-
-<sameAs qcode="_subj:15007001_"/>
-
-</subject>
-
-<subject type="_spct:conference_"
-qcode="_vendconf:l.mlb.com-c.national_">
-
-<name xml:lang="en-US">__National</name>
-
-<broader qcode="vendleague:l.mlb.co__m"/>
-
-</subject>
-
-<subject type="_cpnat:event_"
-qcode="_vendevent:l.mlb.com-2015-e.43710_"/>
-
-<subject type="_spct:team_" qcode="_vendteam:l.mlb.com-t.16_">
-
-<name>Miami Marlins</name>
-
-</subject>
-
-<subject type="_spct:team_" qcode="_vendteam:l.mlb.com-t.27_">
-
-<name>Colorado Rockies</name>
-
-</subject>
-
-<headline>Troy Tulowitzki singled to third and advanced to second on
-Martin
-
-Prado's throwing error. Runner on second with one out and Carlos
-Gonzalez due
-
-up.</headline>
-
-</contentMeta>
-
-<contentSet>
-
-<inlineXML contenttype="_application/sportsml+xml_">
-
-<sports-content class="_SportsMLv3.0_">
-
-<sports-event>
-
-<event-metadata key="_vendevent:l.mlb.com-2015-e.43710_"
-
-event-status="_speventstatus:mid-event_"
-
-temporal-unit-value="_vendor:l.mlb.com-2015-e.43710_"
-
-start-date-time="_2015-06-05T20:40:00-04:00_">
-
-<event-metadata-baseball inning-value="_8"_ inning-half="_bottom_"
-outs="_1_"
-
-strikes="_2"_ balls="_2_" runner-on-first="_false_" runner-on
-
--second="_true_" runner-on-second-idref="_l.mlb.com-p.18606_" runner-on
-
--third="_false_" runs-this-inning-half="_0_"/>
-
-</event-metadata>
-
-<team id="l.mlb.com-t.16">
-
-<team-metadata key="_vendteam:l.mlb.com-t.16_" alignment="_away_">
-
-<name role="nrol:full">__Miami Marlins</name>
-
-<name part="nprt:common">Miami</name>
-
-<name part="_nprt:nickname_">Marlins</name>
-
-</team-metadata>
-
-<team-stats event-outcome="_speventoutcome:undecided_" score="_6_"
-
-score-opposing="_1_">
-
-<sub-score period-value="1" score="_0_"/>
-
-<team-stats-baseball>
-
-<stats-baseball-offensive runs-scored="_6_" hits="_12_"/>
-
-<stats-baseball-defensive errors="_1"_/>
-
-</team-stats-baseball>
-
-</team-stats>
-
-<player id="_l.mlb.com-p.20339_">
-
-<player-metadata key="_vendperson:l.mlb.com-p.20339_"
-
-position-event="_spbblposition:4_" lineup-slot="_1"_ lineup-slot
-
--sequence="_1_">
-
-<name role="_nrol:full_">Dee Gordon</name>
-
-<player-metadata-baseball batting-hand="_left_"/>
-
-</player-metadata>
-
-<player-stats>
-
-<player-stats-baseball>
-
-<stats-baseball-offensive runs-scored="_0_" at-bats="_5_" hits="_1_"
-
-rbi="_1"_ singles="_0"_ doubles="_1_" triples="_0_" home-runs="_0_"
-
-bases-on-balls="_0_" bases-on-balls-intentional="_0_"
-
-strikeouts-against="_1_" strikeouts-looking="_0"_
-
-hit-by-pitch="_0_" double-plays-against="_0_"
-
-triple-plays-against="_0_" grounded-into-double-play="_0_"
-
-reached-base-defensive-interference="_0_"
-
-reached-base-error="_0_" reached-base-fielder-choice="_0_"
-
-outs-ground="2" outs-fly="1" sac-flies="_0_" sacrifices="_0_"
-
-stolen-bases="_0_" stolen-bases-caught="_0_"
-
-pick-offs-against="_0_" average="._364_"
-
-on-base-percentage="_.391_" slugging-percentage="_.431_"/>
-
-<stats-baseball-defensive putouts="_0_" assists="_8"_ errors="_0_"
-
-errors-passed-ball="_0_" errors-catchers-interference="_0_"
-
-stolen-bases-average-defense="_0_"
-
-stolen-bases-caught-defense="_0"_ double-plays="_2_"
-
-triple-plays="_0_"/>
-
-</player-stats-baseball>
-
-</player-stats>
-
-</player>
-
-</team>
-
-<team id="l__.mlb.com-t.27">
-
-<team-metadata key="_vendteam:l.mlb.com-t.27_" alignment="_home_">
-
-<name role="_nrol:full_">Colorado Rockies</name>
-
-<name part="_nprt:common_">Colorado</name>
-
-<name part="nprt:nicknam__e">Rockies</name>
-
-<team-metadata>
-
-<player id="_l.mlb.com-p.16929_">
-
-<player-metadata key="_vendperson:l.mlb.com-p.16929_"
-
-position-event="_spbblposition:8"_ lineup-slot="_1_" lineup-slot
-
--sequence="_1_">
-
-<name role="nrol:full">__Charlie Blackmon</name>
-
-</player-metadata>
-
-<player-stats>
-
-<player-stats-baseball>
-
-<stats-baseball-offensive runs-scored="_1_" at-bats="_4_" hits="_1_"
-
-rbi="_0_" singles="_1_" doubles="_0_" triples="_0_"/>
-
-</player-stats-baseball>
-
-</player-stats>
-
-</player>
-
-</team>
-
-</sports-event>
-
-</sports-content>
-
-</inlineXML>
-
-</contentSet>
-
-</newsItem>
+[source, xml]
+----
+include::{includedir}/../../GuidelinesCodeExamples_2017/LISTING_21_A_complete_sample_SportsML-G2_document.xml[]
+----
 
 [[sportsml-g2-packages]]
 SportsML-G2 Packages
@@ -1082,280 +600,22 @@ To convey a package of SportsML-G2 items, simply use the NewsML-G2
 could send a text article to accompany the sports data document shown in
 the previous listing.
 
-The text document is a News Industry Text Format (NITFfootnote:[The
-IPTC’s XML standard for marking up text.]) document, conveyed in a
-NewsML-G2 News Item, as shown below.
+The text document is a News Industry Text Format document (NITF, the
+IPTC’s XML standard for marking up text), conveyed in a NewsML-G2 News Item, as shown below.
 
-1.  __
-[[_Ref222567367]]Sports story in NewsML-G2/NITF
-__
+[[_Ref222567367]]
+
+.LISTING: Sports story in NewsML-G2/NITF
 
 All Scheme Aliases used in listing below indicate IPTC NewsCodes
 vocabularies, except for the following alias values: _web, city, reg,
 cntry, idtype, spcpnat, spfixt, dclass, spcpnat, xts-genre, tsn-fixture,
 league, conf, event, person, fssID,_
 
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-
-<newsItem xmlns="http://iptc.org/std/nar/2006-10-01/"
-
-guid="tag:xmlteam.com,2016:xt.5932656-preview"
-
-version="9"
-
-xmlns:xts="www.xmlteam.com"
-
-standard="NewsML-G2"
-
-standardversion="2.23"
-
-conformance="power"
-
-xml:lang="en-US">
-
-<catalogRef
-
-href="http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_29.xml"
-/>
-
-<catalogRef
-
-href="http://www.xmlteam.com/specification/xts-SportsCodesCatalog_1.xml"
-/>
-
-<itemMeta>
-
-<itemClass qcode="ninat:text" />
-
-<provider qcode="web:www.xmlteam.com" />
-
-<versionCreated>2016-10-19T11:45:00-04:00</versionCreated>
-
-<pubStatus qcode="stat:usable" />
-
-<fileName>xt.5932656-preview.xml</fileName>
-
-</itemMeta>
-
-<contentMeta>
-
-<contentCreated>2016-10-19T11:15:00-05:00</contentCreated>
-
-<located qcode="city:Philadelphia">
-
-<broader qcode="reg:Pennsylvania" />
-
-<broader qcode="cntry:USA" />
-
-</located>
-
-<creator qcode="web:sportsnetwork.com">
-
-<name>The Sports Network</name>
-
-</creator>
-
-<altId type="idtype:tsn-id" id="sportsnetwork.com-5932656" />
-
-<altId type="idtype:revision-id"
-
-id="l.mlb.com-2016-e.19358-pre-event-coverage-sportsnetwork.com" />
-
-<genre type="spcpnat:spfixt" qcode="spfixt:pre-event-coverage">
-
-<name xml:lang="en-US">Game Preview</name>
-
-<broader qcode="dclass:event-summary" />
-
-</genre>
-
-<genre type="spcpnat:dclass" qcode="dclass:event-summary" />
-
-<genre type="xts-genre:tsn-fixture"
-qcode="tsn-fixture:mlbpreviewxml" />
-
-<language tag="en-US" />
-
-<subject qcode="medtop:20000822">
-
-<name xml:lang="en-US">sport</name>
-
-</subject>
-
-<subject qcode="medtop:20000849">
-
-<name xml:lang="en-US">Baseball</name>
-
-<broader qcode="medtop:20000822" />
-
-</subject>
-
-<subject qcode="league:l.mlb.com">
-
-<name xml:lang="en-US">Major League Baseball</name>
-
-<broader qcode="medtop:20000822" />
-
-<sameAs qcode="subj:15007000" />
-
-</subject>
-
-<subject type="spcpnat:conf" qcode="conf:l.mlb.com-c.national">
-
-<name xml:lang="en-US">National</name>
-
-<broader qcode="league:l.mlb.com" />
-
-</subject>
-
-<subject type="cpnat:event" qcode="event:l.mlb.com-2016-e.19358"
-/>
-
-<subject type="spcpnat:team" qcode="team:l.mlb.com-t.19">
-
-<name>Philadelphia Phillies</name>
-
-</subject>
-
-<subject type="spcpnat:team" qcode="team:l.mlb.com-t.26">
-
-<name>Arizona Diamondbacks</name>
-
-</subject>
-
-<subject type="cpnat:person" qcode="person:l.mlb.com-p.456">
-
-<name>Doug Davis</name>
-
-<sameAs qcode="fssID:45679" />
-
-</subject>
-
-<subject type="cpnat:person" qcode="person:l.mlb.com-p.123">
-
-<name>Freddy Garcia</name>
-
-<sameAs qcode="fssID:45680" />
-
-</subject>
-
-<headline>Preview: Arizona Diamondbacks (29-23) at Philadelphia Phillies
-
-(26-24), 7:05 p.m.</headline>
-
-<slugline separator="-">AAV!PREVIEW-ARI-PHI</slugline>
-
-<description role="drol:summary">A pair of teams coming off big
-weekend sweeps
-
-will square off tonight at Citizens Bank Park, where the Philadelphia
-Phillies
-
-welcome the Arizona Diamondbacks for the start of a three-game
-
-series.</description>
-
-</contentMeta>
-
-<contentSet>
-
-<inlineXML contenttype="application/nitf+xml">
-
-<nitf xmlns="http://iptc.org/std/NITF/2006-10-18/"
-
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
-xsi:schemaLocation="http://iptc.org/std/NITF/2006-10-18/ __
-
-__XSD/NITF/3.5/specification/nitf-3-5.xsd">
-
-<body>
-
-<body.head>
-
-<hedline>
-
-<hl1>Arizona Diamondbacks (29-23) at Philadelphia Phillies (26-24),
-
-7:05p.m.</hl1>
-
-</hedline>
-
-<byline>
-
-<byttl>Sports Network</byttl>
-
-</byline>
-
-<abstract>
-
-<p>A pair of teams coming off big weekend sweeps will square off
-
-tonight at Citizens Bank Park, where the Philadelphia Phillies
-
-welcome the Arizona Diamondbacks for the start of a three-game
-
-series.</p>
-
-</abstract>
-
-</body.head>
-
-<body.content>
-
-<p>(Sports Network) - A pair of teams coming off big weekend sweeps
-
-will square off tonight at Citizens Bank Park, where the Philadelphia
-
-Phillies welcome the Arizona Diamondbacks for the start of a three-game
-
-series.</p>
-
-<p>The Phillies picked up some momentum with a three-game sweep of the
-
-Atlanta Braves, while the Diamondbacks captured all four of their games
-
-against the Houston Astros.</p>
-
-<p>On Sunday, Livan Hernandez threw his first complete game in almost
-
-two years to lead the Diamondbacks to an 8-4 win over the Astros to
-
-complete the sweep.</p>
-
-<p>Arizona sends Doug Davis to the hill tonight, and the lefty is 0-4
-
-over his last five starts. That includes losses in each of his last
-
-three outings.</p>
-
-<p>The Phillies, meanwhile, notched their first sweep of the year that
-
-culminated with Sunday's 13-6 pounding of the Braves. Ryan Howard
-
-flashed some of the power that won him the NL MVP last season, jacking
-
-a pair of two-run homers in the win.</p>
-
-<p>Right-hander Freddy Garcia takes the hill for the Phillies and is 1-
-
-3 with a 4.81 earned run average on the year. Since winning his first
-
-game in a Philadelphia uniform back on April 22, Garcia has gone 0-2
-
-over his last six starts.</p>
-
-</body.content>
-
-</body>
-
-</nitf>
-
-</inlineXML>
-
-</contentSet>
-
-</newsItem>
+[source, xml]
+----
+include::{includedir}/../../GuidelinesCodeExamples_2017/LISTING_22_Sports_story_in_NewsML-G2NITF.xml[]
+----
 
 [[referencing-the-packaged-items]]
 Referencing the packaged items
@@ -1365,10 +625,12 @@ Each of the documents listed has a <filename> property in <itemMeta>
 that gives the recommended name that should be used when storing the
 document in the receiver’s system. The data file’s property is:
 
+[source,xml]
 <fileName>xt.5932656-pitcher-preview.xml</fileName>
 
 The property for the text document is:
 
+[source,xml]
 <fileName>xt.5932656-preview.xml</fileName>
 
 These filenames will be referenced by the NewsML-G2 Package Item.
@@ -1402,280 +664,68 @@ is needed. The package <groupSet> structure and its relationship to the
 information assets that it references may be illustrated in diagram form
 as shown below
 
-[[_Ref221595581]][[_Toc470002538]]Figure 19: Diagram of Package Group
-structure
+[[_Ref221595581]][[_Toc470002538]]
+
+image::SportsML-G2PackageGroupSimple2016.png[]
+
+.Figure 19: Diagram of Package Group structure
 
 This produces a <groupSet> component in XML as follows:
 
+[source,xml]
 <groupSet root="G1">
-
-<group id="G1" role="group:main">
-
-<itemRef href="xt.5932656-pitcher-preview"
-
-contenttype="application/sportsml+xml">
-
-<genre type="spcpnat:spfixt" qcode="spfixt:pitcher-preview">
-
-<name xml:lang="en-US">Game Pitcher Preview</name>
-
-<broader qcode="dclass:event-summary" />
-
-</genre>
-
-<genre type="spcpnat:dclass" qcode="dclass:event-summary" />
-
-<genre type="xts-genre:tsn-fixture"
-qcode="tsn-fixture:mlbpreviewxml" />
-
-<headline>Pitcher Preview: Arizona Diamondbacks (29-23) at Philadelphia
-
-Phillies (26-24), 7:05 p.m.
-
-</headline>
-
-<description></description>
-
-</itemRef>
-
-<itemRef href="xt.5932656-preview"
-contenttype="application/nitf+xml">
-
-<genre type="spcpnat:spfixt" qcode="spfixt:pre-event-coverage">
-
-<name xml:lang="en-US">Game Preview</name>
-
-<broader qcode="dclass:event-summary" />
-
-</genre>
-
-<genre type="spcpnat:dclass" qcode="dclass:event-summary" />
-
-<genre type="xts-genre:tsn-fixture"
-qcode="tsn-fixture:mlbpreviewxml" />
-
-<headline>Preview: Arizona Diamondbacks (29-23) at Philadelphia
-
-Phillies (26-24), 7:05 p.m.
-
-</headline>
-
-<description role="drol:summary">A pair of teams coming off big
-weekend
-
-sweeps will square off tonight at Citizens Bank Park, where the
-
-Philadelphia Phillies welcome the Arizona Diamondbacks for the start of
-a
-
-three-game series.
-
-</description>
-
-</itemRef>
-
-</group>
-
+	<group id="G1" role="group:main">
+	<itemRef href="xt.5932656-pitcher-preview"
+		contenttype="application/sportsml+xml">
+		<genre type="spcpnat:spfixt" qcode="spfixt:pitcher-preview">
+			<name xml:lang="en-US">Game Pitcher Preview</name>
+			<broader qcode="dclass:event-summary" />
+		</genre>
+		<genre type="spcpnat:dclass" qcode="dclass:event-summary" />
+		<genre type="xts-genre:tsn-fixture"
+			@qcode="tsn-fixture:mlbpreviewxml" />
+		<headline>Pitcher Preview: Arizona Diamondbacks (29-23) 
+			at Philadelphia Phillies (26-24), 7:05 p.m.
+		</headline>
+		<description></description>
+	</itemRef>
+	<itemRef href="xt.5932656-preview"
+		contenttype="application/nitf+xml">
+		<genre type="spcpnat:spfixt" qcode="spfixt:pre-event-coverage">
+			<name xml:lang="en-US">Game Preview</name>
+			<broader qcode="dclass:event-summary" />
+		</genre>
+		<genre type="spcpnat:dclass" qcode="dclass:event-summary" />
+		<genre type="xts-genre:tsn-fixture"
+			qcode="tsn-fixture:mlbpreviewxml" />
+		<headline>Preview: Arizona Diamondbacks (29-23) at Philadelphia
+			Phillies (26-24), 7:05 p.m.
+		</headline>
+		<description role="drol:summary">A pair of teams coming off big weekend
+			sweeps will square off tonight at Citizens Bank Park, where the
+			Philadelphia Phillies welcome the Arizona Diamondbacks for the start of a
+			three-game series.
+		</description>
+	</itemRef>
+	</group>
 </groupSet>
 
 The complete Package Listing is shown below.
 
-1.  
-[[_Ref222627970]]SportsML-G2 Package
+[[_Ref222627970]]
 
+.LISTING: SportsML-G2 Package 
 
 All Scheme Aliases used in listing below indicate IPTC NewsCodes
 vocabularies, except for the following alias values: _web, city, reg,
 cntry, idtype, spcpnat, dclass, xts-package-type, league, spcpnat,
 event, spcpnat, team, group, spfixt, xts-genre, tsn-fixture,_
 
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+[source, xml]
+----
+include::{includedir}/../../GuidelinesCodeExamples_2017/LISTING_23_SportsML-G2_Package.xml[]
+----
 
-<packageItem xmlns="http://iptc.org/std/nar/2006-10-01/"
-
-guid="urn:iptc.org:20161019:sports1" version="9"
-
-xmlns:xts="www.xmlteam.com"
-
-conformance="power"
-
-standard="NewsML-G2"
-
-standardversion="2.23"
-
-xml:lang="en-US">
-
-<catalogRef
-
-href="http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_29.xml"
-/>
-
-<catalogRef
-
-href="http://www.xmlteam.com/specification/xts-SportsCodesCatalog_1.xml"
-/>
-
-<itemMeta>
-
-<itemClass qcode="ninat:composite" />
-
-<provider qcode="web:xmlteam.com" />
-
-<versionCreated>2016-10-19T15:00:09Z</versionCreated>
-
-</itemMeta>
-
-<contentMeta>
-
-<contentCreated>2016-02-02T11:45:00-05:00</contentCreated>
-
-<located qcode="city:Philadelphia">
-
-<broader qcode="reg:Pennsylvania" />
-
-<broader qcode="cntry:USA" />
-
-</located>
-
-<creator qcode="web:sportsnetwork.com">
-
-<name>The Sports Network</name>
-
-</creator>
-
-<altId type="idtype:tsn-id" id="sportsnetwork.com-5932656" />
-
-<altId type="idtype:revision-id"
-
-id="l.mlb.com-2016-e.19358-pre-event-coverage-sportsnetwork.com" />
-
-<genre type="spcpnat:dclass" qcode="dclass:event-summary" />
-
-<genre qcode="xts-package-type:pre-event-coverage" />
-
-<language tag="en-US" />
-
-<subject qcode="subj:15000000">
-
-<name xml:lang="en-US">sport</name>
-
-</subject>
-
-<subject qcode="subj:15007000">
-
-<name xml:lang="en-US">Baseball</name>
-
-<broader qcode="subj:15000000" />
-
-</subject>
-
-<subject qcode="league:l.mlb.com">
-
-<name xml:lang="en-US">Major League Baseball</name>
-
-<broader qcode="subj:15007000" />
-
-<sameAs qcode="subj:15007001" />
-
-</subject>
-
-<subject type="spcpnat:conf" qcode="conf:l.mlb.com-c.national">
-
-<name xml:lang="en-US">National</name>
-
-<broader qcode="league:l.mlb.com" />
-
-</subject>
-
-<subject type="cpnat:event" qcode="event:l.mlb.com-2016-e.19358"
-/>
-
-<subject type="spcpnat:team" qcode="team:l.mlb.com-t.19">
-
-<name>Philadelphia Phillies</name>
-
-</subject>
-
-<subject type="spcpnat:team" qcode="team:l.mlb.com-t.26">
-
-<name>Arizona Diamondbacks</name>
-
-</subject>
-
-</contentMeta>
-
-<groupSet root="G1">
-
-<group id="G1" role="group:main">
-
-<itemRef residref="tag:xmlteam.com,2016:xt.5932656-pitcher-preview"
-
-contenttype="application/sportsml+xml">
-
-<genre type="spcpnat:spfixt" qcode="spfixt:pitcher-preview">
-
-<name xml:lang="en-US">Game Pitcher Preview</name>
-
-<broader qcode="dclass:event-summary" />
-
-</genre>
-
-<genre type="spcpnat:dclass" qcode="dclass:event-summary" />
-
-<genre type="xts-genre:tsn-fixture"
-qcode="tsn-fixture:mlbpreviewxml" />
-
-<headline>Pitcher Preview: Arizona Diamondbacks (29-23) at Philadelphia
-
-Phillies (26-24), 7:05 p.m.
-
-</headline>
-
-<description></description>
-
-</itemRef>
-
-<itemRef residref="tag:xmlteam.com,2016:xt.5932656-preview"
-contenttype="application/nitf+xml">
-
-<genre type="spcpnat:spfixt" qcode="spfixt:pre-event-coverage">
-
-<name xml:lang="en-US">Game Preview</name>
-
-<broader qcode="dclass:event-summary" />
-
-</genre>
-
-<genre type="spcpnat:dclass" qcode="dclass:event-summary" />
-
-<genre type="xts-genre:tsn-fixture"
-qcode="tsn-fixture:mlbpreviewxml" />
-
-<headline>Preview: Arizona Diamondbacks (29-23) at Philadelphia
-
-Phillies (26-24), 7:05 p.m.
-
-</headline>
-
-<description role="drol:summary">A pair of teams coming off big
-weekend
-
-sweeps will square off tonight at Citizens Bank Park, where the
-
-Philadelphia Phillies welcome the Arizona Diamondbacks for the start of
-a
-
-three-game series.
-
-</description>
-
-</itemRef>
-
-</group>
-
-</groupSet>
-
-</packageItem>
 
 [[_Ref222737854]][[_Ref222737861]][[_Ref222818703]]
 

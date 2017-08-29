@@ -1,3 +1,4 @@
+[[quick-start-guide-to-newsml-g2-basics]]
 Quick Start: NewsML-G2 Basics
 -----------------------------
 

@@ -1,0 +1,864 @@
+[[identifying-sources-and-workflow-actors]]
+Identifying Sources and Workflow Actors
+---------------------------------------
+
+[[introduction-19]]
+Introduction
+~~~~~~~~~~~~
+
+NewsML-G2 contains a number of features designed to help providers and
+end-users maintain an audit trail for an Item, its payload and metadata,
+and in some cases to maintain document/content security.
+
+[[information-source-infosource]]
+Information Source <infoSource>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The <infoSource> property, together with its @role, enables
+finely-grained identification of the various parties who provided
+information used to create and develop an item of news. The definition
+of <infoSource> was extended in NewsML-G2 v2.10. It had previously been
+defined as the party that originated or enhanced the content. This was
+extended to "A party (person or organisation) which originated,
+modified, enhanced, distributed, aggregated or supplied the content or
+provided some information used to create or enhance the content."
+
+This extension required that the @role attribute of Information Source
+be more rigorously defined in order to maintain inter-operability
+between providers and receivers, and promote a better understanding of
+the part played by the various actors identified in multiple
+<infoSource> elements.
+
+The value of @role should be taken from the recommended IPTC Info Source
+Role NewsCodes created and maintained for this purpose. The Scheme URI
+is http://cv.iptc.org/newscodes/infosourcerole/ and the recommended
+Scheme Alias is "isrole".
+
+The default value of @role is "isrole:originfo", indicating that the
+party identified originated information used to create or enhance the
+content, and may be omitted, If a party did anything more than originate
+information, one or more @role attributes MUST be applied. The table
+below shows the Info Source Role CV values and definitions.
+
+[cols=",,",options="header",]
+|=======================================================================
+a|
+_
+Code
+_
+
+ a|
+_
+Name
+_
+
+ a|
+_
+Definition
+_
+
+a|
+__
+interviewee
+__
+
+ a|
+__
+Interviewee
+__
+
+ a|
+
+A person who granted an interview
+
+
+a|
+__
+mediaOffice
+__
+
+ a|
+
+Media Office
+
+
+ a|
+__
+The media relationships office of a person, organisation or company.
+__
+
+a|
+__
+origcont
+__
+
+ a|
+
+Content Originator
+
+
+ a|
+__
+A party which originated the content of this item.
+__
+
+a|
+__
+originfo
+__
+
+ a|
+_
+information originator
+_
+
+ a|
+_
+A party which provided some information used to create or enhance the
+content of this item.
+_
+
+a|
+
+spokesperson
+
+
+ a|
+
+Spokesperson
+
+
+ a|
+__
+The spokesperson of a person, organisation or company
+__
+
+|=======================================================================
+
+[[identifying-workflow-actors-a-best-practice-guide]]
+Identifying workflow "actors" – a best practice guide
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The <infoSource> property is one of a set of properties in NewsML-G2
+that are used to identify the actors in the creation and evolution of an
+item of news. The following table is a guide to how these properties
+should be used:
+
+[cols=",,",options="header",]
+|=======================================================================
+a|
+__
+Property
+__
+
+ a|
+_
+Location in an Item
+_
+
+ a|
+__
+Usage notes
+__
+
+a|
+
+News Message
+
+
+ a|
+
+* *
+
+
+ a|
+
+* *
+
+
+a|
+__
+Message Sender
+__
+
+ a|
+
+header/*sender*
+
+
+ a|
+_
+Party sending the _items_ in the message, which may be an organisation
+or a person. Best practice is to identify a sender by a domain name.
+_
+
+a|
+_
+Item
+_
+
+ a|
+
+* *
+
+
+ a|
+
+* *
+
+
+a|
+__
+Hop History
+__
+
+ a|
+_
+hopHistory
+_
+
+ a|
+__
+Identifies the actions and sequence of actions by parties who created,
+enhanced or transformed the content and/or metadata of the Item.(See
+Transaction History <hopHistory> below)
+__
+
+a|
+_
+Copyright Holder
+_
+
+ a|
+_
+rightsInfo/*copyrightHolder*
+_
+
+ a|
+__
+Party claiming, or responsible for, the intellectual property for the
+_content_.
+__
+
+a|
+_
+Copyright Notice
+_
+
+ a|
+_
+rightsInfo/*copyrightNotice*
+_
+
+ a|
+__
+The appropriate copyright text claiming the intellectual property for
+the _content_. The copyright notice may be refined by the Usage Terms.
+__
+
+a|
+_
+Item Provider
+_
+
+ a|
+_
+itemMeta/*provider*
+_
+
+ a|
+_
+The party responsible for the _management and the release_ of the
+NewsML-G2 _Item_. This corresponds to the publisher of the Item.
+_
+
+a|
+__
+Item Generator
+__
+
+ a|
+__
+itemMeta/*generator*
+__
+
+ a|
+
+The name and version of the system or application that generated the
+NewsML-G2 _Item_. Where a role IS NOT specified, the Generator Tool
+applies to the most recent item generation stage.
+
+
+a|
+
+Incoming Feed Identifier
+
+
+ a|
+_
+itemMeta/*incomingFeedId*
+_
+
+ a|
+__
+The incoming feed identifier may be defined by i/ the provider of the
+feed and/or ii/ the processor of the feed. (See Incoming Feed Identifier
+<incomingFeedId>, below)
+__
+
+a|
+_
+Content
+_
+
+ a|
+
+* *
+
+
+ |
+
+a|
+
+Content Creator
+
+
+ a|
+
+contentMeta/*creator*
+
+
+ a|
+
+Party that created the _content_. This MAY also be indicated textually
+in <by>
+
+
+a|
+_
+Information Sources
+_
+
+ a|
+
+contentMeta/*infoSource*
+
+
+ a|
+_
+Person or organisation which originated, modified, enhanced,
+distributed, aggregated or supplied the content or provided some
+information used to create or enhance the content
+
+Typical example for @role:
+
+Isrole:origcont: The original _content_ _owner_.
+_
+
+a|
+__
+Content Contributors
+__
+
+ a|
+_
+contentMeta/*contributor*
+_
+
+ a|
+__
+Person or organization that _modified or enhanced_ the _content_,
+preferably the name of a person.
+
+Typical contributor types represented by @role:
+
+The Editor of the _content_.
+
+An additional Reporter of the _content_.
+__
+
+a|
+_
+Creditline
+_
+
+ a|
+
+contentMeta/*creditline*
+
+
+ a|
+__
+Free-text expression of the credit(s) for the _content_;
+__
+
+a|
+
+Byline
+
+
+ a|
+_
+contentMeta/*by*
+_
+
+ a|
+
+Free-text expression of the person or organisation that created the
+content– see also Content Creator above.
+
+
+|=======================================================================
+
+[[transaction-history-hophistory]]
+Transaction History <hopHistory>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Content may traverse many organisations and workflows in its journey to
+an end user. A news organisation may have third-party providers in
+addition to in-house contributors and editors. There are a number of
+reasons why it may be necessary to document the actions involved in the
+evolution of a news object, for example auditing and payment, or for
+editorial attribution. Hop History provides a machine-readable way of
+capturing and expressing metadata describing these actions.
+
+Using Hop History, the receiver of a NewsML-G2 Item should be able to
+answer questions such as the following:
+
+* Has the object been transformed?
+* Who transformed the object (and when)?
+* Has the object been enhanced?
+* Who enhanced the object (and when)?
+* Did a specific Party perform a specific Action on a specific Target
+(the object and/or content and/or metadata)?
+* Has the object been processed (any Action or Target) by a specific
+Party?
+* What sequence of Party(ies) has processed (any Action or Target) the
+object? 
+
+The object of the actions does not have to be a NewsML-G2 Item; the
+object of the actions may be the content only, or the content plus the
+metadata of the Item even if its format was different in a previous hop.
+Hop History usage is subject to these rules:
+
+* Hop History does not replace any information that may exist in other
+formal metadata blocks (itemMeta, contentMeta, partMeta). For example:
+the Content Creator (a Party in the Hop History with an associated
+Action of ‘created’) MUST be the same as the Party identified as
+contentMeta/creator and the provider MUST ensure these facts are
+consistent.
+* It MUST be possible to remove the Hop History without degrading the
+formal metadata blocks described above.
+
+Each Item can have one <hopHistory> element, which contains one or more
+<hop> elements. Each <hop> may have a @seq attribute to indicate its
+place in a sequence of Hops, and may optionally have a @timestamp.
+
+Each Hop element may identify the <party> involved in the Hop, either as
+a @literal, or @qcode, and an unbounded number of <action> elements that
+describe the action(s) the Party took. Each <action> element may
+identify the type of action, using a @qcode, and the @target of the
+action: whether the action was performed on the full item, the content
+only, or the metadata.
+
+The Scheme URI of the Hop Action CV (referenced by the @qcode of the
+action element) is:
+
+http://cv.iptc.org/newscodes/hopaction/ with a recommended alias of
+"hopaction". The members of the CV are defined as follows:
+
+[cols=",",options="header",]
+|=======================================================================
+|Code |Definition
+|created |A Party has created the target of the action.
+
+|transformed |A Party has transformed the target of the action.
+Transforming means that an existing target was changed in data format.
+
+|enhanced |A Party has enhanced the target of the action.
+|=======================================================================
+
+The default action – indicated by the absence of the <action> element –
+is that the Party forwarded the object without making any changes.
+
+The Scheme URI of the Hop Action Target CV (referenced by @target) is:
+
+ http://cv.iptc.org/newscodes/hopactiontarget/ with a recommended scheme
+alias of "hatarget". The members of the CV are defined as:
+
+[cols=",",options="header",]
+|=======================================================================
+|Code |Definition
+|metadata |Any metadata associated with the content of the object.
+
+|content |The content of the object, which could be present in different
+renditions.
+|=======================================================================
+
+The default target – indicated by the absence of the @target attribute,
+is metadata AND content.
+
+In the Listing below, the provider (Acme Media) expresses a Hop History
+for the News Item as follows:
+
+* The original _content_ was _created_ by Thomson Reuters (note the use
+of EITHER @qcode OR @literal to identify the Party.)
+* The next Party in the sequence, identified as "comp:bwire",
+_transformed_ the _content_ into another format, and _enhanced_ the
+_metadata_.
+* The following Party ("comp:acquiremedia") _created_ new _metadata._
+* The final Party in the sequence of Hops ("comp:AP), _enhanced_ the
+_content_ and _metadata._
+
+1.  _
+[[_Ref434903912]]Hop History
+_
+
+All Scheme Aliases used in listing below indicate IPTC NewsCodes
+vocabularies, except for _comp,_
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<newsItem xmlns="http://iptc.org/std/nar/2006-10-01/"
+
+guid="urn:newsml:acmenews.com:20161125T1205:HOP-HISTORY-EXAMPLE"
+
+version="3"
+
+standard="NewsML-G2"
+
+standardversion="2.23" xml:lang="en-US">
+
+<catalogRef
+
+href="http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_29.xml"
+/>
+
+<catalogRef
+href__="http://www.acmenews.com/synd/catalogs/anmcodes.xml" />
+
+<hopHistory>
+
+<hop seq="1" timestamp="2016-11-10T15:15:00Z">
+
+<party qcode="comp:TR">
+
+<name>Thomson Reuters</name>
+
+</party>
+
+<action qcode="hopaction:created" target="hatarget:content" />
+
+</hop>
+
+<hop seq="2" timestamp="2016-11-10T16:18:00Z">
+
+<party qcode="comp:bwire" />
+
+<!—- transformed content e.g. to a different format -->
+
+<action qcode="hopaction:transformed" target="hatarget:content"
+/>
+
+<!—- enhanced existing metadata -->
+
+<action qcode="hopaction:enhanced" target="hatarget:metadata" />
+
+</hop>
+
+<hop seq="3" timestamp="2016-11-12T18:15:00Z">
+
+<party qcode="comp:aquiremedia" />
+
+<!—- added metadata -->
+
+<action qcode="hopaction:created" target="hatarget:metadata" />
+
+</hop>
+
+<hop seq="4" timestamp="2016-11-12T19:15:00Z">
+
+<party qcode="comp:AP" />
+
+<!—- enhanced content e.g. links to the text of the article -->
+
+<action qcode="hopaction:enhanced" target="hatarget:content" />
+
+<!-- enhanced existing metadata -->
+
+<action qcode="hopaction:enhanced" target="hatarget:metadata" />
+
+</hop>
+
+</hopHistory>
+
+<rightsInfo>
+
+<copyrightHolder uri="http://www.reuters.com" />
+
+</rightsInfo>
+
+<itemMeta>
+
+<itemClass qcode="ninat:text" />
+
+<provider qcode="nprov:reuters" />
+
+<versionCreated>2016-11-12T20:15:00Z
+
+</versionCreated>
+
+<pubStatus qcode="stat:usable" />
+
+</itemMeta>
+
+<!-- metadata and content -->
+
+<!-- metadata and content -->
+
+<!-- metadata and content -->
+
+</newsItem>
+
+[[incoming-feed-identifier-incomingfeedid]]
+Incoming Feed Identifier <incomingFeedId>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Some content providers, notably content aggregators, may need to
+identify the incoming news feed that is the source for a NewsML-G2 Item.
+The <incomingFeedId>, a child property of <itemMeta> enables an
+aggregator to combine the property value with a @role:
+
+a.  
+To apply the provider’s feed identifier to the inbound content as it
+processed into a NewsML-G2 Item, and
+
+b.  __
+To apply the aggregator’s feed identifier for the content in the
+NewsML-G2 Item.
+__
+
+*Attributes of <incomingFeedId>*
+
+[cols=",",options="header",]
+|=======================================================================
+|Attribute |Definition
+|role _or_ roleuri |The role of this feed identifier, for example to
+assert that this is the originator’s identifier for the source feed that
+created the content.
+
+|qcode _or_ uri |The unique identifier for the incoming feed.
+|=======================================================================
+
+The following example is courtesy of Thomson Reuters:
+
+A news story is received from PR Newswire on its UK Regulatory News
+service. The provider’s feed identifier is "PRNUKReg". Thomson Reuters
+applies this code to the resulting Item, and adds its own Incoming Feed
+Identifier "RRR". The resulting code in <itemMeta> would be:
+
+<itemMeta>
+
+...
+
+<incomingFeedId role="feedIdRole:srcFeedId"
+qcode="PRNFeedId:PRNUKReg" />
+
+<incomingFeedId role="feedIdRole:TRFeedId" qcode="TRFeedId:RRR"
+/>
+
+</itemMeta>
+
+Note that @role and @qcode are used in the example, but their IRIType
+siblings @roleuri and @uri may be used instead.
+
+[[original-representation-of-an-item-origrep]]
+Original Representation of an Item <origRep>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The <origRep> property adds the ability for a provider to specify a
+globally unique (and persistent) URL for retrieving a NewsML-G2 Item by
+interactive means, enabling providers to create a retrieval model for
+distributing NewsML-G2 Items, as an alternative to the widely used data
+feed method. Providers may also specify the technical means of
+retrieval. <origRep> is an optional child property of <itemMeta>, which
+may contain many <origRep> properties each specifying a different
+retrieval method and/or the role of the repository hosting the Item
+amongst many possible repositories.
+
+*Attributes of <origRep>*
+
+[cols=",,",options="header",]
+|=======================================================================
+a|
+_
+Name
+_
+
+ a|
+__
+Cardinality
+__
+
+ a|
+_
+Definition
+_
+
+a|
+
+Common Power
+
+
+ a|
+_
+-
+_
+
+ a|
+_
+Inherited attribute group
+_
+
+a|
+_
+Time Validity
+_
+
+ a|
+_
+-
+_
+
+ a|
+_
+Inherited attribute group
+_
+
+a|
+__
+accesstype _or_ +
+accesstypeuri
+__
+
+ a|
+_
+0..1
+_
+
+ a|
+__
+A qualifier that indicates the technical variant for accessing this item
+(for example communication protocols like "http") - expressed by a QCode
+or URI
+__
+
+a|
+_
+reposrole _or_ +
+reposroleuri
+_
+
+ a|
+_
+0..1
+_
+
+ a|
+
+ A qualifier which indicates the role of the stated repository -
+expressed by a QCode or URI.
+
+
+|=======================================================================
+
+*Example*
+
+<itemMeta>
+
+...
+
+<origRep accesstype="acctype:http" reposrole="reprol:mirror">
+
+http://cdn2.example.com/items/dkad19383
+
+</origRep>
+
+</itemMeta>
+
+Note that <origRep> references a NewsML-G2 Item; use <altRep> to specify
+an alternative representation of the Item, for example in a different
+format such as IIM.
+
+[[hash-value-hash]]
+Hash Value <hash>
+~~~~~~~~~~~~~~~~~
+
+The optional <hash> element, a child element <itemMeta>, <assert> and
+<remoteContent>, contains a digital "fingerprint" generated from
+content, that enables end users to verify that the content of a
+NewsML-G2 Item, or an object referenced by an Item, has not been changed
+
+The <hash> property has two attributes: the @hashtype tells the receiver
+the algorithm that was used to generate the hash, and @hashscope tells
+the receiver the parts of the content that were used to create the hash,
+and that therefore can be verified.
+
+There are two recommended IPTC CVs for the <hash> properties. The first
+is Hash Type NewsCodes; Scheme URI
+http://cv.iptc.org/newscodes/hashtype/ with a recommended scheme alias
+of "htype":
+
+[cols=",",options="header",]
+|==============================
+|Code |Definition
+|MD5 |The MD5 hash function
+|SHA-1 |The SHA-1 hash function
+|SHA-2 |The SHA-2 hash function
+|==============================
+
+The second is the Hash Scope NewsCodes; Scheme URI
+http://cv.iptc.org/newscodes/hashscope/ with a recommended scheme alias
+of "hscope". Scheme values are:
+
+[cols=",",options="header",]
+|===========================================================
+|Code |Definition
+|content |Content only (Default case, if @hashscope omitted)
+|provmix |Provider specific mix of content and metadata 
+|===========================================================
+
+In the example below, the <hash> is a child of Item Metadata and the
+scope is a provider-specific mix of metadata and the payload of a News
+Item. The content would be contained in either an <inline> or
+<inlineXML> element, and it would be the responsibility of the provider
+to define (outside NewsML-G2) which metadata properties were in scope
+for creating the hash. For example they may advise customers that the
+<headline> and <by> of a NewsItem are included when generating the hash
+value of the content.
+
+<hash hashtype="htype:md5"
+hashscope="hscope:provmix">hash-code</hash>
+
+A <hash> element may also be added to <remoteContent> indicating that
+the hash was generated from the content of the referenced object. In the
+example below, the target is the thumbnail of an image. The hash scope
+is omitted and defaults to "content":
+
+<remoteContent residref="urn:foobar" rendition="rnd:thumbnail">
+
+...
+
+<hash hashtype="htype:md5">hash-code</hash>
+
+...
+
+</remoteContent>
+
+ When applying a hash value for the content of a NewsML-G2 document, it
+makes sense to place the <hash> in <itemMeta> only for content payloads
+of <inlineXML> or <inlineData>. For Remote Content, where there could be
+multiple renditions of the content, the <hash> should be a child of each
+<remoteContent>
+wrapper.[[_Toc340664764]][[_Toc340667050]][[_Toc340731187]]
+

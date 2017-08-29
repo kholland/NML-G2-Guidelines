@@ -18,32 +18,51 @@ keywords: iptc, newsml-g2, xml, format, news, multimedia, multi-media, metadata,
 :sectnumlevels: 3
 
 ////
-[[how-to-index]]
 include::{includedir}/GuidelinesChapters_2017/1_How-to_Index.adoc[]
 
-[[whats-new-in-newsml-g2-2.23-including-version-2.22]]
 include::{includedir}/GuidelinesChapters_2017/2_What_is_New.adoc[]
 
-[[executive-summary]]
 include::{includedir}/GuidelinesChapters_2017/3_Executive_Summary.adoc[]
 
-[[about-the-iptc]]
 include::{includedir}/GuidelinesChapters_2017/4_About_the_IPTC.adoc[]
 
-[[unification-of-newsml-g2-and-eventsml-g2]]
 include::{includedir}/GuidelinesChapters_2017/5_Unification_of_NewsML-G2.adoc[]
 
-[[how-news-happens]]
 include::{includedir}/GuidelinesChapters_2017/6_How_News_Happens.adoc[]
 
-[[quick-start-newsml-g2-basics]]
 include::{includedir}/GuidelinesChapters_2017/7_QS_NewsML-G2_Basics.adoc[]
 
-[[quick-start-newsml-g2-basics]]
 include::{includedir}/GuidelinesChapters_2017/8_QS_Text.adoc[]
-////
-[[quick-start-newsml-g2-basics]]
+
 include::{includedir}/GuidelinesChapters_2017/9_QS_Pictures.adoc[]
 
+include::{includedir}/GuidelinesChapters_2017/10_QS_Video.adoc[]
+
+include::{includedir}/GuidelinesChapters_2017/11_QS_Packages.adoc[]
+
+include::{includedir}/GuidelinesChapters_2017/12_Concepts.adoc[]
+
+include::{includedir}/GuidelinesChapters_2017/13_Knowledge_Items.adoc[]
+
+include::{includedir}/GuidelinesChapters_2017/14_CVs_and_QCodes.adoc[]
+
+include::{includedir}/GuidelinesChapters_2017/15_Events.adoc[]
+
+include::{includedir}/GuidelinesChapters_2017/16_Planning.adoc[]
+
+include::{includedir}/GuidelinesChapters_2017/17_SportsML-G2.adoc[]
+
+include::{includedir}/GuidelinesChapters_2017/18_News_Messages.adoc[]
+
+include::{includedir}/GuidelinesChapters_2017/19_Migrating_IPTC7901.adoc[]
+
+include::{includedir}/GuidelinesChapters_2017/20_NewsML-G2_from_Scratch.adoc[]
+
+include::{includedir}/GuidelinesChapters_2017/21_Migrating_from_NITF.adoc[]
+
+////
+include::{includedir}/GuidelinesChapters_2017/22_Migrating_from_IIM.adoc[]
+
+include::{includedir}/GuidelinesChapters_2017/23_Rights.adoc[]
 
 

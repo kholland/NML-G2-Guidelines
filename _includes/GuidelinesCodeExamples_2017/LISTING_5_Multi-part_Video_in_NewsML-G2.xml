@@ -92,13 +92,13 @@
 			<name xml:lang="fr">Arts, culture, et spectacles</name>
 			<narrower type="cpnat:abstract" qcode="medtop:20000003">
 				<name xml:lang="en-GB">Animation</name>
-				<name xml:lang="fr">Dessin animé</name>
+				<name xml:lang="fr">Dessin animÃ©</name>
 			</narrower>
 		</subject>
 		<headline>Loriot retrospective</headline>
 		<description role="descrole:dopesheet">
 			Yesterday evening (November 5) an exhibition opened in Berlin in
-			honour of German humorist Vicco von Bülow, better known under the
+			honour of German humorist Vicco von BÃ¼low, better known under the
 			pseudonym "Loriot", to commemorate his 85th birthday. He was born
 			November 12, 1923 in Brandenburg an der Havel and comes from an old
 			German aristocratic family. He is most well-known for his cartoons,
@@ -111,11 +111,11 @@
 		<description role="descrole:shotlist">
 			Berlin, 05/11/2008
 			<br />
-			- vs. Vicco von Bülow entering exhibition
+			- vs. Vicco von BÃ¼low entering exhibition
 			<br />
 			- vs. Loriot and media
 			<br />
-			- sot Vicco von Bülow
+			- sot Vicco von BÃ¼low
 			<br />
 			"Since 85 years I didn't succeed in pursuing a job that could be
 			called a profession."
@@ -140,7 +140,7 @@
 		<icon href=" http://www.example.com/video/Keyframes/407624.jpeg"/> 
 		<timeDelim start="0" end="446" timeunit="timeunit:editUnit"/> 
 		<language tag="en" role="langusecode:VoiceOver" />
-		<description>Vicco von Bülow entering exhibition </description>
+		<description>Vicco von BÃ¼low entering exhibition </description>
 	</partMeta>
 	<partMeta partid="Part2_ID" seq="2">
 		<icon href="http://www.example.com/video/Keyframes/407624-447.jpeg"/> 
@@ -152,7 +152,7 @@
 		<icon href="http://www.example.com/video/Keyframes/407624-832.jpeg"/> 
 		<timeDelim start="832" end="1081" timeunit="timeunit:editUnit"/> 
 		<language tag="en" role="langusecode:Interlocution" />
-		<description>Vicco von Bülow interview</description>
+		<description>Vicco von BÃ¼low interview</description>
 	</partMeta>
 	<partMeta partid="Part4_ID" seq="4">
 		<icon href="http://www.example.com/video/Keyframes/407624-1082.jpeg"/> 
@@ -194,3 +194,4 @@
 		videoaspectratio="16:9" />  
 	</contentSet>
 </newsItem>
+

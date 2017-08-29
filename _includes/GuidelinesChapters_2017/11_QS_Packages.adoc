@@ -1,9 +1,9 @@
-[[quick-start---packages]]
+[[quick-start-packages]]
 Quick Start - Packages
 ----------------------
 
-We recommend reading the Quick Start Guide to NewsML-G2 Basics +
-before this Quick Start Guide to Text.
+TIP: We recommend reading the Quick Start Guide to NewsML-G2 Basics +
+before this Quick Start Guide to News Packages.
 
 [[introduction-7]]
 Introduction
@@ -14,13 +14,16 @@ news organisations and customers. Using packages, different facets of
 the coverage of a news story can be viewed in a named relationship, such
 as "Main Article", "Sidebar", Background". Another frequent application
 of packages is to aggregate content for news products, for example "Top
-Ten" news packages such as that illustrated belowfootnote:[A description
-of how to create this type of package with ordered components can be
-found further on in this document.].
+Ten" news packages such as that illustrated below
 
-image:media/image8.gif[Web-Top-Ten.gif,width=402,height=467]
+TIP: A description of how to create this type of package with ordered components can be
+found further on in this document.
 
-[[_Toc470002525]]Figure 6: A Top Ten News Package displayed on the Web
+image::Web-Top-Ten.gif[A Top Ten News package displayed on a web page,width=402,height=467]
+
+[[_Toc470002525]]
+
+.Figure 6: A Top Ten News Package displayed on the Web
 
 Packages can range from simple collections on a common theme, to rich
 hierarchical structures.
@@ -62,12 +65,15 @@ repeated, but this example has only one. The diagram below shows a
 skeleton of the XML elements in a simple package and a visualisation of
 the relationship that this structure creates:
 
-[[_Toc470002526]]Figure 7: Top-level element view of a simple package,
-and (right) a visualisation of the structure
+[[_Toc470002526]]
 
-1.  
-[[_Ref468979372]][[_Toc403108019]]Code Listing: Simple NewsML-G2 Package
+image::PackageHierarchySimple2016.png[Simple package structure]
 
+.Figure 7: Top-level element view of a simple package, and (right) a visualisation of the structure
+
+[[_Ref468979372]][[_Toc403108019]]
+
+.LISTING: Simple NewsML-G2 Package
 
 The following NewsML-G2 document illustrates the package structure
 above.
@@ -80,142 +86,10 @@ Each wrapper element is highlighted using the background colour matching
 the structure diagram. A more detailed logical diagram of the NewsML-G2
 document structure is shown in the QuickStart Guide to NewsML-G2 Basics.
 
-<?xml version="1.0" encoding="UTF-8" standalone__="yes"?>
-
-<packageItem xmlns="http://iptc.org/std/nar/2006-10-01/"
-
-guid="tag:example.com,2008:UK-NEWS-TOPTEN:UK20081220098658"
-version="9">
-
-standard="NewsML-G2"
-
-standardversion="2.23"
-
-conformance="power"
-
-<catalogRef
-
-href="http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_29.xml"
-/>
-
-<catalogRef
-
-href="http:/www.example.com/customer/cv/catalog4customers-1.xml" />
-
-<itemMeta>
-
-<itemClass qcode="ninat:composite" />
-
-<provider qcode="nprov:AcmeNews" />
-
-<versionCreated>2016-11-17T12:30:00Z</versionCreated>
-
-<firstCreated>2008-12-20T12:25:35Z</firstCreated>
-
-<pubStatus qcode="stat:usable" />
-
-<profile
-versioninfo="1.0.0.2">simple_text_with_picture.xsl</profile>
-
-<service qcode="svc:uktop">
-
-<name>Top UK News stories hourly</name>
-
-</service>
-
-<title>UK-TOPNEWS</title>
-
-<edNote>Updates the previous version</edNote>
-
-<signal qcode="sig:update" />
-
-</itemMeta>
-
-<contentMeta>
-
-<contributor jobtitle="staffjobs:cpe" qcode="mystaff:MDancer">
-
-<name>Maurice Dancer</name>
-
-<name>Chief Packaging Editor</name>
-
-<definition validto="2016-11-17T17:30:00Z">
-
-Duty Packaging Editor
-
-</definition>
-
-<note validto="2016-11-17T17:30:00Z">
-
-Available on +44 207 345 4567 until 17:30 GMT today
-
-</note>
-
-</contributor>
-
-<headline xml:lang="en">UK</headline>
-
-</contentMeta>
-
-<groupSet root="G1">
-
-<group id="G1" role="group:main">
-
-<itemRef residref="urn:newsml:iptc.org:20081007:tutorial-item-A"
-
-contenttype="application/vnd.iptc.g2.newsitem+xml"
-
-size="2345">
-
-<itemClass qcode="ninat:text" />
-
-<provider qcode="nprov:AcmeNews"/>
-
-<pubStatus qcode="stat:usable"/>
-
-<title>Obama annonce son équipe</title>
-
-<description role="drol:summary">Le rachat il y a deux ans de la
-
-propriété par Alan Gerry, magnat local de la télévision câblée, a
-
-permis l'investissement des 100 millions de dollars qui étaient
-
-nécessaires pour le musée et ses annexes, et vise à favoriser le
-
-développement touristique d'une région frappée par le chômage.
-
-</description>
-
-</itemRef>
-
-<itemRef residref="urn:newsml:iptc.org:20081007:tutorial—item-B"
-
-contenttype="application/vnd.iptc.g2.newsitem+xml"
-
-size="300039">
-
-<itemClass qcode="ninat:picture" />
-
-<provider qcode="nprov:AcmeNews"/>
-
-<pubStatus qcode="stat:usable"/>
-
-<title>Barack Obama arrive à Washington</title>
-
-<description role="drol:caption">Si nous avons aujourd'hui un
-
-afro-américain et une femme dans la course à la présidence.
-
-</description>
-
-</itemRef>
-
-</group>
-
-</groupSet>
-
-</packageItem>
+[source, xml]
+----
+include::{includedir}/../../GuidelinesCodeExamples_2017/LISTING_6_Simple_NewsML-G2_Package.xml[]
+----
 
 [[document-structure-3]]
 Document structure
@@ -227,27 +101,21 @@ Package (itemMeta), metadata about the content (contentMeta) and the
 package content (groupSet). The top level (root) element <packageItem>
 attributes are:
 
+[source,xml]
 <packageItem xmlns="http://iptc.org/std/nar/2006-10-01/"
-
-guid="tag:example.com,2008:UK-NEWS-TOPTEN:UK20081220098658"
-version="9">
-
-standard="NewsML-G2"
-
-standardversion="2.23"
-
-conformance="power"
+	guid="tag:example.com,2008:UK-NEWS-TOPTEN:UK20081220098658"
+	version="9">
+	standard="NewsML-G2"
+	standardversion="2.23"
+	conformance="power"
 
 This is followed by Catalog information:
 
+[source,xml]
 <catalogRef
-
-href="http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_29.xml"
-/>
-
+	href="http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_29.xml" />
 <catalogRef
-
-href="http:/www.example.com/customer/cv/catalog4customers-1.xml" />
+	href="http:/www.example.com/customer/cv/catalog4customers-1.xml" />
 
 [[item-metadata]]
 Item Metadata
@@ -266,40 +134,27 @@ for example "text and picture" could be the name of a template;
 "textpicture.xsl" would be an xsl stylesheet. The @versioninfo of a
 <profile> enables the template or stylesheet to be versioned:
 
-<profile
-versioninfo="1.0.0.2">simple_text_with_picture.xsl</profile>
+[source,xml]
+<profile versioninfo="1.0.0.2">simple_text_with_picture.xsl</profile>
 
 [[item-metadata-in-full]]
 Item Metadata in full
 ^^^^^^^^^^^^^^^^^^^^^
 
+[source,xml]
 <itemMeta>
-
-<itemClass qcode="ninat:composite" />
-
-<provider qcode="nprov:AcmeNews" />
-
-<versionCreated>2016-11-07T12:30:00Z</versionCreated>
-
-<firstCreated>2008-12-20T12:25:35Z</firstCreated>
-
-<pubStatus qcode="stat:usable" />
-
-<profile
-versioninfo="1.0.0.2">simple_text_with_picture.xsl</profile>
-
-<service qcode="svc:uktop">
-
-<name>Top UK News stories hourly</name>
-
-</service>
-
-<title>UK-TOPNEWS</title>
-
-<edNote>Updates the previous version</edNote>
-
-<signal qcode="sig:update" />
-
+	<itemClass qcode="ninat:composite" />
+	<provider qcode="nprov:AcmeNews" />
+	<versionCreated>2016-11-07T12:30:00Z</versionCreated>
+	<firstCreated>2008-12-20T12:25:35Z</firstCreated>
+	<pubStatus qcode="stat:usable" />
+	<profile versioninfo="1.0.0.2">simple_text_with_picture.xsl</profile>
+	<service qcode="svc:uktop">
+		<name>Top UK News stories hourly</name>
+	</service>
+	<title>UK-TOPNEWS</title>
+	<edNote>Updates the previous version</edNote>
+	<signal qcode="sig:update" />
 </itemMeta>
 
 [[content-metadata]]
@@ -310,30 +165,15 @@ The <contentMeta> wrapper in this example contains extended metadata
 about the person who compiled the package, including hours of duty and
 contact telephone number.
 
+[source,xml]
 <contentMeta>
-
-<contributor jobtitle="staffjobs:cpe" qcode="mystaff:MDancer">
-
-<name>Maurice Dancer</name>
-
-<name>Chief Packaging Editor</name>
-
-<definition validto="2016-11-17T17:30:00Z">
-
-Duty Packaging Editor
-
-</definition>
-
-<note validto="2016-11-17T17:30:00Z">
-
-Available on +44 207 345 4567 until 17:30 GMT today
-
-</note>
-
-</contributor>
-
-<headline xml:lang="en">UK</headline>
-
+	<contributor jobtitle="staffjobs:cpe" qcode="mystaff:MDancer">
+		<name>Maurice Dancer</name>
+		<name>Chief Packaging Editor</name>
+		<definition validto="2016-11-17T17:30:00Z">Duty Packaging Editor</definition>
+		<note validto="2016-11-17T17:30:00Z">Available on +44 207 345 4567 until 17:30 GMT today</note>
+	</contributor>
+	<headline xml:lang="en">UK</headline>
 </contentMeta>
 
 [[group-set]]
@@ -344,6 +184,7 @@ The <groupSet> has a mandatory root attribute that references the
 primary child <group> element. The primary <group> element must identify
 itself using an @id that matches the @root of <groupSet>.
 
+[source,xml]
 <groupSet root="G1">
 
 [[group]]
@@ -361,6 +202,7 @@ may typically contain values representing "main", "sidebar" or other
 editorial terms that express how the content is intended to be used in
 the package.
 
+[source,xml]
 <group id="G1" role="group:main">
 
 [[item-reference]]
@@ -382,35 +224,25 @@ The example versions the referenced Items using @version, and gives
 processing or usage hints using @contenttype and @size. The @contenttype
 uses the registered IANA Media Type for a NewsML-G2 News Item:
 
+[source,xml]
 <itemRef residref="urn:newsml:iptc.org:20081007:tutorial-item-A"
-
-contenttype="application/vnd.iptc.g2.newsitem+xml"
-
-size="2345">
+	contenttype="application/vnd.iptc.g2.newsitem+xml"
+	size="2345">
 
 The Item Reference includes properties from the referenced Item that
 have been extracted as an aid to processing:
 
-<itemClass qcode="ninat:text" />
-
-<provider qcode="nprov:AcmeNews"/>
-
-<pubStatus qcode="stat:usable"/>
-
-<title>Obama annonce son équipe</title>
-
-<description role="drol:summary">Le rachat il y a deux ans de la
-
-propriété par Alan Gerry, magnat local de la télévision câblée, a
-
-permis l'investissement des 100 millions de dollars qui étaient
-
-nécessaires pour le musée et ses annexes, et vise à favoriser le
-
-développement touristique d'une région frappée par le chômage.
-
-</description>
-
+[source,xml]
+	<itemClass qcode="ninat:text" />
+	<provider qcode="nprov:AcmeNews"/>
+	<pubStatus qcode="stat:usable"/>
+	<title>Obama annonce son équipe</title>
+	<description role="drol:summary">Le rachat il y a deux ans de la
+		propriété par Alan Gerry, magnat local de la télévision câblée, a
+		permis l'investissement des 100 millions de dollars qui étaient
+		nécessaires pour le musée et ses annexes, et vise à favoriser le
+		développement touristique d'une région frappée par le chômage.
+	</description>
 </itemRef>
 
 [[hierarchical-package-structure]]
@@ -421,81 +253,26 @@ Hierarchies of Groups and Item References can be created by adding
 multiple Groups to Packages and using <groupRef>, to reference other
 Groups by @idref, as illustrated by the following diagram:
 
-[[_Toc403107367]][[_Toc470002527]]Figure 8: Code outline of hierarchical
-package with two groups, visualising parent-child structure (right)
+[[_Toc403107367]][[_Toc470002527]]
+
+image::PackageHierarchyNested2016.png[parent-child package]
+
+.Figure 8: Code outline of hierarchical package with two groups, visualising parent-child structure (right)
 
 The code listing below shows how such a hierarchical package would be
 fully expressed in XML in a NewsML-G2 Group Set:
 
-1.  
-[[_Ref468979404]]Code Listing: Group Set example showing Hierarchical
-Package Structure
+[[_Ref468979404]]
 
+.LISTING: Group Set example showing Hierarchical Package Structure
 
 All Scheme Aliases used in listing below indicate IPTC NewsCodes
 vocabularies, except for _group,_
 
-<groupSet root="G1">
-
-<group id="G1" role="group:main">
-
-<itemRef residref="urn:newsml:iptc.org:20081007:tutorial—item-A"
-
-contenttype="application/vnd.iptc.g2.newsitem+xml"
-
-size="2345">
-
-<itemClass qcode="ninat:text" />
-
-<title>Obama annonce son équipe</title>
-
-</itemRef>
-
-<itemRef residref="urn:newsml:iptc.org:20081007:tutorial—item-B"
-
-contenttype="application/vnd.iptc.g2.newsitem+xml"
-
-size="300039">
-
-<itemClass qcode="ninat:picture" />
-
-<title>Barack Obama arrive à Washington</title>
-
-</itemRef>
-
-<groupRef idref="G2" />
-
-</group>
-
-<group id="G2" role="group:sidebar">
-
-<itemRef residref="urn:newsml:iptc.org:20081007:tutorial—item-C"
-
-contenttype="application/vnd.iptc.g2.newsitem+xml"
-
-size="1503">
-
-<itemClass qcode="ninat:text" />
-
-<title>Clinton reprend son rôle de chef de la santé</title>
-
-</itemRef>
-
-<itemRef residref="urn:newsml:iptc.org:20081007:tutorial—item-D"
-
-contenttype="application/vnd.iptc.g2.newsitem+xml"
-
-size="350280">
-
-<itemClass qcode="ninat:picture" />
-
-<title>Hillary Clinton à une rassemblement à New York</title>
-
-</itemRef>
-
-</group>
-
-</groupSet>
+[source, xml]
+----
+include::{includedir}/../../GuidelinesCodeExamples_2017/LISTING_7_Group_Set_example_showing_Hierarchical_Package_Structure.xml[]
+----
 
 In the example, the "root" group is identified as the group with
 id="G1". This group has a role of "main" and consists of a text story
@@ -521,8 +298,11 @@ references to a text article and a related picture.
 to its peer groups in the set, for example coverage of a news event
 supplied in different languages.
 
-[[_Toc403107368]][[_Toc470002528]]Figure 9: Code skeleton view of
-package with alternative components, with visualisation of structure
+[[_Toc403107368]][[_Toc470002528]]
+
+image::PackageHierarchyList2016.png[Alternative package components]
+
+.Figure 9: Code skeleton view of package with alternative components, with visualisation of structure
 
 The diagram above shows a package containing two Items in the root
 group, and a group reference to a "group of groups" with package mode
@@ -546,129 +326,17 @@ alternatives: each references a group containing the video content. The
 code example below shows how this relationship is fully expressed in
 NewsML-G2:
 
-1.  
-[[_Ref468979427]]Code Listing: Group Set example showing an "alt"
-Package Mode
+[[_Ref468979427]]
 
+.LISTING: Group Set example showing an "alt" Package Mode
 
 All Scheme Aliases used in listing below indicate IPTC NewsCodes
 vocabularies, except for _group,_
 
-<groupSet root="G1">
-
-<group id="G1" role="group:main">
-
-<itemRef residref="urn:newsml:iptc.org:20081007:tutorial—item-A"
-
-contenttype="application/vnd.iptc.g2.newsitem+xml"
-
-size="2345">
-
-<itemClass qcode="ninat:text" />
-
-<title>Obama annonce son équipe</title>
-
-</itemRef>
-
-<itemRef residref="urn:newsml:iptc.org:20081007:tutorial—item-B"
-
-contenttype="application/vnd.iptc.g2.newsitem+xml"
-
-size="1503">
-
-<itemClass qcode="ninat:text" />
-
-<title>Clinton reprend son rôle de chef de la santé</title>
-
-</itemRef>
-
-<groupRef idref="G2" />
-
-</group>
-
-<group id="G2" role="group:video" mode="pgrmod:alt">
-
-<groupRef idref="G3" />
-
-<groupRef idref="G4" />
-
-<groupRef idref="G5" />
-
-</group>
-
-<group id="G3" role="group:mdpi">
-
-<itemRef residref="urn:newsml:iptc.org:20081007:tutorial—item-C"
-
-contenttype="video/mp4" width="480" height="320">
-
-<itemClass qcode="ninat:video" />
-
-<title>Barack Obama arrive à Washington</title>
-
-</itemRef>
-
-<itemRef residref="urn:newsml:iptc.org:20081007:tutorial—item-D"
-
-contenttype="video/mp4" width="480" height="320">
-
-<itemClass qcode="ninat:video" />
-
-<title>Hillary Clinton à une rassemblement à New York</title>
-
-</itemRef>
-
-</group>
-
-<group id="G4" role="group:hdpi">
-
-<itemRef residref="urn:newsml:iptc.org:20081007:tutorial—item-E"
-
-contenttype="video/mp4" width="720" height="480">
-
-<itemClass qcode="ninat:video" />
-
-<title>Barack Obama arrive à Washington</title>
-
-</itemRef>
-
-<itemRef residref="urn:newsml:iptc.org:20081007:tutorial—item-F"
-
-contenttype="video/mp4" width="720" height="480">
-
-<itemClass qcode="ninat:video" />
-
-<title>Hillary Clinton à une rassemblement à New York</title>
-
-</itemRef>
-
-</group>
-
-<group id="G5" role="group:xhdpi">
-
-<itemRef residref="urn:newsml:iptc.org:20081007:tutorial—item-G"
-
-contenttype="video/mp4" width="960" height="640">
-
-<itemClass qcode="ninat:video" />
-
-<title>Barack Obama arrive à Washington</title>
-
-</itemRef>
-
-<itemRef residref="urn:newsml:iptc.org:20081007:tutorial—item-H"
-
-contenttype="video/mp4" width="960" height="640">
-
-<itemClass qcode="ninat:video" />
-
-<title>Hillary Clinton à une rassemblement à New York</title>
-
-</itemRef>
-
-</group>
-
-</groupSet>
+[source, xml]
+----
+include::{includedir}/../../GuidelinesCodeExamples_2017/LISTING_8_Group_Set_example_showing_an_ALT_Package_Mode.xml[]
+----
 
 [[a-sequential-top-ten-package]]
 A Sequential "Top Ten" Package
@@ -680,298 +348,27 @@ that the components are in descending order and a code skeleton and
 visual representation of the package structure is shown in the diagram
 below:
 
-[[_Toc403107369]][[_Toc470002529]]Figure 10: Code skeleton of a
-sequential mode package and (right) the resulting relationship structure
+[[_Toc403107369]][[_Toc470002529]]
+
+image::PackageHierarchySequential2016.png[Sequential mode package]
+
+.Figure 10: Code skeleton of a sequential mode package and (right) the resulting relationship structure
 
 Note how the <group> sets the Mode for its components, in this case the
 component group references of the "main" group are sequentially ordered.
 The relationship is fully-expressed in XML in NewsML-G2 as shown below:
 
-1.  __
-[[_Ref468979457]]Code Listing: Group Set example showing a "seq" Package
-Mode
-__
+[[group-set-example]]
+
+.LISTING: Group Set example showing a "seq" Package Mode
 
 All Scheme Aliases used in listing below indicate IPTC NewsCodes
 vocabularies, except for _group,_
 
-<groupSet root="G1">
-
-<group id="G1" role="group:main" mode="pgrmod:seq">
-
-<groupRef idref="G2" />
-
-<groupRef idref="G3" />
-
-<groupRef idref="G4" />
-
-<groupRef idref="G5" />
-
-<groupRef idref="G6" />
-
-<groupRef idref="G7" />
-
-<groupRef idref="G8" />
-
-<groupRef idref="G9" />
-
-<groupRef idref="G10" />
-
-<groupRef idref="G11" />
-
-</group>
-
-<group id="G2" role="group:top">
-
-<itemRef residref="urn:newsml:iptc.org:20081007:tutorial-item-A"
-
-contenttype="application/vnd.iptc.g2.newsitem+xml"
-
-size="3452">
-
-<itemClass qcode="ninat:text" />
-
-<provider qcode="nprov:AcmeNews"/>
-
-<pubStatus qcode="stat:usable"/>
-
-<title>Bank cuts interest rates to record low</title>
-
-<description role="drol:summary">London (Reuters) - The Bank of
-England cut
-
-interest rates by half a percentage point on Thursday to a record low of
-
-1.5 percent and economists expect it to cut again in February as it
-
-battles to prevent Britain from falling into a deep slump.
-
-</description>
-
-</itemRef>
-
-<itemRef residref="urn:newsml:iptc.org:20081007:tutorial—item-B"
-
-contenttype="application/vnd.iptc.g2.newsitem+xml"
-
-size="230003">
-
-<itemClass qcode="ninat:picture" />
-
-<provider qcode="nprov:AcmeNews "/>
-
-<pubStatus qcode="stat:usable"/>
-
-<title>BoE Rate Decision</title>
-
-</itemRef>
-
-</group>
-
-<group id="G3" role="group:two">
-
-<itemRef residref="urn:newsml:iptc.org:20081007:tutorial-item-C"
-
-contenttype="application/vnd.iptc.g2.newsitem+xml"
-
-size="2345">
-
-<itemClass qcode="ninat:text" />
-
-<provider qcode="nprov:AcmeNews"/>
-
-<pubStatus qcode="stat:usable"/>
-
-<title>Government denies it will print more cash</title>
-
-<description role="drol:summary">London (Reuters) – Chancellor
-
-Alistair Darling dismissed reports on Thursday that the government was
-about
-
-to boost the money supply to ease the impact of recession.
-
-</description>
-
-</itemRef>
-
-<itemRef residref="urn:newsml:iptc.org:20081007:tutorial—item-D"
-
-contenttype="application/vnd.iptc.g2.newsitem+xml"
-
-size="24065">
-
-<itemClass qcode="ninat:picture" />
-
-<provider qcode="nprov:AcmeNews "/>
-
-<pubStatus qcode="stat:usable"/>
-
-<title>Sterling notes and coin</title>
-
-</itemRef>
-
-</group>
-
-<group id="G4" role="group:three">
-
-<itemRef residref="urn:newsml:iptc.org:20081007:tutorial-item-E"
-
-contenttype="application/vnd.iptc.g2.newsitem+xml"
-
-size="2345">
-
-<itemClass qcode="ninat:text" />
-
-<provider qcode="nprov:AcmeNews"/>
-
-<pubStatus qcode="stat:usable"/>
-
-<title>Rugby's Mike Tindall banned for drink-driving</title>
-
-<description role="drol:summary">London (Reuters) - England rugby
-player Mike
-
-Tindall was banned from driving for three years and fined £500 on
-Thursday
-
-for his second drink-drive offence.
-
-</description>
-
-</itemRef>
-
-<itemRef residref="urn:newsml:iptc.org:20081007:tutorial—item-F"
-
-contenttype="application/vnd.iptc.g2.newsitem+xml"
-
-size="25346">
-
-<itemClass qcode="ninat:picture" />
-
-<provider qcode="nprov:AcmeNews "/>
-
-<pubStatus qcode="stat:usable"/>
-
-<title>Mike Tindall in rugby action for England</title>
-
-</itemRef>
-
-</group>
-
-<group id="G5" role="group:four">
-
-<itemRef residref="urn:newsml:iptc.org:20081007:tutorial—item-G"
-
-contenttype="application/vnd.iptc.g2.newsitem+xml"
-
-size="3654">
-
-<itemClass qcode="ninat:text" />
-
-<title>Crunch forces employees to work unpaid overtime</title>
-
-</itemRef>
-
-</group>
-
-<group id="G6" role="group:five">
-
-<itemRef residref="urn:newsml:iptc.org:20081007:tutorial—item-H"
-
-contenttype="application/vnd.iptc.g2.newsitem+xml"
-
-size="5123">
-
-<itemClass qcode="ninat:text" />
-
-<title>Government warns of tax fraudsters</title>
-
-</itemRef>
-
-</group>
-
-<group id="G7" role="group:six">
-
-<itemRef residref="urn:newsml:iptc.org:20081007:tutorial—item-I"
-
-contenttype="application/vnd.iptc.g2.newsitem+xml"
-
-size="4323">
-
-<itemClass qcode="ninat:text" />
-
-<title>Nissan to cut 1,200 jobs at Sunderland plant</title>
-
-</itemRef>
-
-</group>
-
-<group id="G8" role="group:seven">
-
-<itemRef residref="urn:newsml:iptc.org:20081007:tutorial—item-J"
-
-contenttype="application/vnd.iptc.g2.newsitem+xml"
-
-size="3122">
-
-<itemClass qcode="ninat:text" />
-
-<title>Sainsbury sales tops forecast</title>
-
-</itemRef>
-
-</group>
-
-<group id="G9" role="group:eight">
-
-<itemRef residref="urn:newsml:iptc.org:20081007:tutorial—item-K"
-
-contenttype="video/mp4-480x320"
-
-size="322443">
-
-<itemClass qcode="ninat:video" />
-
-<title>Cause of wind turbine damage unknown</title>
-
-</itemRef>
-
-</group>
-
-<group id="G10" role="group:nine">
-
-<itemRef residref="urn:newsml:iptc.org:20081007:tutorial—item-L"
-
-contenttype="application/vnd.iptc.g2.newsitem+xml"
-
-size="4123">
-
-<itemClass qcode="ninat:text" />
-
-<title>Muslims warn Gaza crisis could provoke extremism</title>
-
-</itemRef>
-
-</group>
-
-<group id="G11" role="group:ten">
-
-<itemRef residref="urn:newsml:iptc.org:20081007:tutorial—item-M"
-
-contenttype="application/vnd.iptc.g2.newsitem+xml"
-
-size="8192">
-
-<itemClass qcode="ninat:text" />
-
-<title>Banks hiring young Britons to prepare for upturn</title>
-
-</itemRef>
-
-</group>
-
-</groupSet>
+[source, xml]
+----
+include::{includedir}/../../GuidelinesCodeExamples_2017/LISTING_9_Group_Set_example_showing_a_SEQ_Package_Mode.xml[]
+----
 
 [[package-processing-considerations]]
 Package Processing Considerations
@@ -1004,33 +401,20 @@ Item, shown by the Item Class of "composite" and the Content Type of
 "application/vnd.iptc.g2.packageitem+xml". Each <itemRef> would then
 resemble the following:
 
+[source,xml]
 <itemRef residref="tag:afp.com,2008:TX-PAR:20080529:JYC99"
-
-contenttype__="application/vnd.iptc.g2.packageitem+xml"
-
-size="28047">
-
-<itemClass qcode__="ninat:composite" />
-
-<provider qcode="nprov:AFP"/>
-
-<pubStatus qcode="stat:usable"/>
-
-<title>Tiger Woods cherche son retour</title>
-
-<description role="drol:summary"> Tiger Woods lorem ipsum dolor sit
-amet,
-
-consectetur adipiscing elit. Etiam feugiat. Pellentesque ut enim eget
-
-eros volutpat consectetur. Quisque sollicitudin, tortor ut dapibus
-
-porttitor, augue velit vulputate eros, in tempus orci nunc vitae nunc.
-
-Nam et lacus ut leo convallis posuere. Nullam risus.
-
-</description>
-
+	contenttype="application/vnd.iptc.g2.packageitem+xml"
+	size="28047">
+	<itemClass qcode="ninat:composite" />
+	<provider qcode="nprov:AFP"/>
+	<pubStatus qcode="stat:usable"/>
+	<title>Tiger Woods cherche son retour</title>
+	<description role="drol:summary"> Tiger Woods lorem ipsum dolor sit amet,
+		consectetur adipiscing elit. Etiam feugiat. Pellentesque ut enim eget
+		eros volutpat consectetur. Quisque sollicitudin, tortor ut dapibus
+		porttitor, augue velit vulputate eros, in tempus orci nunc vitae nunc.
+		Nam et lacus ut leo convallis posuere. Nullam risus.
+	</description>
 </itemRef>
 
 [[facilitating-the-exchange-of-packages]]
@@ -1056,8 +440,11 @@ script, in the <profile> property.
 Package profiles could be represented as diagrams like those shown
 below:
 
-[[_Ref219820326]][[_Toc470002530]]Figure 11: Diagrams of Package
-Profiles. The numbers in brackets indicate the required items
+[[_Ref219820326]][[_Toc470002530]]
+
+image::PackageProfile2016.png[Package Profiles]
+
+.Figure 11: Diagrams of Package Profiles. The numbers in brackets indicate the required items
 
 In this example, the Profile Name is intended to be a signal to the
 processor that references to each member of the Top Ten list are placed
@@ -1071,11 +458,13 @@ processing are:
 <generator>, a versioned string denoting the name of the process or
 service that created the package:
 
+[source,xml]
 <generator versioninfo="3.0">MyNews Top Ten Packager</generator>
 
 <profile>, as discussed, sets the template or transformation stylesheet
 of the package
 
+[source,xml]
 <profile versioninfo="1.0.0.2">ranked_idref_list</profile>
 
 <signal> is a QCode type property that instructs the receiver to perform
@@ -1083,16 +472,11 @@ any required actions upon receiving the Item. An <edNote> may contain
 natural-language instructions, if necessary, and a <link> property
 denotes the previous version of the package.
 
+[source,xml]
 <signal qcode="action:replacePrev" />
-
 <edNote>Replace the previous package</edNote>
-
 <link
-
-rel="irel:previousVersion"
-
-residref="tag:example.com,2008:UK-NEWS-TOPTEN:UK20081220098658"
-
-version="1"
-
+	rel="irel:previousVersion"
+	residref="tag:example.com,2008:UK-NEWS-TOPTEN:UK20081220098658"
+	version="1"
 />

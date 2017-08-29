@@ -35,8 +35,10 @@ calendaring applications such as Microsoft Outlook.
 Originally a separate EventsML-G2 standard, the Events Calendar and
 Scheduling model is now merged with NewsML-G2 to create a single
 standard focussed on the needs of a professional news industry
-workflowfootnote:[EventsML-G2 was merged with NewsML-G2 v2.9 (summer
-2011).]. There is the need to express the basic news agenda of "what,
+workflow.
+
+NOTE: EventsML-G2 was merged with NewsML-G2 v2.9 (summer
+2011). There is the need to express the basic news agenda of "what,
 when, where and who" in a machine-readable form that can be processed by
 calendar and planning tools.
 
@@ -87,12 +89,12 @@ giving users a straightforward upgrade path.
 
 The NewsML-G2 Events model complies with the Resource Description
 Framework (RDF) promulgated by the W3C, which is a basic building block
-of the Semantic Web, and aligns with the iCalendarfootnote:[A mapping of
-iCalendar properties to NewsML-G2 properties can be found in the
+of the Semantic Web, and aligns with the iCalendar.
+
+NOTE: A mapping of iCalendar properties to NewsML-G2 properties can be found in the
 http://www.newsml-g2.org/spec[NewsML-G2 Specification Page] on the
-NewsML-G2 web site. See also
-http://datatracker.ietf.org/doc/rfc5545/[IETF iCalendar Specification
-RFC 5545 ]] specification that is supported by popular calendar and
+NewsML-G2 web site. See also http://datatracker.ietf.org/doc/rfc5545/[IETF iCalendar Specification
+RFC 5545 ] specification that is supported by popular calendar and
 scheduling applications such as Microsoft Outlook, Lotus Notes and Apple
 iCal.
 
@@ -126,7 +128,7 @@ Items:
 * The <contentMeta> block holds common administrative metadata about the
 event, or events, conveyed by the NewsML-G2 object.
 
-_Please read the Quick Start Guide +
+WARNING: _Please read the Quick Start Guide +
 to NewsML-G2 Basics +
 before reading this Chapter._
 
@@ -160,8 +162,11 @@ nothing to indicate when an event has been updated.
 
 These differences are illustrated in the following diagram:
 
-[[_Ref220210300]][[_Toc245884544]][[_Toc470002533]]Figure 14: Persistent
-Event as a Concept and (right) transient Events in a News Item
+[[_Ref220210300]][[_Toc245884544]][[_Toc470002533]]
+
+image::EventsConcept-v-NewsItem2016.png[Event as a Concept or as a News Item]
+
+Figure 14: Persistent Event as a Concept and (right) transient Events in a News Item
 
 [[event-information-what-where-when-and-who]]
 Event Information – What, Where, When and Who
@@ -178,123 +183,23 @@ conforms to the iCalendar specification.
 Complete Listing for an example Event
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-[[_Ref468986230]]The following example shows a news event expressed as a
+[[_Ref468986230]]
+
+The following example shows a news event expressed as a
 Concept and conveyed within a Concept Item.
 
-1.  
-[[_Ref469290727]]Event sent as a Concept Item
+[[_Ref469290727]]
 
+.LISTING: Event sent as a Concept Item
 
 All Scheme Aliases used in listing below indicate IPTC NewsCodes
 vocabularies, except for the following alias values: _event, frel,
 ventyp._
 
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-
-<conceptItem xmlns="http://iptc.org/std/nar/2006-10-01/"
-
-guid="urn:newsml:iptc.org:20160422:qqwpiruuew4711"
-
-version="8"
-
-standard="NewsML-G2"
-
-standardversion="2.23"
-
-conformance="power"
-
-xml:lang="en">
-
-<catalogRef
-href="http://www.iptc.org/std/catalog/IPTC-G2-standards_27.xml" />
-
-<catalogRef href="http://www.example.com/events/event-catalog.xml"
-/>
-
-<itemMeta>
-
-<itemClass qcode="cinat:concept" />
-
-<provider qcode="nprov:IPTC" />
-
-<versionCreated>2016-10-18T13:05:00Z
-
-</versionCreated>
-
-<pubStatus qcode="stat:usable" />
-
-</itemMeta>
-
-<contentMeta>
-
-<urgency>5</urgency>
-
-<contentCreated>2016-01-16T12:15:00Z</contentCreated>
-
-<contentModified>2016-06-12T13:35:00Z</contentModified>
-
-</contentMeta>
-
-<concept>
-
-<conceptId created="2016-01-16T12:15:00Z" qcode="event:1234567"
-/>
-
-<type qcode="cpnat:event" />
-
-<name>IPTC Autumn Meeting 2016</name>
-
-<eventDetails>
-
-<dates>
-
-<start>2016-10-26T09:00:00Z</start>
-
-<duration>P2D</duration>
-
-</dates>
-
-<location>
-
-<name>86, Edgeware Road, London W2 2EA, United Kingdom</name>
-
-<related rel="frel:venuetype" qcode="ventyp:confcentre" />
-
-<POIDetails>
-
-<position latitude="51.515659" longitude="-0.163346" />
-
-<contactInfo>
-
-<web>https://www.etcvenues.co.uk</web>
-
-</contactInfo>
-
-</POIDetails>
-
-</location>
-
-<participant qcode="eprol:director">
-
-<name>Michael Steidl</name>
-
-<personDetails>
-
-<contactInfo>
-
-<email>mdirector@iptc.org</email>
-
-</contactInfo>
-
-</personDetails>
-
-</participant>
-
-</eventDetails>
-
-</concept>
-
-</conceptItem>
+[source, xml]
+----
+include::{includedir}/../../GuidelinesCodeExamples_2017/LISTING_14_Event_sent_as_a_Concept_Item.xml[]
+----
 
 The top level element of the Concept Item is <conceptItem>. The document
 must be uniquely identified using a GUID. By this means, event
@@ -312,29 +217,20 @@ To enable concepts to be identified by a Concept ID QCode, a reference
 to the provider’s catalog (or a catalog statement containing the scheme
 URI) MUST be included:
 
-_
+[source,xml]
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-
 <conceptItem xmlns="http://iptc.org/std/nar/2006-10-01/"
-
-guid="urn:newsml:iptc.org:20160422:qqwpiruuew4711"
-
-version="8"
-
-standard="NewsML-G2"
-
-standardversion="2.23"
-
-conformance="power"
-
-xml:lang="en">
-
-<catalogRef
-href="http://www.iptc.org/std/catalog/IPTC-G2-standards_27.xml" />
-
-<catalogRef href="http://www.example.com/events/event-catalog.xml"
+	guid="urn:newsml:iptc.org:20160422:qqwpiruuew4711"
+	version="8"
+	standard="NewsML-G2"
+	standardversion="2.23"
+	conformance="power"
+	xml:lang="en">
+	<catalogRef
+		href="http://www.iptc.org/std/catalog/IPTC-G2-standards_27.xml" />
+	<catalogRef 
+		href="http://www.example.com/events/event-catalog.xml"
 />
-_
 
 In the mandatory <itemMeta> wrapper the IPTC "Nature of Concept Item"
 NewsCodes expresses the type of Concept Item. (This is complementary to
@@ -342,36 +238,24 @@ the "Nature of News Item" NewsCodes used with a News Item.) There are
 currently two values: "concept" and "scheme". (Scheme is used for
 Knowledge Items.)
 
-
+[source,xml]
 <itemMeta>
-
-<itemClass qcode="cinat:concept" />
-
-<provider qcode="nprov:IPTC" />
-
-<versionCreated>2016-10-18T13:05:00Z
-
-</versionCreated>
-
-<pubStatus qcode="stat:usable" />
-
+	<itemClass qcode="cinat:concept" />
+	<provider qcode="nprov:IPTC" />
+	<versionCreated>2016-10-18T13:05:00Z
+	</versionCreated>
+	<pubStatus qcode="stat:usable" />
 </itemMeta>
-
 
 The Content Metadata for a Concept Item may contain only Administrative
 Metadata:
 
-_
+[source,xml]
 <contentMeta>
-
-<urgency>5</urgency>
-
-<contentCreated>2016-01-16T12:15:00Z</contentCreated>
-
-<contentModified>2016-06-16T13:35:00Z</contentModified>
-
+	<urgency>5</urgency>
+	<contentCreated>2016-01-16T12:15:00Z</contentCreated>
+	<contentModified>2016-06-16T13:35:00Z</contentModified>
 </contentMeta>
-_
 
 [[what-is-the-event]]
 What is the Event?
@@ -390,29 +274,20 @@ reference the Concept. The type of concept being conveyed is expressed
 using the <type> element with a QCode to tell the receiver that it
 contains Event information, using the IPTC "Nature of Concept"
 NewsCodes. (The applicable value for an Event Concept is "event")The
-Scheme URI is
-http://http://www.cv.iptc.org/newcodes/cpnature/[cv.iptc.org/newscodes/cpnature/]
+Scheme URI is http://http://www.cv.iptc.org/newcodes/cpnature/[cv.iptc.org/newscodes/cpnature/]
 and recommended Scheme Alias is "cpnat".
 
 The event information is placed directly inside an <eventDetails>
 wrapper:
 
-__
+[source,xml]
 <concept>
-
-<conceptId created="2012-10-16T12:15:00Z" qcode="event:1234567"
-/>
-
-<type qcode="cpnat:event" />
-
-<name>IPTC Autumn Meeting 2016</name>
-
-<eventDetails>
-
-...
-
-</eventDetails>
-
+	<conceptId created="2012-10-16T12:15:00Z" qcode="event:1234567"/>
+	<type qcode="cpnat:event" />
+	<name>IPTC Autumn Meeting 2016</name>
+	<eventDetails>
+		...
+	</eventDetails>
 </concept>
 __
 
@@ -420,7 +295,7 @@ The generic properties of Events are similar to those of Concepts,
 covered in Concepts and Concept Items. In this framework, we can expand
 the "what" information of an Event by indicating one or more
 relationships to other events, using the properties of Broader,
-Narrower, Related and SameAs. (See 15.4.2 Event Relationships)
+Narrower, Related and SameAs. (See xref:event-relationships[Event Relationships])
 
 [[when-does-the-event-take-place]]
 When does the Event take place?
@@ -429,22 +304,18 @@ When does the Event take place?
 The "when" of an event uses the Dates wrapper to express the dates and
 times of events: the start, end, duration and recurrence.
 
-__
+[source,xml]
 <dates>
-
-<start>2016-10-26T09:00:00Z</start>
-
-<duration>P2D</duration>
-
+	<start>2016-10-26T09:00:00Z</start>
+	<duration>P2D</duration>
 </dates>
-__
 
 Although start and end times may be specified precisely, in the real
 world of news, the timing of events is often imprecise. In the early
 stages of planning an event, the day, month or even just the year of
 occurrence may be the only information available. Providers also need to
 be able to indicate a range of dates and/or times of an event, with a
-"best guess" at the likely date-time. (See 15.4.3.1 Dates and times for
+"best guess" at the likely date-time. (See xref:dates-and-times[Dates and times] for
 details)
 
 [[where-does-the-event-take-place]]
@@ -455,27 +326,17 @@ The "where" of an event is expressed using Location, a rich structure
 containing detailed information of the event venue (or venues);
 including GPS coordinates, seating capacity, travel routes etc.
 
-
+[source,xml]
 <location>
-
-<name>86, Edgeware Road, London W2 2EA, United Kingdom</name>
-
-<related rel="frel:venuetype" qcode="ventyp:confcentre" />
-
-<POIDetails>
-
-<position latitude="51.515659" longitude="-0.163346" />
-
-<contactInfo>
-
-<web>https://www.etcvenues.co.uk</web>
-
-</contactInfo>
-
-</POIDetails>
-
+	<name>86, Edgeware Road, London W2 2EA, United Kingdom</name>
+	<related rel="frel:venuetype" qcode="ventyp:confcentre" />
+	<POIDetails>
+		<position latitude="51.515659" longitude="-0.163346" />
+		<contactInfo>
+			<web>https://www.etcvenues.co.uk</web>
+		</contactInfo>
+	</POIDetails>
 </location>
-
 
 Note that if in-depth location details are given in the Event structure,
 this is a "one-time" use of the information. This structure might be
@@ -483,8 +344,7 @@ better used as part of a controlled vocabulary of locations, in which
 case the structures may be copied from a referenced concept containing
 the location information.
 
-See 15.4.3.2 Further Properties of Event Details for details of Location
-and a comprehensive list of other Event properties.
+See xref:further-properties-of-event-details[Further Properties of Event Details] for details of Location and a comprehensive list of other Event properties.
 
 [[who-is-involved]]
 Who is involved?
@@ -496,31 +356,22 @@ literal value, supplemented by a human-readable Name property, or
 optionally using additional properties describing the participants,
 their roles at the event, and a wealth of related information.
 
-_
+[source,xml]
 <participant qcode="eprol:director">
-
-<name>Michael Steidl</name>
-
-<personDetails>
-
-<contactInfo>
-
-<email>mdirector@iptc.org</email>
-
-</contactInfo>
-
-</personDetails>
-
+	<name>Michael Steidl</name>
+	<personDetails>
+		<contactInfo>
+			<email>mdirector@iptc.org</email>
+		</contactInfo>
+	</personDetails>
 </participant>
-_
 
 Note use of the IPTC Event Participant Role New Code (Scheme URI
 http://cv.iptc.org/eventparticipantrole/), with recommended Scheme Alias
 of "eprol" The event organisers are also an important part of the "who"
 of an event. A set of Organiser and Contact Information properties can
 give precise details of the people and organisations responsible for an
-event, and how to contact them. See 15.4.3.2 Further Properties of Event
-Details for details
+event, and how to contact them. See xref:further-properties-of-event-details[Further Properties of Event Details] for details
 
 [[event-coverage]]
 Event Coverage
@@ -528,10 +379,11 @@ Event Coverage
 
 The NewsML-G2 Planning Item is used to inform customers about content
 they can expect to receive and if necessary the disposition of staff and
-resources. (see Editorial Planning – the Planning Item).footnote:[In
-EventsML-G2 prior to version 1.6, the <eventDetails> wrapper used a
+resources. (see Editorial Planning – the Planning Item).
+
+NOTE: In EventsML-G2 prior to version 1.6, the <eventDetails> wrapper used a
 <newsCoverage> child element to convey editorial planning information.
-This use of <newsCoverage> is now DEPRECATED and the same News Coverage
+This use of <newsCoverage> is now *DEPRECATED* and the same News Coverage
 structure is now available in the Planning Item. One of the many
 advantages of this separation is that it allows frequent updates to
 Planning to be sent without affecting the Event Concept to which it
@@ -575,32 +427,22 @@ properties of an Event can be expressed.
 |=======================================================================
 |Property |Type |Notes/Example
 |<name> |Intl String a|
+[source,xml]
 <name xml:lang="en">
-
-Bank of England Monetary Policy Committee
-
+	Bank of England Monetary Policy Committee
 </name>
 
 |<definition> |Block a|
+[source,xml]
 <definition xml:lang="en" role="definitionrole:short">
-
-Monthly meeting of the Bank of England committee that +
-decides on bank lending rates for the UK.
-
+	Monthly meeting of the Bank of England committee 
+	that decides on bank lending rates for the UK.
 </definition>
-
 <definition xml:lang="en" role="definitionrole:long">
-
-The Bank of England Monetary Policy Committee meets each +
-month to decide on the minimum rate of interest that will +
-be charged for inter-bank lending in the UK financial +
-markets. <br />
-
-The committee will discuss the prospects for economic +
-activity in the UK and overseas markets, and make its +
-decision on interest rates based on forecasts for +
-inflation, amongst other factors.
-
+	The Bank of England Monetary Policy Committee meets each 
+	month to decide on the minimum rate of interest that will 
+	be charged for inter-bank lending in the UK financial 
+	markets. <br />
 </definition>
 
 |<related> |Flexible a|
@@ -613,39 +455,32 @@ types, such as "meeting", "parliamentary session", "music concert";
 another could qualify the nature of the event with codes to indicate
 whether the event is "open to the public" or "private".
 
-
+[source,xml]
 <related qcode="eventrel:meeting" />
-
 
 * a URI
 
-
+[source,xml]
 <related uri="http://www.example.com/meeting" />
-
 
 * a set of attributes to represent some arbitrary value.
 
-
+[source,xml]
 <related rel="csrel:admission" value="7.0" valueunit="iso4217:EUR"
-valuedatatype="xs:decimal" />
-
+	valuedatatype="xs:decimal" />
 
 |<note> |Block a|
 A repeatable natural language note of additional information about the
 event, with an optional @role:
 
+[source,xml]
 <note role="noterole:toeditors">
-
-Note to editors: an embargoed press release of the +
-minutes of the meeting will be released by the COI +
-within two weeks.
-
+	Note to editors: an embargoed press release of the +
+	minutes of the meeting will be released by the COI +
+	within two weeks.
 </note>
-
 <note role="noterole:general">
-
-The meeting was delayed by two days due to illness.
-
+	The meeting was delayed by two days due to illness.
 </note>
 
 |=======================================================================
@@ -692,12 +527,10 @@ the fictional Economic Policy Committee event:
 Repeatable. The event may be part of another event, in which case this
 can be denoted by <broader>.
 
+[source,xml]
 <broader
-
-type="cpnat:event" qcode="events:TR2012-34625">
-
-<name>Olympic Swimming Gala</name>
-
+	type="cpnat:event" qcode="events:TR2012-34625">
+	<name>Olympic Swimming Gala</name>
 </broader>
 
 |<narrower> |Flexible Property/ Related Concept (PCL) a|
@@ -705,10 +538,9 @@ Repeatable. May be used to indicate that the event has related child
 events. In this case we want to notify the receiver that a child of this
 event is the scheduled medal ceremony.
 
+[source,xml]
 <narrower qcode="events:TR2012-34593">
-
-<name>Men’s 100m Freestyle Medal Ceremony</name>
-
+	<name>Men’s 100m Freestyle Medal Ceremony</name>
 </narrower>
 
 |<related> |Flexible Property/ Related Concept (PCL) a|
@@ -718,16 +550,12 @@ is not a participant, but may later form part of the coverage of the
 event. We qualify the relationship using @rel and the IPTC Item Relation
 NewsCodes:
 
+[source,xml]
 <related
-
-rel="irel:seeAlso"
-
-type="cpnat:organisation"
-
-qcode="org:asa">
-
-<name>Amateur Swimming association</name>
-
+	rel="irel:seeAlso"
+	type="cpnat:organisation"
+	qcode="org:asa">
+	<name>Amateur Swimming association</name>
 </related>
 
 |<sameAs> |Flexible Property/ Related Concept (PCL) a|
@@ -735,10 +563,9 @@ Repeatable. May be used to denote that this event is the same event in
 another taxonomy, for example another governing body’s taxonomy of
 events:
 
+[source,xml]
 <sameAs qcode="iocevent:xxxxxx">
-
-<name>Men’s 100m Freestyle</name>
-
+	<name>Men’s 100m Freestyle</name>
 </sameAs>
 
 |=======================================================================
@@ -748,8 +575,8 @@ Event Details Group
 ^^^^^^^^^^^^^^^^^^^
 
 The first set of properties of Event Details is date-time information as
-described in 15.4.3.1 below. The further properties are described in
-15.4.3.2 below
+described below. The further properties are described in
+xref:further-properties-of-event-details[Further Properties of Event Details]
 
 [[dates-and-times]]
 Dates and times
@@ -793,10 +620,10 @@ standards
 [cols=",,",options="header",]
 |===============================
 |Duration |XML Schema |iCalendar
-|D(ays) | |
-|W(eeks) |*x* |
-|M(onths) | |*x*
-|Y(ears) | |*x*
+|D(ays) |icon:check[role="green"] |icon:check[role="green"]
+|W(eeks) |icon:close[role="red"]|icon:check[role="green"]
+|M(onths) |icon:check[role="green"]|icon:close[role="red"]
+|Y(ears) |icon:check[role="green"] |icon:close[role="red"]
 |===============================
 
 Since NewsML-G2 uses XML Schema Duration, ONLY the values listed as
@@ -808,8 +635,7 @@ applications that use the iCalendar standard, Y(ears) or M(onths) SHOULD
 NOT be used; only D(ays) should be used for the date part of duration
 values.
 
-Duration units can be combined, in descending order from left to right,
-e.g.:
+Duration units can be combined, in descending order from left to right, for example:
 
 * P2D (duration of 2 days)
 * P1DT3H (1 day and 3 hours – note the "T" separator)
@@ -822,7 +648,7 @@ NewsML-G2.
 
 The following table lists the date-time properties of events details:
 
-[cols=",,",options="header",]
+[cols="20,20,60",options="header",]
 |=======================================================================
 |Property |Type |Notes/Example
 |<start> |Approximate Date Time a|
@@ -833,14 +659,16 @@ The date part may be truncated, starting on the right (days) according
 to the precision required, but MUST, at minimum, have a year, for
 example:
 
+[source,xml]
 <start>2011-06-12T12:30:00Z</start>
 
 or
 
+[source,xml]
 <start>2011-06-12</start>
 
-If used, the time must be present in full, with time zone, and ONLY in
-the presence of the full date).
+NOTE: If used, the time must be present in full, with time zone, and ONLY in
+the presence of the full date.
 
 The value of <start> expresses the precise date-time of the start of the
 event. With the information available, this might be a "best guess".
@@ -856,14 +684,11 @@ end of the range of dates is the date-time value of <start>
 For example, a possible start of an event on June 12, 2011, not before
 June 11, 2011, and no later than June 14 2011, would be expressed as:
 
+[source,xml]
 <start
-
-approxstart="2011-06-11"
-
-approxend="2011-06-14">
-
-2011-06-12
-
+	approxstart="2011-06-11"
+	approxend="2011-06-14">
+	2011-06-12
 </start>
 
 |<end> |Approximate Date Time a|
@@ -880,29 +705,29 @@ November 13, 2012.
 Non-repeatable. The time period during which the event takes place is
 expressed in the form:
 
-PnYnMnDTnHnMnS
+`PnYnMnDTnHnMnS`
 
-P indicates the Period (required)
+`P` indicates the Period (required)
 
-nY = number of Years*
+`nY` = number of Years^*^
 
-nM = number of Months*
+`nM` = number of Months^*^
 
-nD = number of Days
+`nD` = number of Days
 
-T indicates the start of the Time period (required if a time part is
-specified)
+`T` indicates the start of the Time period (required if a time part is specified)
 
-nH = number of Hours
+`nH` = number of Hours
 
-nM = number of Minutes
+`nM` = number of Minutes
 
-nS = number of Seconds
+`nS` = number of Seconds
 
-* The IPTC recommends that these units should NOT be used.
+^*^ The IPTC recommends that these units should NOT be used.
 
 Example:
 
+[source,xml]
 <duration>PT3H</duration>
 
 The event will last for three hours. Note use of the "T" time separator
@@ -918,27 +743,24 @@ recommended IPTC Event Date Confirmation NewsCodes (Scheme URI
 http://cv.iptc.org/newscodes/eventdateconfirm/) with a recommended
 Scheme alias of "edconf" which currently has three possible values:
 
+[source,xml]
 <confirmation
-
-qcode="edconf:bothApprox"
-
+	qcode="edconf:bothApprox"
 />
 
 Indicates that both start and end dates are currently approximate or
 undefined
 
+[source,xml]
 <confirmation
-
-qcode="edconf:bothOk"
-
+	qcode="edconf:bothOk"
 />
 
 Both start and end dates are confirmed
 
+[source,xml]
 <confirmation
-
-qcode="edconf:startApprox"
-
+	qcode="edconf:startApprox"
 />
 
 The start date is approximate but the end date is confirmed
@@ -956,11 +778,11 @@ specification, including the use of the same enumerated values for
 properties such as Frequency (@freq). Recurrence MUST be expressed using
 EITHER
 
-<rDate>: one or more explicit date-times that the event is repeated, OR
+`<rDate>`: one or more explicit date-times that the event is repeated, OR
 
-<rRule>: one or more rules of recurrence.
+`<rRule>`: one or more rules of recurrence.
 
-[cols=",,",options="header",]
+[cols="20,20,60",options="header",]
 |=======================================================================
 |[[OLE_LINK9]]Property |Type |Notes/Example
 |<rDate> |Date with optional Time a|
@@ -968,8 +790,8 @@ Recurrence Date. Repeatable. If the recurrence occurs on a specific
 date, with an optional time part, or on several specific dates and
 times.
 
+[source,xml]
 <rdate>2011-03-27T14:00:00Z</rdate>
-
 <rdate>2011-04-03T16:00:00Z</rdate>
 
 |<rRule> |Recurrence Rule a|
@@ -979,6 +801,7 @@ define the rules of recurrence for the event.
 The only mandatory attribute is @freq, an enumerated string denoting the
 frequency of recurrence.
 
+[source,xml]
 <rRule freq="MONTHLY" />
 
 The enumerated values of @freq are:
@@ -996,34 +819,28 @@ frequency of DAILY is repeated EACH day. To repeat an event every four
 years, such as the Summer Olympics, the Frequency would be set to
 ‘YEARLY" with an Interval of "4":
 
+[source,xml]
 <rRule
-
-freq="YEARLY"
-
-interval="4"
-
+	freq="YEARLY"
+	interval="4"
 />
 
 @until sets a Date with optional Time _after_ which the recurrence rule
 expires:
 
+[source,xml]
 <rRule
-
-freq="MONTHLY"
-
-until="2011-12-31"
-
+	freq="MONTHLY"
+	until="2011-12-31"
 />
 
 @count indicates the number of occurrences of the rule. For example, an
 event taking place daily for seven days would be expressed as:
 
+[source,xml]
 <rRule
-
-freq="DAILY"
-
-count="7"
-
+	freq="DAILY"
+	count="7"
 />
 
 A group of @byxxx attributes (as per the iCalendar BYxxx properties) are
@@ -1034,22 +851,15 @@ of an event: @bymonth, @byweekno, @byyearday, @bymonthday, @byday,
 The following code and explanation is based on an example from the
 iCalendar Specification at http://www.ietf.org/rfc/rfc5545.txt
 
+[source,xml]
 <start>2011-01-11T8:30:00Z</start>
-
-<rRule
-
-freq="YEARLY"
-
-interval="2"
-
-bymonth="1"
-
-byday="su" [upper/lowercase – match in text]
-
-byhour="8 9"
-
-byminute="30"
-
+	<rRule
+	freq="YEARLY"
+	interval="2"
+	bymonth="1"
+	byday="SU" 
+	byhour="8 9"
+	byminute="30"
 />
 
 First, the interval="2" would be applied to freq="YEARLY" to arrive at
@@ -1076,24 +886,20 @@ other @by* attributes.
 
 For example, a rule specifying monthly on any working day would be
 
+[source,xml]
 <rRule
-
-freq="MONTHLY"
-
-byday="MO TU WE TH FR"
+	freq="MONTHLY"
+	byday="MO TU WE TH FR"
 
 />
 
 The same rule to specify the last working day of the month would be
 
+[source,xml]
 <rRule
-
-freq="MONTHLY"
-
-byday="MO TU WE TH FR"
-
-bypos="-1"
-
+	freq="MONTHLY"
+	byday="MO TU WE TH FR"
+	bypos="-1"
 />
 
 @wkst indicates the day on which the working week starts using
@@ -1101,11 +907,10 @@ enumerated values corresponding to the first two letters of the days of
 the week in English, for example "MO" (Monday), SA (Saturday), as
 specified by iCalendar.
 
+[source,xml]
 <rRule
-
-freq="WEEKLY"
-
-wkst="MO" />
+	freq="WEEKLY"
+	wkst="MO" />
 
 |<exDate> |Date with optional Time a|
 Excluded Date of Recurrence. An explicit Date or Dates, with optional
@@ -1113,18 +918,13 @@ Time, excluded from the Recurrence rule. For example, if a regular
 monthly meeting coincides with public holidays, these can be excluded
 from the recurrence set using <exDate>
 
+[source,xml]
 <rRule
-
-freq="MONTHLY"
-
-until="2011-12-31"
-
+	freq="MONTHLY"
+	until="2011-12-31"
 />
-
 <exDate>
-
-2011-04-06
-
+	2011-04-06
 </exDate>
 
 |<exRule> |Recurrence Rule a|
@@ -1132,28 +932,18 @@ Excluded Recurrence Rule. The same attributes as <rRule> may be used to
 create a rule for excluding dates from a recurring series of events. For
 example, a regular weekly meeting may be suspended during the summer.
 
+[source,xml]
 <rRule
-
-freq="WEEKLY"
-
-until="2011-07-23"
-
+	freq="WEEKLY"
+	until="2011-07-23"
 />
-
 <rRule
-
-freq="WEEKLY"
-
-until="2011-12-24"
-
+	freq="WEEKLY"
+	until="2011-12-24"
 />
-
 <exRule
-
-freq="WEEKLY"
-
-until="2011-09-03"
-
+	freq="WEEKLY"
+	until="2011-09-03"
 />
 
 Note the order of the above statement: the <rRule> elements must come
@@ -1162,7 +952,7 @@ before <exRule>
 The meaning being expressed is:
 
 "The event occurs weekly until Dec 24, 2011 with a break from after July
-23, 2011 until September 3, 2011.
+23, 2011 until September 3, 2011."
 
 |=======================================================================
 
@@ -1172,7 +962,7 @@ Further Properties of Event Details
 
 The event details group are wrapped by the <eventDetails> element
 
-[cols=",,",options="header",]
+[cols="20,20,60",options="header",]
 |=======================================================================
 |Property |Type |Notes/Example
 |<occurStatus> |QCode a|
@@ -1185,6 +975,7 @@ http://cv.iptc.org/newscodes/eventoccurstatus/
 has values indicating the provider’s confidence of the status of the
 event, for example "Planned, occurrence uncertain"
 
+[source,xml]
 <occurStatus qcode="eocstat:eos5" />
 
 |<newsCoverageStatus> |Qualified Property a|
@@ -1192,28 +983,22 @@ Optional, non-repeatable element to indicate the status of planned news
 coverage of the event by the provider, using a QCode and (optional)
 <name> child element:
 
+[source,xml]
 <newsCoverageStatus qcode="ncstat:int">
-
-<name>
-
-Coverage Intended
-
-</name>
-
+	<name>
+		Coverage Intended
+	</name>
 </newsCoverageStatus>
 
 |<registration> |Block a|
 Optional, repeatable indicator of any registration details required for
 the event:
 
+[source,xml]
 <registration>
-
-Register online at <br />
-
-http://www.example.com/registration.aspx/
-
-<br />
-
+	Register online at <br />
+	http://www.example.com/registration.aspx/
+	<br />
 </registration>
 
 The property optionally takes a @role attribute. IPTC Registration Role
@@ -1228,24 +1013,16 @@ may be used, which currently has four values:
 * Public
 * Student
 
+[source,xml]
 <registration role="eregrol:exhibReg">
-
-Exhibitors must register online at <br />
-
-http://www.example.com/exhibitor/register.aspx/
-
-before May1, 2011<br />
-
+	Exhibitors must register online at <br />
+	http://www.example.com/exhibitor/register.aspx/
+	before May1, 2011<br />
 </registration>
-
 <registration role="eregrol:pubReg">
-
-The public may pre-register online at <br />
-
-http://www.example.com/public/register.aspx/
-
-to receive a special bonus pack.<br />
-
+	The public may pre-register online at <br />
+	http://www.example.com/public/register.aspx/
+	to receive a special bonus pack.<br />
 </registration>
 
 |<accessStatus> |QCode a|
@@ -1257,52 +1034,34 @@ these terms in more detail. For example, "difficult: may be defined as
 be possible to install bulky or heavy equipment that cannot be safely
 carried by one person".
 
+[source,xml]
 <access qcode="access:easy" />
 
 |<subject> |Flexible Property a|
 Optional, repeatable. The subject classification(s) of the event, for
 example, using the IPTC Subject NewsCodes:
 
+[source,xml]
 <subject
-
-type="cpnat:abstract"
-
-qcode="medtop:04000000">
-
-<name xml:lang="en-GB">
-
-Economy, Business and Finance
-
-</name>
-
+	type="cpnat:abstract"
+	qcode="medtop:04000000">
+	<name xml:lang="en-GB">
+		Economy, Business and Finance
+	</name>
 </subject>
-
 <subject
-
-type="cpnat:abstract"
-
-qcode="medtop:20000271">
-
-<name xml:lang="en-GB">
-
-Financial and Business Service
-
-</name>
-
+	type="cpnat:abstract"
+	qcode="medtop:20000271">
+	<name xml:lang="en-GB">
+		Financial and Business Service
+	</name>
 </subject>
-
 <subject
-
-type="cpnat:abstract"
-
-qcode="medtop:20000274">
-
-<name xml:lang="en-GB">
-
-Banking
-
-</name>
-
+	type="cpnat:abstract"
+	qcode="medtop:20000274">
+	<name xml:lang="en-GB">
+		Banking
+	</name>
 </subject>
 
 |<location> |Flexible Property/ +
@@ -1310,17 +1069,14 @@ Flexible Location Property (PCL) a|
 Repeatable property indicating the location of the event with an
 optional <name>.
 
+[source,xml]
 <location
-
-type="cpnat:poi">
-
-<name>The Bank of England,Threadneedle Street, London,EC2R 8AH,UK</name>
-
+	type="cpnat:poi">
+	<name>The Bank of England,Threadneedle Street, London,EC2R 8AH,UK</name>
 </location>
 
 At PCL, a rich Concept-style structure may be used. (See the NewsML-G2
-Specification by visiting
-http://www.newsml-g2.org/spec[www.newsml-g2.org/spec].)
+Specification by visiting http://www.newsml-g2.org/spec[www.newsml-g2.org/spec].)
 
 |<participant> |Flexible Property/ +
 Flexible Party Property (PCL) a|
@@ -1329,14 +1085,11 @@ event. The type of participant is identified by @type and a QCode. The
 following example indicates a person, an organisation would be indicated
 (using the IPTC NewsCodes) by type="cpnat:organisation"
 
+[source,xml]
 <participant
-
-type="cpnat:person"
-
-qcode="pers:32965">
-
-<name xml:lang="en">Paul Tucker</name>
-
+	type="cpnat:person"
+	qcode="pers:32965">
+	<name xml:lang="en">Paul Tucker</name>
 </participant>
 
 An IPTC Event Participant Role NewsCode is available:
@@ -1350,76 +1103,58 @@ Optional, repeatable element for expressing any required conditions for
 participation in, or attendance at, the event, expressed by a URI or
 QCode.
 
+[source,xml]
 <participationRequirement
-
-qcode="partreq:accredited">
-
-<name>Accreditation required</name>
-
+	qcode="partreq:accredited">
+	<name>Accreditation required</name>
 </participant>
 
 |<organiser> |Flexible Property/ +
 Flexible Party Property (PCL) a|
 Optional, repeatable. Describes the organiser of the event.
 
+[source,xml]
 <organiser
-
-type="cpnat:organisation"
-
-uri="http://www.iptc.org/">
-
-<name xml:lang="en">
-
-International Press
-
-Telecommunications Council
-
-</name>
-
-<name xml-lang="fr">
-
-Comité International de
-
-Télécommunications de Presse
-
-</name>
-
+	type="cpnat:organisation"
+	uri="http://www.iptc.org/">
+	<name xml:lang="en">
+		International Press
+		Telecommunications Council
+	</name>
+	<name xml-lang="fr">
+		Comité International de
+		Télécommunications de Presse
+	</name>
 </organiser>
 
-The IPTC Event Organiser Role NewsCodes, viewable at
-
-http://cv.iptc.org/newscodes/eventorganiserrole/
-
-lists types of organiser such as, "venue organiser", "general
-organiser", "technical organiser".
+The IPTC Event Organiser Role NewsCodes, viewable at http://cv.iptc.org/newscodes/eventorganiserrole/ lists types of organiser such as, "venue organiser", "general organiser", "technical organiser".
 
 |<contactInfo> |Wrapper element |Indicates how to get in contact with
 the event. This may be a web site, or a temporary office established for
-the event, not necessarily the organiser or any participant. See note
-15.4.3.2.1 below
+the event, not necessarily the organiser or any participant. See xref:contact-information[Contact Information]
 
 |<language> |- a|
 Optional, repeatable element describes the language(s) associated with
 the event using @tag with values that must conform to the IETF’s BCP 47.
 An optional child element <name> may be added.
 
+[source,xml]
 <language tag="en">
-
-<name>English</name>
-
+	<name>English</name>
 </language>
 
 |<newsCoverage> | a|
 DEPRECATED, Should not be used with Items conforming to EventsML-G2 1.6
 and later.
 
-News Coverage is now part of the NewsML-G2 Planning Item. (See Editorial
-Planning – the Planning Item)
+News Coverage is now part of the NewsML-G2 Planning Item. (See xref:editorial-planning-the-planning-item[
+Editorial Planning – the Planning Item])
 
 |=======================================================================
 
 [[contact-information]]
 Contact Information
++++++++++++++++++++
 
 Contact information associated solely with the event, not any organiser
 or participant. For example, events often have a special web site and an
@@ -1437,53 +1172,47 @@ Each of the child elements of <contactInfo> may be repeated as often as
 needed to express different @roles, for example different "public" and
 "press" email addresses etc.
 
-[cols=",,",options="header",]
+[cols="20,20,60",options="header",]
 |=======================================================================
 |Property |Type |Notes/Example
 |<email> |Electronic Address a|
 An "Electronic Address" type allows the expression of @role (QCode) to
 qualify the information, for example
 
+[source,xml]
 <email role="addressrole:press">
-
-office@iptc.org
-
+	office@iptc.org
 </email>
 
 |<im> |Electronic Address a|
+
+[source,xml]
 <im role="imsrvc:reuters">
-
-jdoe.iptc.org@reuters.net
-
+	jdoe.iptc.org@reuters.net
 </im>
 
 |<phone> |Electronic Address a|
 Repeatable. Phone numbers should have a @role if necessary distinguish
 between different numbers:
 
+[source,xml]
 <phone role="phrole:public">
-
-1-123-456-7899
-
+	1-123-456-7899
 </phone>
-
 <phone role="phrole:press">
-
-1-123-456-7898
-
+	1-123-456-7898
 </phone>
 
 |<fax> |Electronic Address |Fax number(s), as described for <phone>
 above.
 
 |<web> |IRI a|
+[source,xml]
 <web role="webrole:event">
-
-www.iptc.org/springmeeting.html
-
+	www.iptc.org/springmeeting.html
 </web>
 
-|<address> |Address |See 15.4.3.2.1.1 for details of Address properties.
+|<address> |Address |See xref:address-details-address[Address details]  for details of Address properties.
 The Address may have a @role to denote the type of address is contains
 (e.g. office, personal) and may be repeated as required to express each
 address @role.
@@ -1494,12 +1223,13 @@ closed for lunch from 12.30pm for three hours"
 
 [[address-details-address]]
 Address details <address>
++++++++++++++++++++++++++
 
 The Address Type property may have a @role to indicate its purpose; the
 following table shows the available child properties. Apart from <line>,
 which is repeatable, each element may be used once for each <address>
 
-[cols=",,",options="header",]
+[cols="20,20,60",options="header",]
 |=======================================================================
 |Property |Type |Notes/Example
 |<line> |Internationalized string |As many as are needed
@@ -1519,25 +1249,16 @@ equivalent
 
 For example:
 
-
+[source,xml]
 <address role="addrole:registered">
-
-<line>20 Garrick Street</line>
-
-<locality>
-
-<name xml:lang="en">London</name>
-
-</locality>
-
-<country qcode="Iiso3166-1a2:UK">
-
-<name xml:lang="en">United Kingdom</name>
-
-</country>
-
-<postalCode>WC2E 9BT</postalCode>
-
+	<line>20 Garrick Street</line>
+	<locality>
+		<name xml:lang="en">London</name>
+	</locality>
+	<country qcode="Iiso3166-1a2:UK">
+		<name xml:lang="en">United Kingdom</name>
+	</country>
+	<postalCode>WC2E 9BT</postalCode>
 </address>
 
 
@@ -1552,29 +1273,18 @@ use a Knowledge Item to convey two related events.
 The top-level <knowledgeItem> element contains identification, version
 and catalog information, in common with other NewsML-G2 Items:
 
-_
+[source,xml]
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-
 <knowledgeItem xmlns="http://iptc.org/std/nar/2006-10-01/"
-
-guid="urn:newsml:iptc.org:20110126:qqwpiruuew4712"
-
-version="8"
-
-standard="NewsML-G2"
-
-standardversion="2.23"
-
-conformance="power"
-
-xml:lang="en">
-
-<catalogRef
-href="http://www.iptc.org/std/catalog/IPTC-G2-Standards_29.xml" />
-
-<catalogRef href="http://www.example.com/events/event-catalog.xml"
+	guid="urn:newsml:iptc.org:20110126:qqwpiruuew4712"
+	version="8"
+	standard="NewsML-G2"
+	standardversion="2.23"
+	conformance="power"
+	xml:lang="en">
+	<catalogRef href="http://www.iptc.org/std/catalog/IPTC-G2-Standards_29.xml" />
+	<catalogRef href="http://www.example.com/events/event-catalog.xml"
 />
-_
 
 The <itemMeta> block conveys Management Metadata about the document and
 the <contentMeta> block can convey Administrative Metadata about the
@@ -1585,49 +1295,28 @@ The Core Descriptive Metadata properties common to all NewsML-G2 Items
 that may be used in a Knowledge Item are: <language>, <keyword>,
 <subject>, <slugline>, <headline> and <description>.
 
-_
+[source,xml]
 <itemMeta>
-
-<itemClass qcode="cinat:concept" />
-
-<provider qcode="nprov:IPTC" />
-
-<versionCreated>2012-18-10T12:00:00Z
-
-</versionCreated>
-
-<pubStatus qcode="stat:usable" />
-
+	<itemClass qcode="cinat:concept" />
+	<provider qcode="nprov:IPTC" />
+	<versionCreated>2012-18-10T12:00:00Z
+	</versionCreated>
+	<pubStatus qcode="stat:usable" />
 </itemMeta>
-
 <contentMeta>
-
-<urgency>5</urgency>
-
-<contentCreated>2016-01-16T12:15:00Z</contentCreated>
-
-<contentModified>2016-10-12T14:35:00Z</contentModified>
-
-<subject qcode="medtop:20000304">
-
-<name>media</name>
-
-</subject>
-
-<subject qcode="medtop:20000309">
-
-<name>news agency</name>
-
-</subject>
-
-<subject qcode="medtop:20000763">
-
-<name>IT/computer sciences</name>
-
-</subject>
-
+	<urgency>5</urgency>
+	<contentCreated>2016-01-16T12:15:00Z</contentCreated>
+	<contentModified>2016-10-12T14:35:00Z</contentModified>
+	<subject qcode="medtop:20000304">
+		<name>media</name>
+	</subject>
+	<subject qcode="medtop:20000309">
+		<name>news agency</name>
+	</subject>
+	<subject qcode="medtop:20000763">
+		<name>IT/computer sciences</name>
+	</subject>
 </contentMeta>
-_
 
 The two events in the listing are related, with the relationship
 indicated by the second event using the <broader> property to show that
@@ -1635,47 +1324,29 @@ it is an event which is part of the three-day event listed first
 
 First event:
 
-__
+[source,xml]
 <conceptSet>
-
-<concept>
-
-<!-- FIRST EVENT! -->
-
-<conceptId created="2016-10-26T12:15:00Z" qcode="event:1234567"
-/>
-
-<name>IPTC Autumn Meeting 2016</name>
-
-<eventDetails>
-
-.....
-__
+	<concept>
+	<!-- FIRST EVENT! -->
+		<conceptId created="2016-10-26T12:15:00Z" qcode="event:1234567" />
+		<name>IPTC Autumn Meeting 2016</name>
+		<eventDetails>
+	...
 
 Second event: a session on news gathering and verification below
 (event:91011123) has a ‘broader’ relationship to the IPTC Autumn Meeting
 above (event:1234567).
 
-__
+[source,xml]
 <concept>
-
-<!-- SECOND EVENT! -->
-
-<conceptId created="2016-09-36T12:00:00+00:00"
-qcode="event:91011123" />
-
-<name>Newgathering and Verification Strategy</name>
-
-<broader type="cpnat:event" qcode="event:1234567">
-
-<name>IPTC Autumn Meeting 2016</name>
-
-</broader>
-
-<eventDetails>
-
-.....
-__
+	<!-- SECOND EVENT! -->
+	<conceptId created="2016-09-36T12:00:00+00:00" qcode="event:91011123" />
+	<name>Newgathering and Verification Strategy</name>
+	<broader type="cpnat:event" qcode="event:1234567">
+		<name>IPTC Autumn Meeting 2016</name>
+	</broader>
+	<eventDetails>
+	...
 
 [[full-listing-of-the-event-knowledge-item]]
 Full listing of the Event Knowledge Item
@@ -1687,254 +1358,17 @@ KI must be related, or even that other concepts conveyed by the
 Knowledge Item are events; they may be people, organisations or other
 types of concept. [[_Ref222627882]]
 
-1.  _
-[[_Ref435560426]]Two Related Events in a Knowledge Item
-_
+[[_Ref435560426]]
+.LISTING: Two Related Events in a Knowledge Item
 
 All Scheme Aliases used in listing below indicate IPTC NewsCodes
 vocabularies, except for the following alias values: _accst, frel,
 ventyp, event._
 
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-
-<knowledgeItem xmlns="http://iptc.org/std/nar/2006-10-01/"
-
-guid="urn:newsml:iptc.org:20101019:qqwpiruuew4712"
-
-version="8"
-
-standard="NewsML-G2"
-
-standardversion="2.23"
-
-conformance="power"
-
-xml:lang="en">
-
-<catalogRef
-href="http://www.iptc.org/std/catalog/IPTC-G2-standards_27.xml" />
-
-<catalogRef href="http://www.example.com/events/event-catalog.xml"
-/>
-
-<itemMeta>
-
-<itemClass qcode="cinat:concept" />
-
-<provider qcode="nprov:IPTC" />
-
-<versionCreated>2016-10-18T13:05:00Z
-
-</versionCreated>
-
-<pubStatus qcode="stat:usable" />
-
-</itemMeta>
-
-<contentMeta>
-
-<urgency>5</urgency>
-
-<contentCreated>2016-01-16T12:15:00Z</contentCreated>
-
-<contentModified>2016-10-12T13:35:00Z</contentModified>
-
-<subject qcode="medtop:20000304">
-
-<name>media</name>
-
-</subject>
-
-<subject qcode="medtop:20000309">
-
-<name>news agency</name>
-
-</subject>
-
-<subject qcode="medtop:20000763">
-
-<name>IT/computer sciences</name>
-
-</subject>
-
-</contentMeta>
-
-<conceptSet>
-
-<concept>
-
-<!-- FIRST EVENT! -->
-
-<!-- x -->
-
-<conceptId created="2016-01-16T12:15:00Z" qcode="event:1234567"
-/>
-
-<name>IPTC Autumn Meeting 2016</name>
-
-<eventDetails>
-
-<dates>
-
-<start>2016-10-26T09:00:00Z</start>
-
-<duration>P2D</duration>
-
-</dates>
-
-<registration>Registration with the IPTC office is required.
-
-A <a
-href="https://iptc.org/moz/events/annual-general-meeting-2016/">
-
-web form</a> may be used until 24 September 2016
-
-</registration>
-
-<participationRequirement>
-
-<name>Membership</name>
-
-<definition>Only members of the IPTC and their invited
-
-guests may attend.
-
-</definition>
-
-</participationRequirement>
-
-<accessStatus qcode="accst:easy" />
-
-<language tag="en" />
-
-<organiser qcode="nprov:IPTC" role="eorol:general">
-
-<name>International Press Telecommunications Council</name>
-
-<organisationDetails>
-
-<founded>1965</founded>
-
-</organisationDetails>
-
-</organiser>
-
-<contactInfo>
-
-<email>mdirector@ipct.org</email>
-
-<note>Michael Steidl, Managing Director</note>
-
-<web>http://www.iptc.org</web>
-
-</contactInfo>
-
-<location>
-
-<name>86, Edgeware Road, London W2 2EA, United Kingdom</name>
-
-<related rel="frel:venuetype" qcode="ventyp:confcentre" />
-
-<POIDetails>
-
-<position latitude="51.515659" longitude="-0.163346" />
-
-<contactInfo>
-
-<web>https://www.etcvenues.co.uk</web>
-
-</contactInfo>
-
-</POIDetails>
-
-</location>
-
-<participant qcode="eprol:moderator">
-
-<name>Stuart Myles</name>
-
-<definition>Chairman of the Board of the IPTC
-
-</definition>
-
-</participant>
-
-<participant qcode="eprol:director">
-
-<name>Michael Steidl</name>
-
-<definition>Managing Director</definition>
-
-</participant>
-
-</eventDetails>
-
-</concept>
-
-<concept>
-
-<!-- SECOND EVENT! -->
-
-<!-- x -->
-
-<conceptId created="2016-01-16T12:00:00Z" qcode="event:91011123"
-/>
-
-<name>Newgathering and Verification Strategy </name>
-
-<broader type="cpnat:event" qcode="event:1234567">
-
-<name>IPTC Autumn Meeting 2016</name>
-
-</broader>
-
-<eventDetails>
-
-<dates>
-
-<start>2016-10-27T14:30:00Z</start>
-
-<duration>PT30M</duration>
-
-</dates>
-
-<participationRequirement>
-
-<name>Registration</name>
-
-<definition>Pre-registration required for all attendees
-
-</definition>
-
-</participationRequirement>
-
-<accessStatus qcode="accst:easy" />
-
-<language tag="en" />
-
-<participant qcode="eprol:presenter">
-
-<name>Evi Varsou</name>
-
-<definition>Presenter</definition>
-
-</participant>
-
-<participant qcode="eprol:moderator">
-
-<name>Michael Steidl</name>
-
-<definition>Moderator</definition>
-
-</participant>
-
-</eventDetails>
-
-</concept>
-
-</conceptSet>
-
-</knowledgeItem>
+[source, xml]
+----
+include::{includedir}/../../GuidelinesCodeExamples_2017/LISTING_15_Two_Related_Events_in_a_Knowledge_Item.xml[]
+----
 
 [[indicating-changes-to-part-of-a-knowledge-item]]
 Indicating changes to part of a Knowledge Item
@@ -1949,61 +1383,35 @@ The <partMeta> element uses the standard XML ID/IDREF; the example shows
 the Event with @id="eventA" was modified on ‘2016-09-15’, as indicated
 by the Part Meta with @contentrefs="eventA":
 
-__
+[source,xml]
 <knowledgeItem
-
-...>
-
-<itemMeta>
-
-...
-
-</itemMeta>
-
-<contentMeta>
-
-...
-
-</contentMeta>
-
-<partMeta contentrefs="eventA">
-
-<contentModified>2016-09-15</contentModified>
-
-</partMeta>
-
-<conceptSet>
-
-<concept id="eventA">
-
-<!-- FIRST EVENT! -->
-
-<!-- x -->
-
-<conceptId created="2016-08-30T12:00:00+00:00"
-qcode="event:1234567" />
-
-...
-
-</concept id="eventB">
-
-<concept>
-
-<!-- SECOND EVENT! -->
-
-<!-- x -->
-
-<conceptId created="2016-08-30T12:00:00+00:00"
-qcode="event:91011123" />
-
-...
-
-</concept>
-
-</conceptSet>
-
+		...>
+	<itemMeta>
+		...
+	</itemMeta>
+	<contentMeta>
+		...
+	</contentMeta>
+	<partMeta contentrefs="eventA">
+		<contentModified>2016-09-15</contentModified>
+	</partMeta>
+	<conceptSet>
+		<concept id="eventA">
+		<!-- FIRST EVENT! -->
+		<!-- x -->
+			<conceptId created="2016-08-30T12:00:00+00:00"
+				qcode="event:1234567" />
+		...
+		</concept >
+		<conceptid="eventB">
+		<!-- SECOND EVENT! -->
+		<!-- x -->
+			<conceptId created="2016-08-30T12:00:00+00:00"
+				qcode="event:91011123" />
+		...
+		</concept>
+	</conceptSet>
 </knowledgeItem>
-__
 
 [[conveying-events-in-a-newsml-g2-package]]
 Conveying Events in a NewsML-G2 Package
@@ -2023,26 +1431,17 @@ using URIs, or their short format QCodes, collections of event concepts
 may be referenced within a Package <group> using Concept Reference
 <conceptRef> as follows:
 
-_
+[source,xml]
 <groupSet root="G1">
-
-<group id="G1" role="group:main">
-
-...
-
-<conceptRef type="cinat:event"
-qcode="iptcevents:20081007135637.12">
-
-<name xml:lang="fr">Barack Obama arrive à Washington</name>
-
-</conceptRef>
-
-...
-
-</group>
-
+	<group id="G1" role="group:main">
+	...
+	<conceptRef type="cinat:event"
+		qcode="iptcevents:20081007135637.12">
+			<name xml:lang="fr">Barack Obama arrive à Washington</name>
+	</conceptRef>
+	...
+	</group>
 </groupSet>
-_
 
 Note the optional @type indicating that the referenced concept is an
 Event, and the optional <name> child element is a natural-language name
@@ -2080,7 +1479,7 @@ context is the Knowledge Item, which is a container for concepts and the
 detailed properties of each concept being conveyed. A provider would use
 Knowledge Items to send comprehensive information about many events, and
 receivers might incorporate this information into their own editorial
-diary, of Day Book.
+diary, or Day Book.
 
 By contrast, when a Package is employed to reference Event concepts,
 this represents an Editorial product, in which a discrete number of
@@ -2135,8 +1534,9 @@ needed.
 
 image:media/image18.png[image,width=633,height=367]
 
-[[_Toc470002535]]Figure 16: Event Flow using Package Items and Knowledge
-Items
+[[_Toc470002535]]
+.Figure 16: Event Flow using Package Items and Knowledge Items
+
 
 [[events-in-a-news-item]]
 Events in a News Item
@@ -2159,204 +1559,38 @@ The Content Set of the Events News Item uses the <inlineXML> element to
 convey an <events> wrapper containing one or more <event> instances,
 each of which is a separate self-contained set of event information:
 
-_
+[source,xml]
 <contentSet>
-
-<inlineXML>
-
-<events>
-
-<event>
-
-<name>NewSgathering and Verification Strategy</name>
-
-<eventDetails>
-
-<dates>
-
-<start>2016-10-27T14:00:00Z</start>
-
-<end>2016-10-27T14:30:00Z</end>
-
-</dates>
-
-</eventDetails>
-
-</event>
-
-</events>
-
-</inlineXML>
-
+	<inlineXML>
+		<events>
+			<event>
+				<name>NewSgathering and Verification Strategy</name>
+				<eventDetails>
+					<dates>
+						<start>2016-10-27T14:00:00Z</start>
+						<end>2016-10-27T14:30:00Z</end>
+					</dates>
+				</eventDetails>
+			</event>
+		</events>
+	</inlineXML>
 </contentSet>
-_
 
 The full listing is shown below. Note the Item Class of this News Item
 is "ninat:composite".
 
-1.  _
-[[_Ref281824459]]A Set of Events carried in a News Item
-_
+[[_Ref281824459]]
+
+.LISTING: A Set of Events carried in a News Item
 
 All Scheme Aliases used in listing below indicate IPTC NewsCodes
 vocabularies, except for the following alias values: _frel, ventyp,
 facilncd_
 
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-
-<newsItem xmlns="http://iptc.org/std/nar/2006-10-01/"
-
-guid="urn:newsml:iptc.org:20090122:qqwpiruuew4711"
-
-version="8" standard="NewsML-G2" standardversion="2.23"
-conformance="power"
-
-xml:lang="en">
-
-<catalogRef
-href="http://www.iptc.org/std/catalog/IPTC-G2-standards_27.xml" />
-
-<itemMeta>
-
-<itemClass qcode="ninat:composite" />
-
-<provider qcode="nprov:IPTC" />
-
-<versionCreated>2016-10-18T12:44:00Z
-
-</versionCreated>
-
-<pubStatus qcode="stat:usable" />
-
-</itemMeta>
-
-<contentSet>
-
-<inlineXML>
-
-<events>
-
-<!-- x -->
-
-<!-- FIRST EVENT! -->
-
-<!-- x -->
-
-<event>
-
-<name>IPTC Autumn Meeting 2016</name>
-
-<eventDetails>
-
-<dates>
-
-<start>2016-10-26T09:00:00Z</start>
-
-<duration>P2D</duration>
-
-</dates>
-
-<location>
-
-<name>86, Edgeware Road, London W2 2EA, United Kingdom</name>
-
-<related rel="frel:venuetype" qcode="ventyp:confcentre" />
-
-<POIDetails>
-
-<position latitude="51.515659" longitude="-0.163346" />
-
-<contactInfo>
-
-<web>https://www.etcvenues.co.uk</web>
-
-</contactInfo>
-
-</POIDetails>
-
-</location>
-
-</eventDetails>
-
-</event>
-
-<!-- x -->
-
-<!-- SECOND EVENT! -->
-
-<!-- x -->
-
-<event>
-
-<name>Annomarket text analytics EU project</name>
-
-<eventDetails>
-
-<dates>
-
-<start>2016-10-22T10:00:00-04:00</start>
-
-<end>2016-10-22T11:00:00-04:00</end>
-
-</dates>
-
-</eventDetails>
-
-</event>
-
-<!-- x -->
-
-<!-- THIRD EVENT! -->
-
-<!-- x -->
-
-<event>
-
-<name>Accidental Heroes</name>
-
-<definition>
-
-News stories and random incidents provide the inspiration behind
-
-this new production from the Lyric Young Company, which blends the
-
-inconsequential with the life-defining in a physical and visually
-
-arresting new show.<br />
-
-The Lyric Young Company has worked with award-winning
-
-writer/director Mark Murphy to create Accidental Heroes.<br />
-
-</definition>
-
-<related rel="frel:facility" qcode="facilncd:Food" />
-
-<related rel="frel:facility" qcode="facilncd:AirConditioning" />
-
-<eventDetails>
-
-<dates>
-
-<start>2016-10-23T19:30:00Z</start>
-
-<end>2016-02-05</end>
-
-<rRule freq="DAILY" byday="TH FR SA" />
-
-</dates>
-
-</eventDetails>
-
-</event>
-
-</events>
-
-</inlineXML>
-
-</contentSet>
-
-</newsItem>
+[source, xml]
+----
+include::{includedir}/../../GuidelinesCodeExamples_2017/LISTING_16_A_Set_of_Events_carried_in_a_News_Item.xml[]
+----
 
 [[adding-event-concept-details-to-a-news-item]]
 Adding event concept details to a News Item
@@ -2369,53 +1603,36 @@ the event as a <subject> element of the <contentMeta> container. For
 example in 0 an event was conveyed as a concept within the Concept Set
 of a Knowledge Item:
 
+[source,xml]
 <knowledgeItem
-
-...>
-
-<conceptSet>
-
-<concept>
-
-<!-- FIRST EVENT! -->
-
-<!-- -->
-
-<conceptId created="2016-01-16T12:15:00Z" qcode="event:1234567"
-/>
-
-<name>IPTC Autumn Meeting 2016</name>
-
-<eventDetails ...
-
-...
-
+	...>
+	<conceptSet>
+		<concept>
+		<!-- FIRST EVENT! -->
+		<!-- -->
+			<conceptId created="2016-01-16T12:15:00Z" qcode="event:1234567" />
+			<name>IPTC Autumn Meeting 2016</name>
+			<eventDetails> 
+				...
+			</eventDetails>
+	...
 </knowledgeItem>
 
 The QCode event:1234567 uniquely identifies the event, and later news
 coverage of the event can reference it using the <subject> element, as
 shown below:
 
+[source,xml]
 <newsItem
-
-...>
-
-<contentMeta>
-
-...
-
-<subject type="cpnat:event" qcode="event:12345657">
-
-<name>IPTC Autumn Meeting 2016</name>
-
-</subject>
-
-...
-
-</contentMeta>
-
-...
-
+	...>
+	<contentMeta>
+		...
+		<subject type="cpnat:event" qcode="event:12345657">
+			<name>IPTC Autumn Meeting 2016</name>
+		</subject>
+		...
+	</contentMeta>
+	...
 </newsItem>
 
 Referencing an event using Subject enables News Items to be searched
@@ -2434,47 +1651,34 @@ content about a takeover of a small company by a larger global company.
 This takeover story has an event concept, which enables the provider to
 add a subject property containing the QCode of the Event:
 
+[source,xml]
 <subject type="cpnat:event" qcode="finevent:takeover123AB" />
 
 ... together with subject properties for each company:
 
+[source,xml]
 <subject type="cpnat:organisation" qcode="isin:SmallCompany" />
-
 <subject type="cpnat:organisation" qcode="isin:GlobalCompany" />
 
 However, a new, richer, composite concept combining the concept IDs for
 the Event _and_ the two companies could be created instead using <bag>:
 
+[source,xml]
 <newsItem ...>
-
-...
-
-<contentMeta>
-
-...
-
-<subject type="cpnat:abstract">
-
-<name>GlobalCompany takes over SmallCompany</name>
-
-<bag>
-
-<bit type="cpnat:event" qcode="finevent:takeover123AB" />
-
-<bit type="cpnat:organisation" qcode="isin:SmallCompany" />
-
-<bit type="cpnat:organisation" qcode="isin:GlobalCompany" />
-
-</bag>
-
-</subject>
-
-...
-
-</contentMeta>
-
-...
-
+	...
+	<contentMeta>
+		...
+		<subject type="cpnat:abstract">
+			<name>GlobalCompany takes over SmallCompany</name>
+			<bag>
+				<bit type="cpnat:event" qcode="finevent:takeover123AB" />
+				<bit type="cpnat:organisation" qcode="isin:SmallCompany" />
+				<bit type="cpnat:organisation" qcode="isin:GlobalCompany" />
+			</bag>
+		</subject>
+		...
+	</contentMeta>
+	...
 </newsItem>
 
 Note that in this case, the <subject> does _not_ have its own +
@@ -2498,28 +1702,19 @@ story may be less significant.
 
 The code snippet below shows how the significance attribute would be
 used to refine the previous example, such that the event is more
-significant to the SmallCompany (100) compared to the GlobalCompany
-(10):
+significant to the SmallCompany (100) compared to the GlobalCompany (10):
 
+[source,xml]
 <subject type="cpnat:abstract">
-
-<name>GlobalCompany takes over SmallCompany</name>
-
-<bag>
-
-<bit type="cpnat:event" qcode="finevent:takeover123AB" />
-
-<bit type="cpnat:organisation" qcode="isin:SmallCompany"
-significance="100"/>
-
-<bit type="cpnat:organisation" qcode="isin:GlobalCompany"
-significance="10"/>
-
-</bag>
-
+	<name>GlobalCompany takes over SmallCompany</name>
+	<bag>
+		<bit type="cpnat:event" qcode="finevent:takeover123AB" />
+		<bit type="cpnat:organisation" qcode="isin:SmallCompany" significance="100"/>
+		<bit type="cpnat:organisation" qcode="isin:GlobalCompany" significance="10"/>
+	</bag>
 </subject>
 
-Note: The <bag> MUST contain one <bit> of type "cpnat:event" +
+NOTE: The <bag> MUST contain one <bit> of type "cpnat:event" +
 This feature was added from NewsML-G2 2.7 onwards. ONLY for the special
 case where the <bag> contains a <bit> referencing an event, may a
 @significance attribute be added to the other <bit> members of the

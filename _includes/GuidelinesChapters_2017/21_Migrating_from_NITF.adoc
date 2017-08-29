@@ -3,12 +3,13 @@ News Industry Text Format (NITF)
 --------------------------------
 
 [[introduction-15]]
-Introductionfootnote:[This Guide refers to NITF v 3.5. A new version 3.6
-was released in January 2012. Please visit
+Introduction
+~~~~~~~~~~~~
+
+NOTE: This Guide refers to NITF v 3.5. A new version 3.6 was released in January 2012. Please visit
 https://iptc.org/standards/[www.iptc.org/standards] and follow the link
 to NITF for further details of NITF and to download a package of the new
-version and its documentation]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+version and its documentation
 
 NITF is an XML-based standard for marking up text articles that includes
 the ability both to create a structure for the content, and to provide a
@@ -29,19 +30,19 @@ provider’s intention equally effectively.
 The following table summarises the major differences between the two
 standards.
 
-[cols=",,",options="header",]
+[%autowidth,options="header",]
 |============================
 |Feature |NITF |NewsML-G2
-|Content mark-up | |
-|Content structure | |
-|Extensible | |
-|Any content | |
-|Management metadata | |+
-|Administrative metadata | |+
-|Descriptive metadata | |+
-|Packages | |
-|Alternative renditions | |
-|Concepts/Relationships | |
+|Content mark-up |icon:check[role="green"]| icon:close[role="red"]
+|Content structure |icon:check[role="green"] |icon:close[role="red"]
+|Extensible |icon:close[role="red"] |icon:check[role="green"]
+|Any content |icon:close[role="red"] |icon:check[role="green"]
+|Management metadata |icon:check[role="green"] |icon:check[role="green"]
+|Administrative metadata |icon:check[role="green"] |icon:check[role="green"]
+|Descriptive metadata |icon:check[role="green"] |icon:check[role="green"]
+|Packages |icon:close[role="red"] |icon:check[role="green"]
+|Alternative renditions |icon:close[role="red"] |icon:check[role="green"]
+|Concepts/Relationships |icon:close[role="red"] |icon:check[role="green"]
 |============================
 
 NITF is a popular and valid choice for the management and mark-up of
@@ -61,8 +62,8 @@ equivalents, using NewsML-G2 to convey a text document with NITF content
 mark-up.
 
 For a minimum migration, implementers need only to refer to the Quick
-Start Guides to link:#quick-start-newsml-g2-basics[NewsML-G2 Basics] and
-link:#quick-start-text[Text].
+Start Guides to xref::quick-start-newsml-g2-basics[NewsML-G2 Basics] and
+xref::quick-start-text[Text].
 
 For partial or complete migration, the starting point is a consideration
 of how the structure of NITF relates to NewsML-G2, to form a high-level
@@ -99,7 +100,7 @@ Document metadata <head>
 Most of the child elements of <head> have equivalents in the NewsML-G2
 <itemMeta> component, with exceptions noted in the following table:
 
-[cols=",,",options="header",]
+[%autowidth,options="header",]
 |=======================================================================
 |NITF element |NewsML-G2 equivalent |Comment
 |<title> |<title> |The properties are equivalent in NITF and NewsML-G2
@@ -128,7 +129,7 @@ the revision, the name and job title of the person who made the revision
 
 These convey detailed management information about the document.
 
-[cols=",,",options="header",]
+[%autowidth,options="header",]
 |=======================================================================
 |NITF element |NewsML-G2 equivalent |Comment
 |<correction> |<signal> |Indicates that the item is a correction,
@@ -237,7 +238,7 @@ of the structural content of the article, such as <hedline> (note
 spelling) and <byline>. These properties may optionally be copied into
 their NewsML-G2 equivalents.
 
-[cols=",,",options="header",]
+[%autowidth,options="header",]
 |=======================================================================
 |NITF element |NewsML-G2 equivalent |Comment
 |<hedline> |<headline> |NewsML-G2 <headline> is contained in
@@ -259,7 +260,7 @@ property of an Item root element), or <description> (part of
 Customers converting an NITF service to NewsML-G2 will need to consult
 with their provider, either directly or via documentation.
 
-|<rights> |< rightsInfo> |See 21.2.2.1 above
+|<rights> |< rightsInfo> |See xref::docdata-child-elements[<docdata] above
 
 |<byline> |<by> |If using every available feature of NITF <byline>,
 NewsML-G2 <by> should be implemented at PCL. It is part of <contentMeta>
@@ -273,7 +274,7 @@ NewsML-G2 <itemMeta>
 <contentMeta> and may be refined by @role. The IPTC Description Role
 NewsCodes value would be "summary"
 
-|<series> |<memberOf> |See 21.2.2.1 above
+|<series> |<memberOf> |See xref::docdata-child-elements[<docdata] above
 |=======================================================================
 
 [[body-content-body.-content]]
@@ -282,74 +283,15 @@ Body Content <body. content>
 
 NewsML-G2 has no specific mark-up for text, and NITF is a valid choice
 for marking up text to be conveyed by NewsML-G2 <inlineXML>.
+  
+[[_Ref222628059]]
 
-1.  
-[[_Ref222628059]]An NITF marked-up article conveyed in <inlineXML>
+.LISTING: An NITF marked-up article conveyed in <inlineXML>
 
-
-<contentSet>
-
-<inlineXML contenttype="application/nitf+xml">
-
-<nitf xmlns="http://iptc.org/std/NITF/2006-10-18/"
-
-xsi:schemaLocation="http://iptc.org/std/NITF/2006-10-18__/
-
-XSD/NITF/3.5/specification/nitf-3-5.xsd">
-
-<body>
-
-<body.head>
-
-<hedline>
-
-<hl1>Arizona Diamondbacks (29-23) at Philadelphia Phillies
-
-(26-24), 7:05p.m.</hl1>
-
-</hedline>
-
-<byline>
-
-<byttl>Sports Network</byttl>
-
-</byline>
-
-<abstract>
-
-<p>A pair of teams coming off big weekend sweeps will square off
-
-Tonight at Citizens Bank Park, where the Philadelphia Phillies
-
-welcome the Arizona Diamondbacks for the start of a three-game
-
-series.</p>
-
-</abstract>
-
-</body.head>
-
-<body.content>
-
-<p>(Sports Network) - With the Philadelphia Phillies picking
-
-up momentum after their three-game sweep of the Atlanta Braves,
-
-and the Arizona Diamondbacks capturing all four of their games
-
-against the Houston Astros, tonight's game at Citizen Bank Park
-
-looks set to be a clash of the Titans.</p>
-
-</body.content>
-
-</body>
-
-</nitf>
-
-</inlineXML>
-
-</contentSet>
+[source, xml]
+----
+include::{includedir}/../../GuidelinesCodeExamples_2017/LISTING_25_An_NITF_marked-up_article_conveyed_in_inlineXML.xml[]
+----
 
 [[end-of-body-body.end]]
 End of Body <body.end>

@@ -16,7 +16,7 @@ usefully be employed in news syndication and defines additional
 vocabulary for expressing the usage permissions and constraints that are
 particular to the news industry. RightsML enables a wide range of usage
 policies to be expressed in NewsML-G2. See the RightsML web site
-http://www.rightsml.org/[www.rightsml.org] for further details.
+xref::http://www.rightsml.org/[www.rightsml.org] for further details.
 
 While the NewsML-G2 <rightsInfo> wrapper and its properties are
 machine-readable, the assertion of rights within the NewsML-G2
@@ -33,8 +33,6 @@ to determine the following:
 wrapper apply? (rights holder’s view)
 * Which is/are the <rightsInfo> wrapper(s) that apply to a specific
 element? (content user’s view)
-
-These two processing cases are covered in 23.3 below.
 
 [[rights-info-core-conformance-level]]
 Rights Info (Core Conformance Level)
@@ -53,20 +51,15 @@ content may be used.
 
 For example:
 
+[source,xml]
 <rightsInfo>
-
-<copyrightHolder qcode="nprov:AcmeNews" />
-
-<name>Reuters</name>
-
-<copyrightNotice>Copyright 2010 Reuters. Click For
-
-Restrictions - http://about.reuters.com/fulllegal.asp
-
-</copyrightNotice>
-
-<usageTerms xml:lang="en">NO ARCHIVAL OR WIRELESS USE</usageTerms>
-
+	<copyrightHolder qcode="nprov:AcmeNews">
+		<name>Reuters</name>
+	</copyrightHolder>
+	<copyrightNotice>Copyright 2010 Reuters. Click For
+		Restrictions - http://about.reuters.com/fulllegal.asp
+	</copyrightNotice>
+	<usageTerms xml:lang="en">NO ARCHIVAL OR WIRELESS USE</usageTerms>
 </rightsInfo>
 
 [[link-to-an-external-rights-information-resource]]
@@ -77,20 +70,14 @@ A provider may need to refer to an external resource containing rights
 information and instructions. This can be accomplished using the <link>
 element of <rightsInfo>:
 
+[source,xml]
 <rightsInfo>
-
-<copyrightHolder uri="http://www.acmenews.com" />
-
-<copyrightNotice>Copyright 2012 Acme Newswire</copyrightNotice>
-
-<link
-
-href="http://acmenews.com/rights/rightspolicy123.xml"
-
-contenttype="text/xml"
-
-/>
-
+	<copyrightHolder uri="http://www.acmenews.com" />
+	<copyrightNotice>Copyright 2012 Acme Newswire</copyrightNotice>
+		<link
+			href="http://acmenews.com/rights/rightspolicy123.xml"
+			contenttype="text/xml"
+		/>
 </rightsInfo>
 
 [[extended-rights-information-at-pcl]]
@@ -174,7 +161,7 @@ Rights Info Scope NewsCodes
 Scheme URI: http://cv.iptc.org/newscodes/riscope/ +
 Recommended scheme alias: riscope
 
-[cols=",",options="header",]
+[%autowidth,options="header",]
 |=======================================================================
 |Code |Definition
 |content |Encompasses all child elements of a) <contentSet> in a News
@@ -195,7 +182,7 @@ Rights Aspect NewsCodes
 Scheme URI: http://cv.iptc.org/newscodes/riaspect/ +
 Recommended scheme alias: raspect
 
-[cols=",",options="header",]
+[%autowidth,options="header",]
 |=======================================================================
 |Code |Definition
 |values |The <rightsInfo> element makes an assertion about metadata
@@ -227,129 +214,80 @@ photo library wants to assert the rights to the metadata that
 accompanies the picture. This is expressed by the following <rightsInfo>
 blocks:
 
-<newsItem> ...
-
-<!-- *Content: Third Party* -->
-
-<rightsInfo scope="riscope:content">
-
-<copyrightHolder>
-
-<name>Example Pictures</name>
-
-</copyrightHolder>
-
-<copyrightNotice>Copyright 2008 Example Pictures Ltd. Click For
-
-Restrictions - http://about.example.com/legal.asp
-
-</copyrightNotice>
-
-<usageTerms xml:lang="en">MUST COURTESY PARAMOUNT PICTURES
-
-FOR USE OF "THE CURIOUS CASE OF BENJAMIN BUTTON" WITH NO ARCHIVAL USE
-
-</usageTerms>
-
-</rightsInfo>
-
-<!-- *Metadata: Photo Library* -->
-
-<rightsInfo scope="riscope:metadata">
-
-<copyrightHolder>
-
-<name>The Picture Library</name>
-
-</copyrightHolder>
-
-<copyrightNotice>Copyright 2008 The Picture Library Ltd.
-
-</copyrightNotice>
-
-</rightsInfo>
+[source,xml]
+<newsItem> 
+	...
+	<!-- *Content: Third Party* -->
+	<rightsInfo scope="riscope:content">
+		<copyrightHolder>
+			<name>Example Pictures</name>
+		</copyrightHolder>
+		<copyrightNotice>Copyright 2008 Example Pictures Ltd. Click For
+			Restrictions - http://about.example.com/legal.asp
+		</copyrightNotice>
+		<usageTerms xml:lang="en">MUST COURTESY PARAMOUNT PICTURES
+			FOR USE OF "THE CURIOUS CASE OF BENJAMIN BUTTON" WITH NO ARCHIVAL USE
+		</usageTerms>
+	</rightsInfo>
+	<!-- *Metadata: Photo Library* -->
+	<rightsInfo scope="riscope:metadata">
+		<copyrightHolder>
+			<name>The Picture Library</name>
+		</copyrightHolder>
+		<copyrightNotice>Copyright 2008 The Picture Library Ltd.
+		</copyrightNotice>
+	</rightsInfo>
 
 [[separating-rights-for-part-of-the-metadata]]
 Separating rights for part of the metadata
 ++++++++++++++++++++++++++++++++++++++++++
 
-As in 23.2.2.1 the photo library sends a third-party picture (the
+The photo library sends a third-party picture (the
 content), but wishes to express rights to only a specific part of the
 metadata. The properties representing this part are identified by
 @idrefs, and the scope has been omitted, since the targets are the
 values of the specific referenced elements.
 
+[source,xml]
 <newsItem>
-
-...
-
-<!-- *All: Third Party* -->
-
-<rightsInfo>
-
-<copyrightHolder>
-
-<name>Example Pictures</name>
-
-</copyrightHolder>
-
-<copyrightNotice>Copyright 2008 Example Pictures Ltd. Click For
-
-Restrictions - http://about.example.com/legal.asp
-
-</copyrightNotice>
-
-<usageTerms xml:lang="en">MUST COURTESY PARAMOUNT PICTURES
-
-FOR USE OF "THE CURIOUS CASE OF BENJAMIN BUTTON" WITH NO ARCHIVAL USE
-
-</usageTerms>
-
-</rightsInfo>
-
-<!-- *Part of the Metadata: Picture Library* -->
-
-<rightsInfo idrefs="id001__ _id002 id003 id004 id005_">
-
-<copyrightHolder>
-
-<name>The Picture Library</name>
-
-</copyrightHolder>
-
-<copyrightNotice>Copyright 2008 The Picture Library Ltd.
-
-</copyrightNotice>
-
-</rightsInfo>
-
-...
-
-<contentMeta>
-
-...
-
-<keyword id="id001" role="krole:index">us</keyword>
-
-<keyword id="id002" role="krole:index">military</keyword>
-
-<keyword id="id003" role="krole:index">aviation</keyword>
-
-<keyword id="id004" role="krole:index">crash</keyword>
-
-<keyword id="id005" role="krole:index">fire</keyword>
-
-...
-
-</contentMeta>
-
-...
+	...
+	<!-- *All: Third Party* -->
+	<rightsInfo>
+		<copyrightHolder>
+			<name>Example Pictures</name>
+		</copyrightHolder>
+		<copyrightNotice>Copyright 2008 Example Pictures Ltd. Click For
+			Restrictions - http://about.example.com/legal.asp
+		</copyrightNotice>
+		<usageTerms xml:lang="en">MUST COURTESY PARAMOUNT PICTURES
+			FOR USE OF "THE CURIOUS CASE OF BENJAMIN BUTTON" WITH NO ARCHIVAL USE
+		</usageTerms>
+	</rightsInfo>
+	<!-- *Part of the Metadata: Picture Library* -->
+	<rightsInfo idrefs="id001__ _id002 id003 id004 id005_">
+		<copyrightHolder>
+			<name>The Picture Library</name>
+		</copyrightHolder>
+		<copyrightNotice>Copyright 2008 The Picture Library Ltd.
+		</copyrightNotice>
+	</rightsInfo>
+	...
+	<contentMeta>
+		...
+		<keyword id="id001" role="krole:index">us</keyword>
+		<keyword id="id002" role="krole:index">military</keyword>
+		<keyword id="id003" role="krole:index">aviation</keyword>
+		<keyword id="id004" role="krole:index">crash</keyword>
+		<keyword id="id005" role="krole:index">fire</keyword>
+		...
+	</contentMeta>
+	...
 
 [[separating-rights-for-aspects-of-part-of-the-metadata]]
 Separating rights for aspects of part of the metadata
 +++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-As in 23.2.2.2 the photo library sends a third-party picture (the
+The photo library sends a third-party picture (the
 _content_), expressing rights to _part of the metadata_. Since the IP of
 the scheme being used belongs to another party, the picture library
 expresses its ownership of rights associated with _applying_ the
